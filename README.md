@@ -1,4 +1,4 @@
-## Hi there 👋
+## To be Updated, till then you can visit [Yash Dewangan](https://kyrtyy.github.io/kyrtyy/)
 
 <!--
 **kyrtyy/kyrtyy** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
