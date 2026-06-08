@@ -459,12 +459,27 @@ h1 {
     font-size: 1rem;
 }
 
+/* Sync the baseline decorative element when the heading link is hovered */
 h2 {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 2.5rem;
     letter-spacing: -0.5px;
     position: relative;
+}
+
+/* 1. Added '!important' to force the link to strip browser defaults */
+h2 a.heading-link {
+    color: var(--text-main) !important; /* Forces it to use your main text color */
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    font-family: inherit !important;
+    text-decoration: none !important; /* Strictly removes the default underline */
+}
+
+/* 2. Enhanced the hover state to change the text color cleanly */
+h2 a.heading-link:hover {
+    color: var(--accent-glow) !important; /* Turns neon cyan on hover */
 }
 
 h2::after {
@@ -475,6 +490,13 @@ h2::after {
     width: 30px;
     height: 2px;
     background: var(--accent-glow);
+    transition: all 0.3s ease;
+}
+
+/* 3. Smooth transition effect for the neon bar when hovering the text */
+h2:has(a.heading-link:hover)::after {
+    width: 50px;
+    box-shadow: 0 0 8px var(--accent-glow);
 }
 
 /* About Grid */
@@ -648,7 +670,45 @@ h2::after {
     font-size: 1.25rem;
     transition: color 0.2s;
 }
+h3 {
+    font-size: 1.5rem; /* Adjusted to standard h3 desktop dimensions */
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+    position: relative;
+}
 
+/* Forces the anchor tag to adopt the exact styles of its parent h3 heading */
+h3 a.heading-link {
+    color: var(--text-main) !important; /* Uses your main text color */
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    font-family: inherit !important;
+    text-decoration: none !important; /* Removes default browser underline */
+}
+
+/* Visual cue turning the text into your neon theme color on hover */
+h3 a.heading-link:hover {
+    color: var(--accent-glow) !important;
+}
+
+/* If your h3 has a baseline decorative element, it is styled here */
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 25px;
+    height: 2px;
+    background: var(--accent-glow);
+    transition: all 0.3s ease;
+}
+
+/* Optional interactive response: expands the underline slightly when the text is hovered */
+h3:has(a.heading-link:hover)::after {
+    width: 45px;
+    box-shadow: 0 0 8px var(--accent-glow);
+}
 .blog-content h3 a:hover {
     color: var(--accent-glow);
 }
