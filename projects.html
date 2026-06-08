@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yash Dewangan </title>
+    <title>Projects | Physics-Informed ML Space</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -11,16 +11,115 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 </head>
 <body>
+
+    <div class="mesh-bg"></div>
+
     <nav>
         <div class="nav-container">
             <div class="logo">$$\nabla \cdot \mathbf{NN}$$</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="domain.html">Domain</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="hobbies.html">Hobbies</a></li>
-        </ul>
-    </div>
-</nav>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contacts.html">Contact</a></li>
+                <li><a href="hobbies.html">Hobbies</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="section alt-bg">
+        <header class="container">
+            <h1>Verified Projects</h1>
+            <p class="subtitle">Complete implementation architectures tracking fluid profiles and spatial operators.</p>
+        </header>
+
+        <div class="project-grid">
+            
+            <section class="project-card">
+                <div class="container">
+                    <span class="project-meta">Fluid Dynamics // PINN</span>
+                    <h2>
+                        <a href="projects/navier-stokes.html" class="heading-link" > Navier-Stokes Inverse Solver</a>
+                    </h2>
+                </div>
+                <div class="entry-body">
+                    <p>Reconstructed flow variables and pressure distributions from sparse, noisy velocity fields by minimizing numerical residues via standard backpropagation pipelines.</p>
+                    
+                    <div class="math-callout">
+                        $$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{data}} + \lambda \mathcal{L}_{\text{physics}}$$
+                    </div>
+
+                    <div class="tech-stack-used">
+                        <span>PyTorch</span><span>Automatic Differentiation</span><span>L-BFGS</span>
+                    </div>
+                </div>
+                <div class="entry-footer">
+                    <a href="https://github.com/kyrtyy/navier-stokes-inverse-solver" target="_blank" class="btn btn-secondary">Source Code Repository &rarr;</a>
+                </div>
+            </section>
+
+            <section class="project-card">
+                <div class="entry-header">
+                    <span class="project-meta">Operator Learning // Wave Mechanics</span>
+                    <h2>
+                        <a href="projects/fourier-operators.html" class="heading-link">Fourier Neural Operators (FNO-1D)</a>
+                    </h2>
+                </div>
+                <div class="entry-body">
+                    <p>Modeled zero-shot mesh independent evaluations of time-dependent wave systems, mapping initial functional states to continuous solutions instantly via the frequency domain.</p>
+                    
+                    <div class="tech-stack-used">
+                        <span>Complex Tensors</span><span>torch.fft</span><span>Resolution Scaling</span>
+                    </div>
+                </div>
+                <div class="entry-footer">
+                    <a href="https://github.com/kyrtyy/fourier-neural-operator" target="_blank" class="btn btn-secondary">Source Code Repository &rarr;</a>
+                </div>
+            </section>
+             <section class="project-card">
+                <div class="entry-header">
+                    <span class="project-meta">Operator Learning // Wave Mechanics</span>
+                    <h2>
+                        <a href="projects/Automatic-Differentiation.html" class="heading-link">Automatic Differentiation vs CFD</a>
+                    </h2>
+                </div>
+                <div class="entry-body">
+                    <p>An analytical review evaluating grid scaling performance limits between PyTorch Autograd and classical finite element steps.</p>
+                    
+                    <div class="tech-stack-used">
+                        <span>Complex Tensors</span><span>torch.fft</span><span>Resolution Scaling</span>
+                    </div>
+                </div>
+                <div class="entry-footer">
+                    <a href="https://github.com/kyrtyy/fourier-neural-operator" target="_blank" class="btn btn-secondary">Source Code Repository &rarr;</a>
+                </div>
+            </section>
+             <section class="project-card">
+                <div class="entry-header">
+                    <span class="project-meta">Operator Learning // Wave Mechanics</span>
+                    <h2>
+                        <a href="projects/PINN.html" class="heading-link">Physics-Informed Neural Networks</a>
+                    </h2>
+                </div>
+                <div class="entry-body">
+                    <p>Enforcing continuous-form partial differential equations directly into deep loss functional spaces to bypass standard grid meshing routines entirely.</p>
+                    <div class="tech-stack-used">
+                        <span>Complex Tensors</span><span>torch.fft</span><span>Resolution Scaling</span>
+                    </div>
+                </div>
+                <div class="entry-footer">
+                    <a href="https://github.com/kyrtyy/fourier-neural-operator" target="_blank" class="btn btn-secondary">Source Code Repository &rarr;</a>
+                </div>
+            </section>
+             
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 | Projects Registry Space.</p>
+    </footer>
+
+</body>
+</html>

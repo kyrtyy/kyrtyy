@@ -50,11 +50,173 @@ nav {
     top: 0;
     z-index: 100;
 }
+/* --- Contact Tab Page Layout --- */
+.contact-tab-space {
+    padding-top: 130px;
+    min-height: 90vh;
+}
 
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 4rem;
+    margin-top: 4rem;
+    padding-bottom: 6rem;
+}
+
+/* Connection Info Panel */
+.connection-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-sans);
+}
+
+.info-desc {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+}
+
+.info-meta-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.meta-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.meta-value {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-family: var(--font-sans);
+    transition: color 0.2s;
+    width: fit-content;
+}
+
+a.meta-value:hover {
+    color: var(--accent-glow);
+}
+
+.physics-closure {
+    margin-top: 4rem;
+    padding: 1rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 0.9rem;
+}
+
+/* Terminal Contact Form Shell */
+.terminal-form-container {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-header {
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27c93f; }
+
+.terminal-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+}
+
+.terminal-form {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Form fields configured to match dark telemetry terminals */
+.terminal-form input,
+.terminal-form textarea {
+    background: rgba(7, 9, 14, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.terminal-form input:focus,
+.terminal-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-glow);
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
+}
+
+.btn-submit {
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    .physics-closure { display: none; }
+}
 .nav-container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -69,13 +231,13 @@ nav {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .nav-links a {
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-family: var(--font-mono);
     transition: color 0.2s;
 }
@@ -120,7 +282,77 @@ nav {
     border-radius: 50%;
     animation: beacon 2s infinite;
 }
+/* Padding spacer specific to deep-dive tab pages */
+.project-tab-space {
+    padding-top: 130px; 
+    min-height: 90vh;
+}
 
+.project-detailed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 3rem;
+    padding-bottom: 5rem;
+}
+
+.project-entry-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 3rem;
+}
+
+.tab-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.math-callout {
+    background: rgba(7, 9, 14, 0.4);
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    font-family: var(--font-mono);
+}
+
+.tech-stack-used {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.tech-stack-used span {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background: rgba(0, 255, 204, 0.03);
+    border: 1px solid rgba(0, 255, 204, 0.1);
+    color: var(--accent-glow);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+}
+/* --- Project Heading Link Styling --- */
+.entry-header h2 a.heading-link, 
+.container h2 a.heading-link {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Change the heading color to your accent neon glow when hovered */
+.entry-header h2 a.heading-link:hover, 
+.container h2 a.heading-link:hover {
+    color: var(--accent-glow);
+}
+.entry-footer {
+    margin-top: 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding-top: 1.5rem;
+}
+
+.entry-footer .btn {
+    margin-left: 0; /* Align button perfectly to the left edge */
+}
 @keyframes beacon {
     0% { transform: scale(0.9); opacity: 1; }
     50% { transform: scale(1.3); opacity: 0.4; }

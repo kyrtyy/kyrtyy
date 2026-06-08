@@ -17,13 +17,13 @@
     
     <nav>
         <div class="nav-container">
-            <div class="logo">$$\nabla \cdot \mathbf{NN}$$</div>
+            <div class="logo">$$ \Delta S_{universe} \geq 0$$</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="domain.html">Domain</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contacts.html">Contact</a></li>
                 <li><a href="hobbies.html">Hobbies</a></li>
             </ul>
         </div>
@@ -39,15 +39,39 @@
     </header>
 
     <main>
+        <section id="domain" class="section">
+            <div class="container">
+                <h2>Computational Domain</h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p>Standard neural networks excel at function approximation but lack an inherent understanding of physical boundaries. My research centers on enforcing conservation laws, symmetries, and boundary conditions directly within the loss function of deep learning systems.</p>
+                        <p>By embedding partial differential equations (PDEs) directly into network architectures, we reduce data dependency and build predictive models that conform to the physical universe.</p>
+                    </div>
+                    <div class="skills-box">
+                        <h3>Embedded Constraints</h3>
+                        <div class="skill-tags">
+                            <span>PyTorch</span>
+                            <span>PINNs</span>
+                            <span>DeepXDE</span>
+                            <span>Scientific Computing</span>
+                            <span>Automatic Differentiation</span>
+                            <span>Numerical Methods</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
         <section id="projects" class="section alt-bg">
             <div class="container">
-                <h2>Verified Projects</h2>
+                <h2>Ongoing Projects</h2>
                 <div class="project-grid">
                     <div class="project-card">
                         <div class="project-meta">Fluid Dynamics // PINN</div>
                     <h3>Navier-Stokes Inverse Solver</h3>
                     <p>Reconstructed flow variables and pressure distributions from sparse, noisy velocity fields by minimizing numerical residues via standard backpropagation pipelines.</p>
-                    <a href="projects/navier-stokes.html" class="project-link">Source Architecture &rarr;</a>
+                    <a href="projects.html" class="project-link">Source Architecture &rarr;</a>
                 </div>
                 <div class="project-card">
                     <div class="project-meta">Operator Learning</div>
@@ -69,6 +93,73 @@
                 </div>
             </div>
         </div>
+    </section>
+    <section id="blog" class="section alt-bg">
+            <div class="container">
+                <h2>Notes</h2>
+                <div class="blog-list">
+                    <article class="blog-item">
+                        <div class="blog-date">June 2026</div>
+                        <div class="blog-content">
+                            <h3><a href="blog.html">Why Automatic Differentiation is Changing Numerical Physics</a></h3>
+                            <p>Moving past finite-element meshing. An analytical comparison of computing gradients using automatic differentiation vs discrete step approximations.</p>
+                        </div>
+                    </article>
+                    <article class="blog-item">
+                        <div class="blog-date">May 2026</div>
+                        <div class="blog-content">
+                            <h3><a href="blog.html">Overcoming Spectral Bias in Deep Neural Networks</a></h3>
+                            <p>Exploring why deep networks struggle to learn high-frequency physical phenomena and how Fourier mappings mitigate the issue.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section">
+            <div class="container">
+                <h2>Gallery</h2>
+                <p class="section-desc">Visual captures from lab setups, simulation plots, and snapshots outside the workspace.</p>
+                <div class="insta-grid">
+                    <!-- Replace 'placeholder.jpg' with your actual image paths later -->
+                    <div class="insta-item">
+                        <img src="https://via.placeholder.com/400" alt="Simulation Plot">
+                        <div class="insta-overlay"><p>Velocity Vector Fields</p></div>
+                    </div>
+                    <div class="insta-item">
+                        <img src="https://via.placeholder.com/400" alt="Lab Workbench">
+                        <div class="insta-overlay"><p>Optics Alignment State</p></div>
+                    </div>
+                    <div class="insta-item">
+                        <img src="https://via.placeholder.com/400" alt="Travel Capture">
+                        <div class="insta-overlay"><p>Macro Photography Break</p></div>
+                    </div>
+                    <div class="insta-item">
+                        <img src="https://via.placeholder.com/400" alt="Loss Curve Plot">
+                        <div class="insta-overlay"><p>Loss Covergence Run #42</p></div>
+                    </div>
+                </div>
+            </div>
+    </section>
+        <section id="hobbies" class="section">
+            <div class="container">
+                <h2>Alternative Dynamics</h2>
+                <p class="section-desc">Processes that occupy my time when the training loops stop running.</p>
+                <div class="hobbies-grid">
+                    <div class="hobby-card">
+                        <h4>Movies</h4>
+                        <p>Tracking long exposure captures to map non-accelerated reference frames. Capturing photons that traveled millions of light-years.</p>
+                    </div>
+                    <div class="hobby-card">
+                        <h4>Ultimate Frisbee</h4>
+                        <p>Deconstructing complex speculative worlds and narratives built around high-concept physical rules.</p>
+                    </div>
+                    <div class="hobby-card">
+                        <h4>Guitar</h4>
+                        <p>Fascinated by mechanical systems, vintage acoustics, and hardware that functions without a single line of software.</p>
+                    </div>
+                </div>
+            </div>
     </section>
 
     </main>
