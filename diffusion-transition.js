@@ -51,6 +51,10 @@
     try {
       setProgress(50, 1);
 
+      // Lock height to prevent footer jumping / page collapse
+      const currentHeight = contentEl.getBoundingClientRect().height;
+      contentEl.style.minHeight = `${currentHeight}px`;
+
       // Phase 1: Rapid deconstruction
       contentEl.classList.remove('reconstructing');
       contentEl.classList.add('deconstructing');
@@ -125,6 +129,9 @@
 
       // Scroll instantly to top
       window.scrollTo({ top: 0, behavior: 'instant' });
+
+      // Release height lock
+      contentEl.style.minHeight = '';
 
       // Phase 3: Reconstruction
       contentEl.classList.remove('deconstructing');

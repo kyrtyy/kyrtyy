@@ -5,34 +5,35 @@
    ========================================================================== */
 
 :root {
-  /* Surfaces: Translucent Cosmic Obsidian & Cold Carbon (Frosted Glass Integration) */
-  --bg:             #06080d;
-  --surface:        rgba(12, 15, 23, 0.78);
-  --surface-2:      rgba(18, 22, 33, 0.72);
-  --surface-3:      rgba(26, 32, 48, 0.62);
+  /* Surfaces: Nebula & Deep Space (Lighter, textured feel) */
+  --bg:             #0b0d14;
+  --surface:        rgba(18, 20, 30, 0.65);
+  --surface-2:      rgba(25, 28, 40, 0.55);
+  --surface-3:      rgba(35, 40, 55, 0.45);
 
-  /* Subtle Energy Accents (Restrained, Non-Distracting) */
-  --purple-glow:    #a78bfa;
-  --purple-bright:  #8b5cf6;
-  --purple-deep:    #7c3aed;
-  --purple-dim:     rgba(167, 139, 250, 0.08);
-  --purple-border:  rgba(167, 139, 250, 0.22);
+  /* Energy Accents (More Dynamic) */
+  --purple-glow:    #c4b5fd;
+  --purple-bright:  #a78bfa;
+  --purple-deep:    #8b5cf6;
+  --purple-dim:     rgba(167, 139, 250, 0.15);
+  --purple-border:  rgba(167, 139, 250, 0.3);
 
-  /* Secondary Accents */
-  --ice-cyan:       #38bdf8;
-  --ice-cyan-dim:   rgba(56, 189, 248, 0.08);
-  --higgs-gold:     #f59e0b;
-  --higgs-gold-dim: rgba(245, 158, 11, 0.1);
+  /* Secondary Accents (Motion & Chaos) */
+  --ice-cyan:       #67e8f9;
+  --ice-cyan-dim:   rgba(103, 232, 249, 0.12);
+  --magenta-glow:   #f472b6;
+  --higgs-gold:     #fbd38d;
+  --higgs-gold-dim: rgba(251, 211, 141, 0.12);
 
   /* High-Contrast Typography */
-  --text-main:      #f8fafc;
-  --text-muted:     #94a3b8;
-  --text-faint:     #64748b;
+  --text-main:      #ffffff;
+  --text-muted:     #cbd5e1;
+  --text-faint:     #94a3b8;
 
   /* Subtle Borders */
-  --border:         rgba(255, 255, 255, 0.08);
-  --border-subtle:  rgba(255, 255, 255, 0.045);
-  --border-focus:   rgba(167, 139, 250, 0.45);
+  --border:         rgba(255, 255, 255, 0.12);
+  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border-focus:   rgba(196, 181, 253, 0.5);
 
   /* Font Stacks */
   --font-serif:     'Newsreader', Georgia, Cambria, serif;
@@ -80,15 +81,24 @@ body {
   }
 }
 
-/* Background Atmosphere: Soft & Non-Distracting */
+/* Background Atmosphere: Soft, Dynamic & Textured */
 .ambient-bg {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 65% 50% at 15% 15%, rgba(124, 58, 237, 0.04) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 45% at 85% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 65%);
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 80% 80%, rgba(103, 232, 249, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(244, 114, 182, 0.04) 0%, transparent 60%);
+  animation: cosmic-drift 30s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes cosmic-drift {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.05) translate(2%, -1%); }
+  100% { transform: scale(1) translate(-1%, 2%); }
 }
 
 #lorenz-canvas {
