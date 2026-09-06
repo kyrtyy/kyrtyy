@@ -35,10 +35,11 @@
   --border-subtle:  rgba(167, 139, 250, 0.08);
   --border-focus:   rgba(251, 191, 36, 0.5); /* Gold focus */
 
-  /* Font Stacks */
-  --font-serif:     'Cinzel Decorative', Georgia, serif;
-  --font-sans:      'Syne', -apple-system, sans-serif;
+  /* Font Stacks (Research Paper Aesthetic) */
+  --font-serif:     'Newsreader', Georgia, Cambria, serif;
+  --font-sans:      'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:      'Fira Code', 'JetBrains Mono', monospace;
+  --font-typewriter:'Courier Prime', 'Courier New', Courier, monospace;
 
   /* Layout */
   --max-width:      1180px;
@@ -58,9 +59,10 @@ html {
   scroll-behavior: smooth;
   background-color: var(--bg);
   color: var(--text-main);
-  font-family: var(--font-sans);
+  /* Research paper base: Serif */
+  font-family: var(--font-serif);
   font-size: 16px;
-  line-height: 1.65;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -153,7 +155,7 @@ nav:hover {
   gap: 0.65rem;
   text-decoration: none;
   color: var(--text-main);
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.88rem;
   letter-spacing: -0.2px;
 }
@@ -178,7 +180,7 @@ nav:hover {
 }
 
 .nav-links a {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.76rem;
   color: var(--text-muted);
   text-decoration: none;
@@ -283,7 +285,7 @@ h1, h2, h3, h4 {
 }
 
 .meta-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.72rem;
   color: var(--purple-glow);
   letter-spacing: 1.8px;
@@ -337,7 +339,7 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.76rem;
   letter-spacing: 0.4px;
   padding: 0.7rem 1.35rem;
@@ -379,7 +381,7 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.78rem;
   color: var(--text-muted);
   text-decoration: none;
@@ -478,7 +480,7 @@ h1, h2, h3, h4 {
 }
 
 .tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.7rem;
   color: var(--text-muted);
   background: rgba(255, 255, 255, 0.025);
@@ -533,7 +535,7 @@ h1, h2, h3, h4 {
 }
 
 .ticker-item {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.78rem;
   padding: 0 3.2rem;
   flex-shrink: 0;
@@ -591,7 +593,7 @@ h1, h2, h3, h4 {
 }
 
 .obs-author {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.78rem;
   color: var(--purple-glow);
   margin-top: 0.8rem;
@@ -599,7 +601,7 @@ h1, h2, h3, h4 {
 }
 
 .obs-trivia-tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.7rem;
   color: var(--ice-cyan);
   margin-top: 0.4rem;
@@ -609,7 +611,7 @@ h1, h2, h3, h4 {
 /* Scientific Footnote Tooltip */
 .footnote-ref {
   display: inline-block;
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.72rem;
   color: var(--purple-glow);
   cursor: pointer;
@@ -677,7 +679,7 @@ h1, h2, h3, h4 {
 .dot-green { background: #10b981; }
 
 .terminal-title {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.74rem;
   color: var(--text-muted);
   margin-left: 0.5rem;
@@ -695,7 +697,7 @@ h1, h2, h3, h4 {
 }
 
 .form-group label {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.74rem;
   color: var(--text-muted);
 }
@@ -707,7 +709,7 @@ h1, h2, h3, h4 {
   padding: 0.85rem 1rem;
   border-radius: var(--radius-sm);
   color: var(--text-main);
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.86rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -809,7 +811,7 @@ footer {
 }
 
 .footer-brand {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.76rem;
   color: var(--text-faint);
 }
@@ -819,7 +821,7 @@ footer {
 }
 
 .footer-meta {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.74rem;
   color: var(--text-faint);
   display: flex;
@@ -895,7 +897,7 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.74rem;
   color: var(--purple-glow);
   background: var(--purple-dim);
@@ -978,7 +980,7 @@ footer {
 }
 
 .panel-title {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.74rem;
   color: var(--purple-glow);
   text-transform: uppercase;
@@ -1004,7 +1006,7 @@ footer {
 }
 
 .spec-val {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   color: var(--text-main);
   font-size: 0.84rem;
 }
@@ -1107,7 +1109,7 @@ footer {
   display: flex;
   gap: 3.5rem;
   animation: scroll-ticker 45s linear infinite;
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.82rem;
   color: var(--text-muted);
 }
@@ -1175,7 +1177,7 @@ footer {
 }
 
 .domain-index {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 1.5rem;
   color: var(--purple-glow);
   font-weight: 600;
@@ -1230,7 +1232,7 @@ footer {
 }
 
 .reading-category {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.76rem;
   color: var(--purple-glow);
 }
@@ -1339,7 +1341,7 @@ footer {
 }
 
 .memo-date {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.76rem;
   color: var(--text-faint);
 }
@@ -1367,7 +1369,7 @@ footer {
 }
 
 .hobby-index {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 1.4rem;
   color: var(--higgs-gold);
   font-weight: 600;
@@ -1393,7 +1395,7 @@ footer {
 
 .quote-card cite {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.76rem;
   font-style: normal;
   color: var(--higgs-gold);
@@ -1415,7 +1417,7 @@ footer {
 }
 
 .now-col h4 {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.8rem;
   color: var(--higgs-gold);
   text-transform: uppercase;
@@ -1520,7 +1522,7 @@ footer {
 }
 
 .node-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-typewriter);
   font-size: 0.72rem;
   color: var(--higgs-gold);
   text-transform: uppercase;
