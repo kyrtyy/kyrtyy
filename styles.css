@@ -5,40 +5,40 @@
    ========================================================================== */
 
 :root {
-  /* Surfaces: Nebula & Deep Space (Lighter, textured feel) */
-  --bg:             #0b0d14;
-  --surface:        rgba(18, 20, 30, 0.65);
-  --surface-2:      rgba(25, 28, 40, 0.55);
-  --surface-3:      rgba(35, 40, 55, 0.45);
+  /* Surfaces: Nebula & Deep Space (Vibrant Multiverse) */
+  --bg:             #06040f;
+  --surface:        rgba(15, 12, 29, 0.65);
+  --surface-2:      rgba(24, 18, 48, 0.55);
+  --surface-3:      rgba(38, 28, 70, 0.45);
 
-  /* Energy Accents (More Dynamic) */
-  --purple-glow:    #c4b5fd;
-  --purple-bright:  #a78bfa;
-  --purple-deep:    #8b5cf6;
-  --purple-dim:     rgba(167, 139, 250, 0.15);
-  --purple-border:  rgba(167, 139, 250, 0.3);
+  /* Energy Accents (High Variance Spectrum) */
+  --purple-glow:    #d946ef; /* Fuchsia/Magenta */
+  --purple-bright:  #a855f7; /* Purple */
+  --purple-deep:    #7e22ce;
+  --purple-dim:     rgba(217, 70, 239, 0.15);
+  --purple-border:  rgba(217, 70, 239, 0.3);
 
   /* Secondary Accents (Motion & Chaos) */
-  --ice-cyan:       #67e8f9;
-  --ice-cyan-dim:   rgba(103, 232, 249, 0.12);
-  --magenta-glow:   #f472b6;
-  --higgs-gold:     #fbd38d;
-  --higgs-gold-dim: rgba(251, 211, 141, 0.12);
+  --ice-cyan:       #06b6d4;
+  --ice-cyan-dim:   rgba(6, 182, 212, 0.15);
+  --magenta-glow:   #f43f5e;
+  --higgs-gold:     #eab308;
+  --higgs-gold-dim: rgba(234, 179, 8, 0.15);
 
   /* High-Contrast Typography */
-  --text-main:      #ffffff;
-  --text-muted:     #cbd5e1;
+  --text-main:      #fdf4ff;
+  --text-muted:     #e2e8f0;
   --text-faint:     #94a3b8;
 
   /* Subtle Borders */
-  --border:         rgba(255, 255, 255, 0.12);
-  --border-subtle:  rgba(255, 255, 255, 0.06);
-  --border-focus:   rgba(196, 181, 253, 0.5);
+  --border:         rgba(217, 70, 239, 0.15);
+  --border-subtle:  rgba(217, 70, 239, 0.08);
+  --border-focus:   rgba(6, 182, 212, 0.5);
 
   /* Font Stacks */
-  --font-serif:     'Newsreader', Georgia, Cambria, serif;
-  --font-sans:      'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono:      'JetBrains Mono', 'Fira Code', monospace;
+  --font-serif:     'Cormorant Garamond', 'Newsreader', Georgia, serif;
+  --font-sans:      'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  --font-mono:      'Fira Code', 'JetBrains Mono', monospace;
 
   /* Layout */
   --max-width:      1180px;
@@ -88,9 +88,9 @@ body {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 50% at 80% 80%, rgba(103, 232, 249, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(244, 114, 182, 0.04) 0%, transparent 60%);
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 80% 80%, rgba(6, 182, 212, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(244, 63, 94, 0.04) 0%, transparent 60%);
   animation: cosmic-drift 30s ease-in-out infinite alternate;
   will-change: transform;
 }
@@ -129,13 +129,13 @@ nav {
   z-index: 200;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  background: rgba(6, 8, 13, 0.84);
+  background: rgba(6, 4, 15, 0.84);
   border-bottom: 1px solid var(--border);
   transition: border-color 0.2s ease;
 }
 
 nav:hover {
-  border-bottom-color: rgba(167, 139, 250, 0.3);
+  border-bottom-color: rgba(217, 70, 239, 0.3);
 }
 
 .nav-inner {
@@ -352,12 +352,12 @@ h1, h2, h3, h4 {
   color: #fff;
   border: 1px solid var(--purple-glow);
   font-weight: 500;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 16px rgba(126, 34, 206, 0.3);
 }
 
 .btn-purple:hover {
-  background: #6d28d9;
-  box-shadow: 0 6px 24px rgba(167, 139, 250, 0.4);
+  background: var(--purple-bright);
+  box-shadow: 0 6px 24px rgba(168, 85, 247, 0.4);
   transform: translateY(-2px);
   color: #fff;
 }
@@ -417,7 +417,22 @@ h1, h2, h3, h4 {
   padding: 2rem;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  /* Add cubic-bezier for a springy interaction, and longer duration for smooth dissolve */
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Entropy Diffusion Overlay */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--purple-dim) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(16px);
 }
 
 .card::before {
@@ -429,17 +444,30 @@ h1, h2, h3, h4 {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
+  z-index: 2;
 }
 
 .card:hover {
   border-color: var(--border-focus);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
-  transform: translateY(-2px);
+  /* Glowing entropy interaction */
+  box-shadow: 0 0 30px var(--purple-dim), 0 0 60px rgba(6, 182, 212, 0.1), inset 0 0 20px rgba(217, 70, 239, 0.05);
+  transform: translateY(-6px) scale(1.02);
 }
 
 .card:hover::before {
   opacity: 1;
+}
+
+.card:hover::after {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+/* Ensure content stays above the entropy diffusion layer */
+.card > * {
+  position: relative;
+  z-index: 2;
 }
 
 /* Chips & Tags */
