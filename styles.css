@@ -5,39 +5,39 @@
    ========================================================================== */
 
 :root {
-  /* Surfaces: Nebula & Deep Space (Vibrant Multiverse) */
-  --bg:             #06040f;
-  --surface:        rgba(15, 12, 29, 0.65);
-  --surface-2:      rgba(24, 18, 48, 0.55);
-  --surface-3:      rgba(38, 28, 70, 0.45);
+  /* Surfaces: Deep Violet Cosmic Void */
+  --bg:             #0a0514; /* Deep violet-black */
+  --surface:        rgba(17, 10, 31, 0.7);
+  --surface-2:      rgba(26, 15, 48, 0.6);
+  --surface-3:      rgba(40, 22, 75, 0.5);
 
-  /* Energy Accents (High Variance Spectrum) */
-  --purple-glow:    #d946ef; /* Fuchsia/Magenta */
-  --purple-bright:  #a855f7; /* Purple */
-  --purple-deep:    #7e22ce;
-  --purple-dim:     rgba(217, 70, 239, 0.15);
-  --purple-border:  rgba(217, 70, 239, 0.3);
+  /* Energy Accents (Violet Core) */
+  --purple-glow:    #a78bfa;
+  --purple-bright:  #8b5cf6;
+  --purple-deep:    #6d28d9;
+  --purple-dim:     rgba(139, 92, 246, 0.15);
+  --purple-border:  rgba(139, 92, 246, 0.35);
 
-  /* Secondary Accents (Motion & Chaos) */
-  --ice-cyan:       #06b6d4;
-  --ice-cyan-dim:   rgba(6, 182, 212, 0.15);
-  --magenta-glow:   #f43f5e;
-  --higgs-gold:     #eab308;
-  --higgs-gold-dim: rgba(234, 179, 8, 0.15);
+  /* Complementary Accents (Gold & Teal) */
+  --ice-cyan:       #2dd4bf; /* Mint/Teal */
+  --ice-cyan-dim:   rgba(45, 212, 191, 0.15);
+  --magenta-glow:   #f472b6; 
+  --higgs-gold:     #fbbf24; /* Amber Gold */
+  --higgs-gold-dim: rgba(251, 191, 36, 0.15);
 
   /* High-Contrast Typography */
   --text-main:      #fdf4ff;
-  --text-muted:     #e2e8f0;
+  --text-muted:     #cbd5e1;
   --text-faint:     #94a3b8;
 
   /* Subtle Borders */
-  --border:         rgba(217, 70, 239, 0.15);
-  --border-subtle:  rgba(217, 70, 239, 0.08);
-  --border-focus:   rgba(6, 182, 212, 0.5);
+  --border:         rgba(167, 139, 250, 0.15);
+  --border-subtle:  rgba(167, 139, 250, 0.08);
+  --border-focus:   rgba(251, 191, 36, 0.5); /* Gold focus */
 
   /* Font Stacks */
-  --font-serif:     'Cormorant Garamond', 'Newsreader', Georgia, serif;
-  --font-sans:      'Space Grotesk', 'Inter', -apple-system, sans-serif;
+  --font-serif:     'Cinzel Decorative', Georgia, serif;
+  --font-sans:      'Syne', -apple-system, sans-serif;
   --font-mono:      'Fira Code', 'JetBrains Mono', monospace;
 
   /* Layout */

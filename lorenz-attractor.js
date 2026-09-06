@@ -93,7 +93,7 @@
       vy: 0,
       vz: 0,
       trail: [],
-      speed: 0.0075 + Math.random() * 0.003
+      speed: 0.0025 + Math.random() * 0.0015
     };
   }
 
@@ -236,7 +236,7 @@
       headDots.push({
         x: px,
         y: py,
-        color: p.x < 0 ? 'rgba(167, 139, 250, 0.45)' : 'rgba(56, 189, 248, 0.45)'
+        color: p.x < 0 ? 'rgba(167, 139, 250, 0.6)' : 'rgba(45, 212, 191, 0.6)'
       });
     }
 
@@ -280,7 +280,7 @@
         ctx.moveTo(s[0], s[1]);
         ctx.lineTo(s[2], s[3]);
       }
-      ctx.strokeStyle = 'rgba(167, 139, 250, 0.07)';
+      ctx.strokeStyle = 'rgba(167, 139, 250, 0.09)';
       ctx.lineWidth = 0.7;
       ctx.stroke();
     }
@@ -293,12 +293,12 @@
         ctx.moveTo(s[0], s[1]);
         ctx.lineTo(s[2], s[3]);
       }
-      ctx.strokeStyle = 'rgba(167, 139, 250, 0.15)';
+      ctx.strokeStyle = 'rgba(167, 139, 250, 0.25)';
       ctx.lineWidth = 0.9;
       ctx.stroke();
     }
 
-    // ── FAST BATCH RENDER: DRAW CALL 3 (Right Wing — Cherenkov Cyan) ──
+    // ── FAST BATCH RENDER: DRAW CALL 3 (Right Wing — Complementary Teal) ──
     if (batchCyan.length > 0) {
       ctx.beginPath();
       for (let i = 0; i < batchCyan.length; i++) {
@@ -306,7 +306,7 @@
         ctx.moveTo(s[0], s[1]);
         ctx.lineTo(s[2], s[3]);
       }
-      ctx.strokeStyle = 'rgba(56, 189, 248, 0.14)';
+      ctx.strokeStyle = 'rgba(45, 212, 191, 0.25)';
       ctx.lineWidth = 0.9;
       ctx.stroke();
     }
@@ -319,7 +319,7 @@
         ctx.moveTo(s[0], s[1]);
         ctx.lineTo(s[2], s[3]);
       }
-      ctx.strokeStyle = 'rgba(245, 158, 11, 0.18)';
+      ctx.strokeStyle = 'rgba(251, 191, 36, 0.3)';
       ctx.lineWidth = 1.0;
       ctx.stroke();
     }
