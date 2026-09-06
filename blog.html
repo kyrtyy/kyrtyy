@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes &amp; Derivations — Yash Dewangan | IISc Bengaluru</title>
+  <meta name="description" content="Technical memos, mathematical derivations, and essays on physics, machine learning, automatic differentiation, and stochastic thermodynamics.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .memo-entry {
+      margin-bottom: 5.5rem;
+      padding-bottom: 4.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .memo-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .memo-date {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-faint);
+    }
+
+    .memo-entry h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg"></div>
+  <div class="lattice-grid"></div>
+
+  <!-- Global Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="name">Yash Dewangan</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="domain.html">Research</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html" class="active">Notes</a></li>
+        <li><a href="hobbies.html">Analog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contacts.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="page-offset container">
+    
+    <header class="page-header">
+      <a href="index.html" class="back-link">&larr; Return to Overview</a>
+      <span class="meta-label">Dispatches from the Laboratory</span>
+      <h1>Field Notes &amp; Derivations</h1>
+      <p class="lead">
+        Informal technical memos, derivations, and conceptual essays at the intersection of non-equilibrium physics, mathematical machine learning, and computational methodology.
+      </p>
+    </header>
+
+    <!-- MEMO 1 -->
+    <article class="memo-entry" id="autodiff">
+      <div class="memo-meta">
+        <span class="meta-label">Numerical Physics // Autograd</span>
+        <span class="memo-date">June 14, 2026</span>
+      </div>
+      <h2>Why Automatic Differentiation is Changing Numerical Physics</h2>
+      <div class="article-prose">
+        <p>
+          For over half a century, computational physics has been fundamentally tethered to <em>spatial discretization</em>. Whether via finite difference stencils, finite elements, or spectral collocation, the first step in solving a partial differential equation has always been to replace the smooth continuum with a discrete grid.
+        </p>
+        <p>
+          Grid generation is notoriously the most labor-intensive and fragile stage of computational fluid dynamics. Boundary-fitted meshes for non-trivial geometries require manual intervention, and refining grids in multiscale turbulence causes computational requirements to scale as \(\mathcal{O}(N^3)\) or worse.
+        </p>
+        <p>
+          Reverse-mode automatic differentiation (autograd) introduces an alternative paradigm: rather than discretizing the differential operators over an artificial grid, we parameterize the field continuously through a parameterized function approximator:
+        </p>
+        
+        <div class="eq-box">
+          $$u(x, t) \approx f_\theta(x, t), \qquad \frac{\partial u}{\partial x} \equiv \frac{\partial f_\theta}{\partial x}$$
+        </div>
+
+        <p>
+          The derivatives computed via autograd are not finite differences—there is no discretization parameter \(h\), no truncation error \(\mathcal{O}(h^2)\), and no roundoff catastrophe from dividing small floating-point differences. Derivatives are computed to exact machine precision by applying the chain rule to the graph of elementary arithmetic operations.
+        </p>
+        <p>
+          However, as highlighted in our recent benchmarks, autograd is not a free lunch. Higher-order derivatives (\(\nabla^2 u\)) require building nested computation graphs (using <code>create_graph=True</code>), which store intermediate tensors in GPU memory. For large forward simulations, classical discrete stencils remain orders of magnitude faster. Autograd's true revolution lies in <strong>inverse problems, parameter estimation, and sparse sensor assimilation</strong>, where classical methods require complex adjoint state equations that are arduous to derive and implement.
+        </p>
+      </div>
+    </article>
+
+    <!-- MEMO 2 -->
+    <article class="memo-entry" id="spectral-bias">
+      <div class="memo-meta">
+        <span class="meta-label">Deep Learning Theory // NTK</span>
+        <span class="memo-date">May 28, 2026</span>
+      </div>
+      <h2>Overcoming Spectral Bias in Deep Neural Networks</h2>
+      <div class="article-prose">
+        <p>
+          Anyone who has attempted to train a standard multilayer perceptron (MLP) on a physical problem with high-frequency oscillations or shock waves has encountered the <em>F-Principle</em>: neural networks learn low-frequency components rapidly, while high-frequency details require an immense number of gradient steps to converge.
+        </p>
+        <p>
+          To understand why this happens mathematically, we turn to the <strong>Neural Tangent Kernel (NTK)</strong> in the infinite-width limit. Consider an MLP \(f(x; \theta)\) trained with mean squared error. In the continuous-time gradient flow limit:
+        </p>
+
+        <div class="eq-box">
+          $$\frac{\mathrm{d} f(x; \theta_t)}{\mathrm{d}t} = -\int_{\Omega} \Theta(x, x') \big(f(x'; \theta_t) - y(x')\big)\,\mathrm{d}x'$$
+        </div>
+
+        <p>
+          where \(\Theta(x, x') = \langle \nabla_\theta f(x), \nabla_\theta f(x') \rangle\) is the NTK. By Mercer's theorem, we can decompose this kernel into its eigenvalues and eigenfunctions:
+        </p>
+
+        <div class="eq-box">
+          $$\Theta(x, x') = \sum_{i=1}^{\infty} \lambda_i \phi_i(x) \phi_i(x'), \qquad \lambda_1 \geq \lambda_2 \geq \dots \geq 0$$
+        </div>
+
+        <p>
+          The error along the \(i\)-th eigenmode decays exponentially at rate \(\lambda_i\):
+        </p>
+
+        <div class="eq-box">
+          $$|f_i(t) - y_i| \sim e^{-\lambda_i t}$$
+        </div>
+
+        <p>
+          For coordinate-based networks with ReLU or Tanh activations, the spectrum of \(\Theta\) decays rapidly: higher-frequency spatial modes correspond to minuscule eigenvalues \(\lambda_k \ll 1\). Consequently, high-frequency physics (such as turbulent vortex filaments or acoustic standing waves) are effectively frozen during standard gradient descent.
+        </p>
+        <p>
+          By applying a <strong>Gaussian random Fourier feature mapping</strong> \(\gamma(x) = [\cos(2\pi B x), \sin(2\pi B x)]\), we transform the effective NTK into a stationary, shift-invariant kernel whose bandwidth is directly tuned by the variance of \(B\). This shifts the eigenvalue spectrum, allowing deep networks to resolve steep gradients without numerical dissipation.
+        </p>
+      </div>
+    </article>
+
+    <!-- MEMO 3 -->
+    <article class="memo-entry" id="diffusion-thermo">
+      <div class="memo-meta">
+        <span class="meta-label">Stochastic Physics // Generative AI</span>
+        <span class="memo-date">April 19, 2026</span>
+      </div>
+      <h2>Thermodynamic Parallels in Denoising Diffusion Models</h2>
+      <div class="article-prose">
+        <p>
+          Modern generative models—particularly score-based diffusion models (Song et al.) and Denoising Diffusion Probabilistic Models (Ho et al.)—are often explained through the language of variational autoencoders or score matching. Yet their deepest and most intuitive foundation comes directly from <strong>non-equilibrium statistical mechanics</strong>.
+        </p>
+        <p>
+          Consider the forward diffusion process as a continuous Brownian motion drifting toward infinite entropy:
+        </p>
+
+        <div class="eq-box">
+          $$\mathrm{d}x_t = f(x_t, t)\,\mathrm{d}t + g(t)\,\mathrm{d}W_t$$
+        </div>
+
+        <p>
+          This is precisely the overdamped Langevin equation describing a particle immersed in a thermal reservoir. As \(t \to T\), the complex non-equilibrium data distribution \(p_0(x)\) relaxes to a maximum-entropy Gaussian state \(p_T(x) \sim \mathcal{N}(0, \sigma^2 I)\), effectively erasing all structure through microscopic entropy production.
+        </p>
+        <p>
+          Remarkably, Anderson (1982) proved that the time-reversed process is also a diffusion process that runs backward in time from \(t = T\) to \(t = 0\):
+        </p>
+
+        <div class="eq-box">
+          $$\mathrm{d}x_t = \left[ f(x_t, t) - g(t)^2 \nabla_x \log p_t(x_t) \right]\,\mathrm{d}t + g(t)\,\mathrm{d}\bar{W}_t$$
+        </div>
+
+        <p>
+          Notice the emergence of the <strong>score function</strong> \(\nabla_x \log p_t(x_t)\). This vector field acts as an osmotic drift velocity, counteracting the irreversible thermodynamic diffusion and driving probability back toward the original low-entropy data manifold.
+        </p>
+        <p>
+          Training a score-matching neural network is therefore physically equivalent to learning the non-equilibrium thermodynamic force needed to reverse dissipation. This conceptual connection illuminates why physical symmetries, energy conservation, and fluctuation theorems (like Jarzynski's equality) are becoming essential tools for designing next-generation generative architectures.
+        </p>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
+        <a href="contacts.html">Communication Terminal</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

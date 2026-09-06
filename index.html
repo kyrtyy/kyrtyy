@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yash Dewangan — Physics, Stochastic Systems & Learning Machines</title>
+  <meta name="description" content="5th-year BS-MS researcher at IISc Bengaluru working at the intersection of non-equilibrium physics, stochastic systems, quantum technology, and modern machine learning.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for crisp mathematical typography -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Specific Home Page Enhancements */
+    .hero-section {
+      min-height: calc(100vh - 4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 0 5rem;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      background: var(--amber-dim);
+      border: 1px solid rgba(229, 158, 86, 0.25);
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.8rem;
+    }
+
+    .status-pulse {
+      width: 6px;
+      height: 6px;
+      background: var(--amber);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--amber);
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -1px;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--amber-light);
+    }
+
+    .hero-bio {
+      font-size: 1.08rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 580px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-bio strong {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Interactive Phase/Lattice Visualizer */
+    .hero-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.2rem;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .panel-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .field-spec-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .field-spec-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .spec-label {
+      color: var(--text-muted);
+    }
+
+    .spec-val {
+      color: var(--text-main);
+    }
+
+    /* Pillars Grid */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .pillar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.2rem;
+      transition: all 0.25s ease;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+    }
+
+    .pillar-card h3 {
+      font-size: 1.25rem;
+      margin: 0.8rem 0 0.6rem;
+      font-weight: 600;
+    }
+
+    .pillar-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.68;
+    }
+
+    /* Projects Bento */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .bento-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+
+    .bento-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 42px rgba(0,0,0,0.45);
+    }
+
+    .bento-card h3 {
+      font-size: 1.28rem;
+      margin: 0.7rem 0 0.8rem;
+    }
+
+    .bento-card h3 a {
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    .bento-card h3 a:hover {
+      color: var(--amber);
+    }
+
+    .bento-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.68;
+      margin-bottom: 1.4rem;
+    }
+
+    .bento-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: auto;
+    }
+
+    .bento-link {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--amber);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap 0.18s ease;
+    }
+
+    .bento-link:hover {
+      gap: 0.65rem;
+      color: var(--amber-light);
+    }
+
+    /* Notes / Writing List */
+    .notes-list {
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .note-row {
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      gap: 2rem;
+      align-items: baseline;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .note-date {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-faint);
+    }
+
+    .note-title a {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    .note-title a:hover {
+      color: var(--amber);
+    }
+
+    .note-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      margin-top: 0.4rem;
+    }
+
+    /* Off-screen / Analog Section */
+    .analog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .analog-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .analog-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+    }
+
+    .analog-card h4 {
+      font-size: 1.15rem;
+      margin: 0.6rem 0 0.8rem;
+    }
+
+    .analog-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .pillars-grid, .bento-grid { grid-template-columns: 1fr; }
+      .analog-grid { grid-template-columns: 1fr; }
+      .note-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg"></div>
+  <div class="lattice-grid"></div>
+  <canvas id="diffusion-canvas"></canvas>
+
+  <!-- Global Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="name">Yash Dewangan</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="domain.html">Research</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Notes</a></li>
+        <li><a href="hobbies.html">Analog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contacts.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Portal -->
+  <main>
+
+    <!-- HERO -->
+    <section class="container hero-section">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-status">
+            <span class="status-pulse"></span>
+            <span>Active Researcher · IISc Bengaluru</span>
+          </div>
+          <h1 class="hero-title">
+            Physics, Chance &amp;<br>
+            <em>Learning Machines</em>
+          </h1>
+          <p class="hero-bio">
+            5th-year BS-MS researcher with a Minor in <strong>Quantum Technology</strong> at the Indian Institute of Science. Working at the interface of <strong>non-equilibrium statistical mechanics</strong>, <strong>stochastic processes</strong>, and modern AI—investigating how deep networks can inherit rigorous physical conservation laws rather than memorizing data blind.
+          </p>
+          <div class="hero-actions">
+            <a href="projects.html" class="btn btn-amber">Explore Projects &rarr;</a>
+            <a href="domain.html" class="btn btn-ghost">Research Pillars</a>
+            <a href="contacts.html" class="btn btn-ghost">Node Coordinates</a>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div class="panel-header">
+            <span class="panel-title">// System State &amp; Focus</span>
+            <span class="tag">IISc Physics Lab</span>
+          </div>
+          <div class="field-spec-list">
+            <div class="field-spec-item">
+              <span class="spec-label">Primary Investigation</span>
+              <span class="spec-val">Physics-Informed Deep Operators</span>
+            </div>
+            <div class="field-spec-item">
+              <span class="spec-label">Mathematical Core</span>
+              <span class="spec-val">Langevin SDEs &amp; Navier-Stokes</span>
+            </div>
+            <div class="field-spec-item">
+              <span class="spec-label">Minor Discipline</span>
+              <span class="spec-val">Quantum Technology / QFT</span>
+            </div>
+            <div class="field-spec-item">
+              <span class="spec-label">Computational Stack</span>
+              <span class="spec-val">PyTorch, CUDA, JAX, DeepXDE</span>
+            </div>
+            <div class="field-spec-item">
+              <span class="spec-label">Location Node</span>
+              <span class="spec-val">Bengaluru, India [12.9716° N, 77.5946° E]</span>
+            </div>
+          </div>
+          <div class="eq-box" style="margin-top: 1.5rem; margin-bottom: 0;">
+            $$\mathrm{d}X_t = \mu(X_t, t)\,\mathrm{d}t + \sigma(X_t, t)\,\mathrm{d}W_t$$
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER RIBBON -->
+    <div class="ticker-ribbon" aria-hidden="true">
+      <div class="ticker-track">
+        <span class="ticker-item">$$\partial_t u + (u \cdot \nabla)u = -\nabla p + \nu \nabla^2 u$$</span>
+        <span class="ticker-item">$$\mathrm{d}X_t = \mu\,\mathrm{d}t + \sigma\,\mathrm{d}W_t$$</span>
+        <span class="ticker-item">$$i\hbar\,\partial_t \psi = \hat{H}\psi$$</span>
+        <span class="ticker-item">$$\nabla_x \log p_t(x) \;\text{[Score Function]}$$</span>
+        <span class="ticker-item">$$\mathcal{L}(\theta) = \mathcal{L}_{\text{data}} + \lambda\,\mathcal{L}_{\text{pde}}$$</span>
+        <span class="ticker-item">$$\hat{v}(k) = \mathcal{F}(v)(k)$$</span>
+        <span class="ticker-item">$$\Delta S_{\text{univ}} \geq 0$$</span>
+        <!-- Duplicated track for smooth infinite ticker loop -->
+        <span class="ticker-item">$$\partial_t u + (u \cdot \nabla)u = -\nabla p + \nu \nabla^2 u$$</span>
+        <span class="ticker-item">$$\mathrm{d}X_t = \mu\,\mathrm{d}t + \sigma\,\mathrm{d}W_t$$</span>
+        <span class="ticker-item">$$i\hbar\,\partial_t \psi = \hat{H}\psi$$</span>
+        <span class="ticker-item">$$\nabla_x \log p_t(x) \;\text{[Score Function]}$$</span>
+        <span class="ticker-item">$$\mathcal{L}(\theta) = \mathcal{L}_{\text{data}} + \lambda\,\mathcal{L}_{\text{pde}}$$</span>
+        <span class="ticker-item">$$\hat{v}(k) = \mathcal{F}(v)(k)$$</span>
+        <span class="ticker-item">$$\Delta S_{\text{univ}} \geq 0$$</span>
+      </div>
+    </div>
+
+    <!-- RESEARCH PILLARS -->
+    <section class="container" style="padding: 6.5rem 2rem 4rem;">
+      <span class="meta-label">Conceptual Framework</span>
+      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Research &amp; Technical Pillars</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 680px; margin-top: 0.5rem;">
+        Bridging the analytical rigor of non-equilibrium physics with modern deep learning and high-performance computing.
+      </p>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <span class="meta-label">Pillar 01</span>
+          <h3>Stochastic Systems &amp; Statistical Physics</h3>
+          <p>
+            Non-equilibrium statistical mechanics, Langevin dynamics, Fokker-Planck evolution, and the thermodynamics of learning. Viewing gradient descent as relaxation toward thermal equilibrium.
+          </p>
+          <div class="eq-box">$$\partial_t p(x,t) = -\nabla \cdot (\mu p) + \frac{1}{2}\nabla^2(\sigma^2 p)$$</div>
+          <div class="tags">
+            <span class="tag">Langevin SDEs</span>
+            <span class="tag">Fokker-Planck</span>
+            <span class="tag">Game Theory</span>
+            <span class="tag">Stat Mech</span>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <span class="meta-label">Pillar 02</span>
+          <h3>Modern Machine Learning &amp; AI</h3>
+          <p>
+            Generative modeling via stochastic differential equations (score-based diffusion), physics-informed neural networks (PINNs), joint embeddings, and high-dimensional representation dynamics.
+          </p>
+          <div class="eq-box">$$\mathrm{d}x = [f(x,t) - g(t)^2 \nabla_x \log p_t(x)]\,\mathrm{d}t + g(t)\,\mathrm{d}\bar{w}$$</div>
+          <div class="tags">
+            <span class="tag">Diffusion Models</span>
+            <span class="tag">PINNs</span>
+            <span class="tag">Deep Operators</span>
+            <span class="tag">Score Matching</span>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <span class="meta-label">Pillar 03</span>
+          <h3>Quantum Theory &amp; Field Systems</h3>
+          <p>
+            Quantum mechanics, Feynman path integrals, and formal quantum computing foundations. Exploring quantum states and density operator evolution in noisy quantum information systems.
+          </p>
+          <div class="eq-box">$$\mathcal{Z} = \int \mathcal{D}\phi \, \exp\left(\frac{i}{\hbar} S[\phi]\right)$$</div>
+          <div class="tags">
+            <span class="tag">Quantum Mechanics</span>
+            <span class="tag">Path Integrals</span>
+            <span class="tag">Quantum Tech Minor</span>
+            <span class="tag">QFT</span>
+          </div>
+        </div>
+
+        <div class="pillar-card">
+          <span class="meta-label">Pillar 04</span>
+          <h3>Computational Physics &amp; HPC</h3>
+          <p>
+            Large-scale simulation of continuum systems, spectral methods, numerical fluid dynamics (Navier-Stokes), and parallel computing kernels across CUDA and MPI architectures.
+          </p>
+          <div class="eq-box">$$\mathcal{O}(N \log N) \quad\text{via GPU-accelerated FFT kernels}$$</div>
+          <div class="tags">
+            <span class="tag">CUDA</span>
+            <span class="tag">MPI / HPC</span>
+            <span class="tag">Fluid Simulation</span>
+            <span class="tag">Spectral Methods</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: right;">
+        <a href="domain.html" class="btn btn-ghost">Explore Full Research Landscape &rarr;</a>
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS BENTO -->
+    <section class="container" style="padding: 4rem 2rem 5rem;">
+      <span class="meta-label">Implementation &amp; Code</span>
+      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Selected Projects</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 680px; margin-top: 0.5rem;">
+        Complete mathematical formulations, numerical architectures, and open implementations.
+      </p>
+
+      <div class="bento-grid">
+        
+        <!-- Project 1: Navier-Stokes -->
+        <div class="bento-card">
+          <div>
+            <span class="meta-label">Fluid Dynamics // Inverse Problem</span>
+            <h3><a href="projects/navier-stokes.html">Navier-Stokes Inverse Solver</a></h3>
+            <p>
+              Reconstructed continuous velocity and latent pressure distributions from sparse, noisy sensor observations by minimizing momentum Navier-Stokes residuals via automatic differentiation.
+            </p>
+            <div class="eq-box">
+              $$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{data}} + \lambda_{\text{ns}} \|\partial_t u + (u \cdot \nabla)u + \nabla p - \nu \nabla^2 u\|_2^2$$
+            </div>
+            <div class="tags" style="margin-bottom: 1.5rem;">
+              <span class="tag">PyTorch Autograd</span>
+              <span class="tag">L-BFGS</span>
+              <span class="tag">CFD Validation</span>
+              <span class="tag">Inverse PINN</span>
+            </div>
+          </div>
+          <div class="bento-footer">
+            <a href="projects/navier-stokes.html" class="bento-link">Read Deep Dive &rarr;</a>
+            <a href="https://github.com/kyrtyy/navier-stokes-inverse-solver" target="_blank" class="tag" style="text-decoration: none;">GitHub Repo</a>
+          </div>
+        </div>
+
+        <!-- Project 2: Fourier Neural Operators -->
+        <div class="bento-card">
+          <div>
+            <span class="meta-label">Operator Learning // Frequency Domain</span>
+            <h3><a href="projects/fourier-operators.html">Fourier Neural Operators (FNO-1D)</a></h3>
+            <p>
+              Implemented zero-shot mesh-independent operator learning for time-dependent wave systems, mapping initial function spaces to continuous trajectories directly in the Fourier domain.
+            </p>
+            <div class="eq-box">
+              $$v_{t+1}(x) = \sigma\left(W v_t(x) + \mathcal{F}^{-1}\Big(R_\theta \cdot \mathcal{F}(v_t)\Big)(x)\right)$$
+            </div>
+            <div class="tags" style="margin-bottom: 1.5rem;">
+              <span class="tag">torch.fft</span>
+              <span class="tag">Complex Weights</span>
+              <span class="tag">Resolution Invariance</span>
+              <span class="tag">Spectral Conv</span>
+            </div>
+          </div>
+          <div class="bento-footer">
+            <a href="projects/fourier-operators.html" class="bento-link">Read Deep Dive &rarr;</a>
+            <a href="https://github.com/kyrtyy/Fourier-Neural-operators" target="_blank" class="tag" style="text-decoration: none;">GitHub Repo</a>
+          </div>
+        </div>
+
+        <!-- Project 3: Autograd vs CFD -->
+        <div class="bento-card">
+          <div>
+            <span class="meta-label">Numerical Methods // Benchmarks</span>
+            <h3><a href="projects/Automatic-Differentiation.html">Automatic Differentiation vs CFD Stencils</a></h3>
+            <p>
+              An analytical benchmark evaluating compute graph memory scaling, floating point precision, and wall-clock performance between PyTorch dual numbers and classical 5-point finite difference stencils.
+            </p>
+            <div class="eq-box">
+              $$\nabla f(x) \approx \frac{f(x+h) - f(x-h)}{2h} \quad \longleftrightarrow \quad \left(f(x), \frac{\partial f}{\partial x}\right)$$
+            </div>
+            <div class="tags" style="margin-bottom: 1.5rem;">
+              <span class="tag">Computational Limits</span>
+              <span class="tag">Dual Numbers</span>
+              <span class="tag">Finite Difference</span>
+              <span class="tag">Memory Profiling</span>
+            </div>
+          </div>
+          <div class="bento-footer">
+            <a href="projects/Automatic-Differentiation.html" class="bento-link">Read Deep Dive &rarr;</a>
+            <a href="https://github.com/kyrtyy" target="_blank" class="tag" style="text-decoration: none;">Research Notes</a>
+          </div>
+        </div>
+
+        <!-- Project 4: PINN Optimization -->
+        <div class="bento-card">
+          <div>
+            <span class="meta-label">Physics-Informed ML // Optimization</span>
+            <h3><a href="projects/PINN.html">Physics-Informed Neural Networks for Stiff PDEs</a></h3>
+            <p>
+              Investigating failure modes in PINN convergence on multiscale, stiff PDE regimes. Addressing gradient pathologies using dynamic loss weighting and Fourier feature embeddings.
+            </p>
+            <div class="eq-box">
+              $$\min_\theta \sum_{i} \lambda_i(t) \, \mathcal{L}_i(\theta) \quad \text{s.t.} \quad \lambda_i(t) \propto \|\nabla_\theta \mathcal{L}_i\|^{-1}$$
+            </div>
+            <div class="tags" style="margin-bottom: 1.5rem;">
+              <span class="tag">Adaptive Weighting</span>
+              <span class="tag">Spectral Bias</span>
+              <span class="tag">Stiff Systems</span>
+              <span class="tag">DeepXDE</span>
+            </div>
+          </div>
+          <div class="bento-footer">
+            <a href="projects/PINN.html" class="bento-link">Read Deep Dive &rarr;</a>
+            <a href="https://github.com/kyrtyy" target="_blank" class="tag" style="text-decoration: none;">Research Notes</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <a href="projects.html" class="btn btn-amber">View All Research Projects &rarr;</a>
+      </div>
+    </section>
+
+    <!-- WRITING / NOTES -->
+    <section class="container" style="padding: 4rem 2rem 5rem;">
+      <span class="meta-label">Publications &amp; Notes</span>
+      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Field Notes &amp; Derivations</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 680px; margin-top: 0.5rem;">
+        Technical memos, mathematical derivations, and essays on physics and computation.
+      </p>
+
+      <div class="notes-list">
+        <article class="note-row">
+          <div class="note-date">June 2026</div>
+          <div>
+            <h3 class="note-title"><a href="blog.html#autodiff">Why Automatic Differentiation is Changing Numerical Physics</a></h3>
+            <p class="note-desc">
+              Moving past traditional mesh generation: an analytical comparison of reverse-mode autograd accumulation versus discrete finite-difference stencils in large-scale PDE solvers.
+            </p>
+          </div>
+          <div><a href="blog.html#autodiff" class="tag">Read Memo</a></div>
+        </article>
+
+        <article class="note-row">
+          <div class="note-date">May 2026</div>
+          <div>
+            <h3 class="note-title"><a href="blog.html#spectral-bias">Overcoming Spectral Bias in Deep Networks with Fourier Features</a></h3>
+            <p class="note-desc">
+              Why gradient descent prioritizes low-frequency modes in regression problems, and how random Fourier mappings restore high-frequency fidelity in boundary-layer physics.
+            </p>
+          </div>
+          <div><a href="blog.html#spectral-bias" class="tag">Read Memo</a></div>
+        </article>
+
+        <article class="note-row">
+          <div class="note-date">April 2026</div>
+          <div>
+            <h3 class="note-title"><a href="blog.html#diffusion-thermo">Thermodynamic Parallels in Denoising Diffusion Models</a></h3>
+            <p class="note-desc">
+              Tracing the mathematical equivalence between non-equilibrium statistical mechanics, Jarzynski equality, and forward-backward stochastic differential equations.
+            </p>
+          </div>
+          <div><a href="blog.html#diffusion-thermo" class="tag">Read Memo</a></div>
+        </article>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: right;">
+        <a href="blog.html" class="btn btn-ghost">View All Notes &amp; Derivations &rarr;</a>
+      </div>
+    </section>
+
+    <!-- ANALOG & OFF-SCREEN -->
+    <section class="container" style="padding: 4rem 2rem 6.5rem;">
+      <span class="meta-label">Off-Screen &amp; Human</span>
+      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Analog Dimensions</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 680px; margin-top: 0.5rem;">
+        Grounding theoretical computation with tactile physical activities, acoustic resonance, and cinematic storytelling.
+      </p>
+
+      <div class="analog-grid">
+        <div class="analog-card">
+          <span class="meta-label">Athletics // Aerodynamics</span>
+          <h4>Ultimate Frisbee</h4>
+          <p>
+            Field vision, disc aerodynamics, and emergent team coordination. Non-refereed spirit of the game where spatial awareness and rapid non-inertial adjustments dictate play.
+          </p>
+          <div style="margin-top: 1.2rem;">
+            <a href="hobbies.html#ultimate" class="bento-link">Field Perspectives &rarr;</a>
+          </div>
+        </div>
+
+        <div class="analog-card">
+          <span class="meta-label">Acoustics // Resonance</span>
+          <h4>Guitar</h4>
+          <p>
+            Acoustic wood vibration, string tension harmonics, and modal tunings. Exploring mechanical oscillation and resonance without a single line of software.
+          </p>
+          <div style="margin-top: 1.2rem;">
+            <a href="hobbies.html#guitar" class="bento-link">Acoustic Logs &rarr;</a>
+          </div>
+        </div>
+
+        <div class="analog-card">
+          <span class="meta-label">Culture // Visual Language</span>
+          <h4>World Cinema</h4>
+          <p>
+            Auteur directing, deliberate pacing, and visual storytelling. Analyzing cinematic composition and philosophical framing in the works of Tarkovsky, Kubrick, and Edward Yang.
+          </p>
+          <div style="margin-top: 1.2rem;">
+            <a href="hobbies.html#cinema" class="bento-link">Film Studies &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
+        <a href="contacts.html">Communication Terminal</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Discrete 2D Langevin / Random Walk Diffusion Canvas Simulation -->
+  <script>
+  (function () {
+    const cvs = document.getElementById('diffusion-canvas');
+    if (!cvs) return;
+    const ctx = cvs.getContext('2d');
+    let W, H, particles = [], animId;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      cvs.style.display = 'none';
+      return;
+    }
+
+    function resize() {
+      W = cvs.width = window.innerWidth;
+      H = cvs.height = window.innerHeight;
+    }
+
+    function createParticle() {
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        life: 0.3 + Math.random() * 0.7,
+        decay: 0.0015 + Math.random() * 0.001,
+        radius: 0.8 + Math.random() * 1.2,
+        // Thermal random walk kick parameter
+        thermalKick: 0.18
+      };
+    }
+
+    function init() {
+      resize();
+      const count = Math.min(80, Math.floor((W * H) / 16000));
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push(createParticle());
+      }
+    }
+
+    function step() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Render subtle connection lattice when particles are proximate
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+
+        // Langevin thermal noise update: dx = v dt + sqrt(2D) dW
+        p1.vx += (Math.random() - 0.5) * p1.thermalKick;
+        p1.vy += (Math.random() - 0.5) * p1.thermalKick;
+        // Damping / friction term: - gamma * v
+        p1.vx *= 0.96;
+        p1.vy *= 0.96;
+
+        p1.x += p1.vx;
+        p1.y += p1.vy;
+        p1.life -= p1.decay;
+
+        if (p1.life <= 0 || p1.x < -20 || p1.x > W + 20 || p1.y < -20 || p1.y > H + 20) {
+          particles[i] = createParticle();
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(229, 158, 86, ${p1.life * 0.35})`;
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < 13000) {
+            const alpha = (1 - distSq / 13000) * 0.08 * Math.min(p1.life, p2.life);
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(229, 158, 86, ${alpha})`;
+            ctx.lineWidth = 0.75;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animId = requestAnimationFrame(step);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+    }, { passive: true });
+
+    init();
+    step();
+  })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navier-Stokes Inverse Solver — Project Deep Dive | Yash Dewangan</title>
+  <meta name="description" content="Reconstructing continuous flow variables and latent pressure distributions from sparse, noisy velocity fields via physics-informed neural networks.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg"></div>
+  <div class="lattice-grid"></div>
+
+  <!-- Global Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="name">Yash Dewangan</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../domain.html">Research</a></li>
+        <li><a href="../projects.html" class="active">Projects</a></li>
+        <li><a href="../blog.html">Notes</a></li>
+        <li><a href="../hobbies.html">Analog</a></li>
+        <li><a href="../gallery.html">Gallery</a></li>
+        <li><a href="../contacts.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Article -->
+  <div class="page-offset container">
+    <a href="../projects.html" class="back-link">&larr; Return to Projects Registry</a>
+
+    <header class="page-header">
+      <span class="meta-label">Fluid Dynamics // Inverse PINN // Verification</span>
+      <h1>Navier-Stokes Inverse Problem Solver</h1>
+      <p class="lead">
+        Reconstructing unmeasured pressure fields and estimating latent kinematic viscosity from sparse, noisy velocity observations in vortex shedding wakes.
+      </p>
+      
+      <div style="margin-top: 1.5rem;" class="tags">
+        <span class="tag">PyTorch Autograd</span>
+        <span class="tag">Stream Function Formulation</span>
+        <span class="tag">L-BFGS Quasi-Newton</span>
+        <span class="tag">Reynolds Number Recovery</span>
+        <span class="tag">Incompressible Flow</span>
+      </div>
+    </header>
+
+    <main class="article-prose">
+      <h2>1. Physical Problem Framing</h2>
+      <p>
+        In experimental fluid dynamics, measuring complete volumetric flow fields is notoriously difficult. Particle Image Velocimetry (PIV) provides velocity vectors \((u, v)\) at discrete interrogation windows, but typically cannot measure the pressure distribution \(p\) without intrusive probe arrays. Furthermore, empirical velocity data is corrupted by optical sensor noise.
+      </p>
+      <p>
+        We formulate this as an <strong>inverse problem</strong>: given noisy observations of velocity \(\mathbf{u}^*\) on a sparse spatio-temporal coordinate subset \(\{(x_i, y_i, t_i)\}_{i=1}^{N}\), can a deep neural network jointly reconstruct the continuous velocity field, discover the hidden scalar pressure field \(p(x, y, t)\), and calibrate the fluid's unknown kinematic viscosity \(\nu\)?
+      </p>
+
+      <h2>2. Mathematical Formulation &amp; Stream Function</h2>
+      <p>
+        The governing equations for 2D incompressible Newtonian fluid flow in non-conservative form are:
+      </p>
+
+      <div class="eq-box">
+        $$\begin{aligned}
+        u_t + u u_x + v u_y &= -p_x + \nu(u_{xx} + u_{yy}) \\
+        v_t + u v_x + v v_y &= -p_y + \nu(v_{xx} + v_{yy}) \\
+        u_x + v_y &= 0
+        \end{aligned}$$
+      </div>
+
+      <p>
+        Rather than outputting \(u\) and \(v\) independently and penalizing the continuity constraint \(\nabla \cdot \mathbf{u} = 0\) as a soft penalty loss, we embed divergence-free physics strictly into the architecture by introducing a latent <strong>stream function</strong> \(\psi(x, y, t)\):
+      </p>
+
+      <div class="eq-box">
+        $$u = \frac{\partial \psi}{\partial y}, \qquad v = -\frac{\partial \psi}{\partial x}$$
+      </div>
+
+      <p>
+        By Schwarz's theorem on mixed partial derivatives, \(\nabla \cdot \mathbf{u} = \frac{\partial^2 \psi}{\partial x \partial y} - \frac{\partial^2 \psi}{\partial y \partial x} \equiv 0\) is satisfied analytically everywhere in the domain. The network only needs to learn the mapping:
+      </p>
+
+      <div class="eq-box">
+        $$\mathcal{NN}_\theta : (x, y, t) \longmapsto \big(\psi(x, y, t), \, p(x, y, t)\big)$$
+      </div>
+
+      <h2>3. Multi-Objective Loss &amp; Optimization</h2>
+      <p>
+        We define the momentum residuals \(e_1\) and \(e_2\) as:
+      </p>
+      
+      <div class="eq-box">
+        $$\begin{aligned}
+        e_1 &:= u_t + u u_x + v u_y + p_x - \nu(u_{xx} + u_{yy}) \\
+        e_2 &:= v_t + u v_x + v v_y + p_y - \nu(v_{xx} + v_{yy})
+        \end{aligned}$$
+      </div>
+
+      <p>
+        The total composite loss function combines the empirical data mismatch with the Navier-Stokes residuals evaluated at a dense set of collocation points:
+      </p>
+
+      <div class="eq-box">
+        $$\mathcal{L}_{\text{total}}(\theta, \nu) = \frac{1}{N_d}\sum_{i=1}^{N_d} \Big( |u(x_i, t_i) - u_i^*|^2 + |v(x_i, t_i) - v_i^*|^2 \Big) + \frac{\lambda_{\text{pde}}}{N_c}\sum_{j=1}^{N_c} \Big( |e_1(x_j, t_j)|^2 + |e_2(x_j, t_j)|^2 \Big)$$
+      </div>
+
+      <p>
+        Here, \(\nu\) is treated as a trainable parameter initialized randomly and optimized concurrently with network weights \(\theta\). We train using a two-stage regime: 2,000 steps of Adam optimizer with cosine learning rate annealing, followed by second-order L-BFGS optimization to polish gradient convergence in the stiff saddle-point loss landscape.
+      </p>
+
+      <h2>4. Implementation Core: PyTorch Autograd</h2>
+      <p>
+        The following snippet illustrates how the spatial and temporal gradients are derived cleanly via reverse-mode automatic differentiation:
+      </p>
+
+      <pre><code>import torch
+import torch.nn as nn
+
+class NavierStokesPINN(nn.Module):
+    def __init__(self, layers=[3, 64, 64, 64, 64, 2]):
+        super().__init__()
+        self.net = self._build_mlp(layers)
+        # Learnable kinematic viscosity (initialized with guess)
+        self.log_nu = nn.Parameter(torch.tensor([-2.3])) # log(0.1)
+
+    def _build_mlp(self, layers):
+        mods = []
+        for i in range(len(layers) - 1):
+            mods.append(nn.Linear(layers[i], layers[i+1]))
+            if i < len(layers) - 2:
+                mods.append(nn.Tanh())
+        return nn.Sequential(*mods)
+
+    def forward(self, x, y, t):
+        coords = torch.cat([x, y, t], dim=1)
+        out = self.net(coords)
+        psi, p = out[:, 0:1], out[:, 1:2]
+        return psi, p
+
+    def compute_residuals(self, x, y, t):
+        x.requires_grad_(True)
+        y.requires_grad_(True)
+        t.requires_grad_(True)
+        
+        psi, p = self.forward(x, y, t)
+        
+        # Velocity via stream function derivatives (identically div-free)
+        u = torch.autograd.grad(psi, y, torch.ones_like(psi), create_graph=True)[0]
+        v = -torch.autograd.grad(psi, x, torch.ones_like(psi), create_graph=True)[0]
+        
+        # First-order advection & pressure gradients
+        u_t = torch.autograd.grad(u, t, torch.ones_like(u), create_graph=True)[0]
+        u_x = torch.autograd.grad(u, x, torch.ones_like(u), create_graph=True)[0]
+        u_y = torch.autograd.grad(u, y, torch.ones_like(u), create_graph=True)[0]
+        
+        v_t = torch.autograd.grad(v, t, torch.ones_like(v), create_graph=True)[0]
+        v_x = torch.autograd.grad(v, x, torch.ones_like(v), create_graph=True)[0]
+        v_y = torch.autograd.grad(v, y, torch.ones_like(v), create_graph=True)[0]
+        
+        p_x = torch.autograd.grad(p, x, torch.ones_like(p), create_graph=True)[0]
+        p_y = torch.autograd.grad(p, y, torch.ones_like(p), create_graph=True)[0]
+        
+        # Second-order viscous laplacian terms
+        u_xx = torch.autograd.grad(u_x, x, torch.ones_like(u_x), create_graph=True)[0]
+        u_yy = torch.autograd.grad(u_y, y, torch.ones_like(u_y), create_graph=True)[0]
+        v_xx = torch.autograd.grad(v_x, x, torch.ones_like(v_x), create_graph=True)[0]
+        v_yy = torch.autograd.grad(v_y, y, torch.ones_like(v_y), create_graph=True)[0]
+        
+        nu = torch.exp(self.log_nu)
+        
+        # Momentum conservation residuals
+        e1 = u_t + (u * u_x + v * u_y) + p_x - nu * (u_xx + u_yy)
+        e2 = v_t + (u * v_x + v * v_y) + p_y - nu * (v_xx + v_yy)
+        
+        return u, v, p, e1, e2, nu</code></pre>
+
+      <h2>5. Verification Results</h2>
+      <ul>
+        <li><strong>Viscosity Recovery:</strong> Ground truth \(\nu = 0.0100\). The trained model converged to \(\hat{\nu} = 0.00992\) (\(0.8\%\) relative error), even with \(5\%\) synthetic Gaussian noise injected into sensor observations.</li>
+        <li><strong>Latent Pressure Reconstruction:</strong> The unmeasured scalar pressure field \(p(x, y, t)\) exhibited clean von Kármán vortex street alternations with negative pressure cores matching reference spectral DNS solutions.</li>
+        <li><strong>Continuous Incompressibility:</strong> Maximum divergence error \(\|\nabla \cdot \mathbf{u}\|_\infty < 10^{-7}\) machine precision due to the stream function parameterization.</li>
+      </ul>
+
+      <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+        <a href="https://github.com/kyrtyy/navier-stokes-inverse-solver" target="_blank" class="btn btn-amber">View Code on GitHub &rarr;</a>
+        <a href="../projects.html" class="btn btn-ghost">&larr; Back to All Projects</a>
+      </div>
+    </main>
+  </div>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
+        <a href="../contacts.html">Communication Terminal</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

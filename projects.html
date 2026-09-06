@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects Registry — Yash Dewangan | IISc Bengaluru</title>
+  <meta name="description" content="Computational and mathematical physics projects: Physics-Informed Neural Networks, Fourier Neural Operators, Navier-Stokes solvers, and Automatic Differentiation benchmarks.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .project-grid-main {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .project-entry {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-entry::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-entry:hover {
+      border-color: var(--border-focus);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .project-entry:hover::before {
+      opacity: 1;
+    }
+
+    .project-entry-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-entry h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-entry h2 a {
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    .project-entry h2 a:hover {
+      color: var(--amber);
+    }
+
+    .project-entry p {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      line-height: 1.75;
+      margin-bottom: 1.4rem;
+    }
+
+    .project-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.8rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg"></div>
+  <div class="lattice-grid"></div>
+
+  <!-- Global Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="name">Yash Dewangan</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="domain.html">Research</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="blog.html">Notes</a></li>
+        <li><a href="hobbies.html">Analog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contacts.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="page-offset container">
+    
+    <header class="page-header">
+      <a href="index.html" class="back-link">&larr; Return to Overview</a>
+      <span class="meta-label">Computational Implementations</span>
+      <h1>Verified Projects &amp; Implementations</h1>
+      <p class="lead">
+        Detailed architectures, algorithmic formulations, and reproducible codebases across fluid dynamics, operator learning, automatic differentiation, and stiff physical neural networks.
+      </p>
+    </header>
+
+    <div class="project-grid-main">
+
+      <!-- Project 1: Navier-Stokes -->
+      <article class="project-entry">
+        <div class="project-entry-top">
+          <span class="meta-label">Fluid Dynamics // Inverse PINN</span>
+          <span class="tag">Flagship Pipeline</span>
+        </div>
+        <h2><a href="projects/navier-stokes.html">Navier-Stokes Inverse Problem Solver</a></h2>
+        <p>
+          Reconstructed complete 2D velocity vectors \((u, v)\) and continuous latent pressure fields \(p\) from sparse, noisy velocity measurements inside a wake behind a cylinder. The network minimizes continuous Navier-Stokes momentum residuals via PyTorch autograd while simultaneously estimating latent fluid parameters like kinematic viscosity \(\nu\).
+        </p>
+        
+        <div class="eq-box">
+          $$\mathcal{L}_{\text{total}} = \frac{1}{N_d}\sum_{i=1}^{N_d} \Big(|u(x_i) - u_i^*|^2 + |v(x_i) - v_i^*|^2\Big) + \lambda \Big(\|\partial_t u + u u_x + v u_y + p_x - \nu \nabla^2 u\|_2^2 + \|\partial_t v + u v_x + v v_y + p_y - \nu \nabla^2 v\|_2^2\Big)$$
+        </div>
+
+        <div class="tags">
+          <span class="tag">PyTorch Autograd</span>
+          <span class="tag">L-BFGS Optimizer</span>
+          <span class="tag">Incompressible Flow</span>
+          <span class="tag">Pressure Poisson Recovery</span>
+          <span class="tag">Reynolds Calibration</span>
+        </div>
+
+        <div class="project-action-bar">
+          <a href="projects/navier-stokes.html" class="btn btn-amber">Read Full Architecture Deep Dive &rarr;</a>
+          <a href="https://github.com/kyrtyy/navier-stokes-inverse-solver" target="_blank" class="btn btn-ghost">Source Code Repository &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Project 2: Fourier Neural Operators -->
+      <article class="project-entry">
+        <div class="project-entry-top">
+          <span class="meta-label">Operator Learning // Wave Mechanics</span>
+          <span class="tag">Zero-Shot Resolution</span>
+        </div>
+        <h2><a href="projects/fourier-operators.html">Fourier Neural Operators (FNO-1D)</a></h2>
+        <p>
+          Implemented mesh-independent operator learning for time-dependent Burgers' and 1D wave equations. By parameterizing kernel integration directly in the frequency domain via Fast Fourier Transforms (FFT) and truncating higher modes, the model maps initial functional states to continuous trajectories with zero-shot generalization across spatial grid resolutions.
+        </p>
+
+        <div class="eq-box">
+          $$(\mathcal{K}(v))(x) = \mathcal{F}^{-1}\Big(R_\theta \cdot (\mathcal{F} v)\Big)(x) \quad \text{where } R_\theta \in \mathbb{C}^{k_{\max} \times d_{\text{in}} \times d_{\text{out}}}$$
+        </div>
+
+        <div class="tags">
+          <span class="tag">Complex Tensor Parameters</span>
+          <span class="tag">torch.fft</span>
+          <span class="tag">Zero-Shot Super-Resolution</span>
+          <span class="tag">Burgers' Equation</span>
+          <span class="tag">Frequency Truncation</span>
+        </div>
+
+        <div class="project-action-bar">
+          <a href="projects/fourier-operators.html" class="btn btn-amber">Read Full Architecture Deep Dive &rarr;</a>
+          <a href="https://github.com/kyrtyy/Fourier-Neural-operators" target="_blank" class="btn btn-ghost">Source Code Repository &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Project 3: Autograd vs CFD -->
+      <article class="project-entry">
+        <div class="project-entry-top">
+          <span class="meta-label">Numerical Benchmarks // Computational Limits</span>
+          <span class="tag">HPC Analysis</span>
+        </div>
+        <h2><a href="projects/Automatic-Differentiation.html">Automatic Differentiation vs Classical CFD Stencils</a></h2>
+        <p>
+          An empirical and theoretical benchmark comparing reverse-mode Automatic Differentiation (PyTorch dynamic computation graph tape) against 2nd-order and 4th-order central finite difference stencils. Evaluates peak GPU VRAM allocation, floating-point error scaling, and runtime throughput when computing spatial derivatives on \(1024 \times 1024\) grids.
+        </p>
+
+        <div class="eq-box">
+          $$\text{FD: } \mathcal{O}(1) \text{ Memory Overhead, Truncation Error } \mathcal{O}(h^2) \quad \longleftrightarrow \quad \text{Autograd: Machine Precision, Graph Memory } \mathcal{O}(N \times \text{Depth})$$
+        </div>
+
+        <div class="tags">
+          <span class="tag">Dual Numbers</span>
+          <span class="tag">Tape Memory Profiling</span>
+          <span class="tag">CUDA Compute Graph</span>
+          <span class="tag">Finite Difference</span>
+          <span class="tag">GPU Memory Limits</span>
+        </div>
+
+        <div class="project-action-bar">
+          <a href="projects/Automatic-Differentiation.html" class="btn btn-amber">Read Full Benchmark Deep Dive &rarr;</a>
+          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Benchmark Scripts &rarr;</a>
+        </div>
+      </article>
+
+      <!-- Project 4: PINN for Stiff PDEs -->
+      <article class="project-entry">
+        <div class="project-entry-top">
+          <span class="meta-label">Physics-Informed ML // Optimization Theory</span>
+          <span class="tag">Stiff Systems</span>
+        </div>
+        <h2><a href="projects/PINN.html">Physics-Informed Neural Networks for Stiff PDEs</a></h2>
+        <p>
+          Investigating failure modes and gradient imbalances in multi-objective PINN optimization. When boundary conditions and multiscale PDE residuals compete, standard Adam updates suffer from spectral bias and gradient vanishing. We implement adaptive gradient-norm loss reweighting and random Fourier feature embeddings to stabilize convergence.
+        </p>
+
+        <div class="eq-box">
+          $$\lambda_k^{(t+1)} = (1 - \alpha)\lambda_k^{(t)} + \alpha \frac{\max_j \overline{\|\nabla_\theta \mathcal{L}_j\|}}{\overline{\|\nabla_\theta \mathcal{L}_k\|}} \quad \text{[Adaptive Learning Rate Annealing]}$$
+        </div>
+
+        <div class="tags">
+          <span class="tag">Gradient Pathology</span>
+          <span class="tag">Fourier Features</span>
+          <span class="tag">Learning Rate Annealing</span>
+          <span class="tag">Stiff Reaction-Diffusion</span>
+          <span class="tag">DeepXDE</span>
+        </div>
+
+        <div class="project-action-bar">
+          <a href="projects/PINN.html" class="btn btn-amber">Read Full Optimization Deep Dive &rarr;</a>
+          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Experiment Notebooks &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
+        <a href="contacts.html">Communication Terminal</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

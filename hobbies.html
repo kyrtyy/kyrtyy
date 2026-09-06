@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analog Dimensions — Yash Dewangan | Personal &amp; Off-Screen</title>
+  <meta name="description" content="Personal life, athletics, acoustics, and cinema: Ultimate Frisbee, acoustic & electric guitar, and world cinema appreciation.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .hobby-section {
+      margin-bottom: 5rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hobby-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hobby-index {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    .hobby-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .quote-card {
+      background: var(--surface);
+      border-left: 2px solid var(--amber);
+      padding: 1.5rem 2rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: 2rem 0;
+      font-style: italic;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--text-main);
+    }
+
+    .quote-card cite {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-style: normal;
+      color: var(--amber);
+      margin-top: 0.6rem;
+    }
+
+    .now-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.2rem;
+      margin-top: 3.5rem;
+    }
+
+    .now-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .now-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.8rem;
+    }
+
+    .now-col ul {
+      list-style: none;
+    }
+
+    .now-col li {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .now-col li strong {
+      color: var(--text-main);
+      display: block;
+    }
+
+    @media (max-width: 800px) {
+      .now-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg"></div>
+  <div class="lattice-grid"></div>
+
+  <!-- Global Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="name">Yash Dewangan</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="domain.html">Research</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Notes</a></li>
+        <li><a href="hobbies.html" class="active">Analog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contacts.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="page-offset container">
+    
+    <header class="page-header">
+      <a href="index.html" class="back-link">&larr; Return to Overview</a>
+      <span class="meta-label">Off-Screen &amp; Human</span>
+      <h1>Analog Dimensions &amp; Pursuits</h1>
+      <p class="lead">
+        Physics and computation are rigorous, but they are incomplete without tactile physical activities, acoustic resonance, and visual narratives. Here is where the laboratory gives way to the open field, wooden fretboards, and 35mm film stock.
+      </p>
+    </header>
+
+    <!-- SECTION 1: ULTIMATE FRISBEE -->
+    <section class="hobby-section" id="ultimate">
+      <div class="hobby-header">
+        <span class="hobby-index">01</span>
+        <h2 class="hobby-title">Ultimate Frisbee: Kinetics &amp; Field Awareness</h2>
+      </div>
+      
+      <div class="article-prose">
+        <p>
+          Ultimate is defined by rapid non-inertial acceleration, continuous multi-agent spatial coordination, and aerodynamic flight physics. Unlike a ball that follows a simple ballistic parabola, a 175-gram disc generates aerodynamic lift as its gyroscopic spin stabilizes Bernoulli pressure differentials across the airfoil.
+        </p>
+        <p>
+          On the field, I look for cutting lanes and timing: reading wind velocity shear, throwing outside-in (OI) and inside-out (IO) curves, and anticipating defensive rotations. There is a rare, quiet <strong>flow state</strong> during a high-speed point where decisions happen without conscious deliberation—a distributed physical system executing emergent strategies without a central supervisor.
+        </p>
+        <p>
+          Crucially, Ultimate is self-officiated even at world-championship levels under the <em>Spirit of the Game</em>. It demands mutual respect, rigorous honesty under physical exhaustion, and direct player accountability—a rare social contract in competitive sport.
+        </p>
+      </div>
+
+      <div class="quote-card">
+        "A disc in flight is a dynamic system balancing lift, drag, and gyroscopic precession. On the field, you learn to throw not to where a teammate is, but to where the aerodynamic trajectory and their velocity vector intersect in space."
+        <cite>// On Field Kinetics &amp; Anticipation</cite>
+      </div>
+    </section>
+
+    <!-- SECTION 2: GUITAR & ACOUSTICS -->
+    <section class="hobby-section" id="guitar">
+      <div class="hobby-header">
+        <span class="hobby-index">02</span>
+        <h2 class="hobby-title">Acoustic &amp; Electric Guitar: Resonance without Software</h2>
+      </div>
+
+      <div class="article-prose">
+        <p>
+          Spending days in front of Linux terminals and GPU computation graphs makes tactile mechanical sound essential. The guitar is pure classical mechanics: tensioned steel or phosphor-bronze strings oscillating over fixed boundary conditions:
+        </p>
+      </div>
+
+      <div class="eq-box">
+        $$f_n = \frac{n}{2L} \sqrt{\frac{T}{\mu}}, \qquad n = 1, 2, 3, \dots$$
+      </div>
+
+      <div class="article-prose">
+        <p>
+          I explore acoustic fingerstyle, open tunings (DADGAD, Open D), and modal chord voicings. Plucking a harmonic node at \(L/2\) or \(L/3\) isolates pure standing-wave modes. The vibration couples through the bone saddle to the spruce soundboard, projecting acoustic resonance through an air cavity governed by Helmholtz resonance.
+        </p>
+        <p>
+          With electric guitars, electromagnetic pickups translate physical string motion into fluctuating magnetic flux, producing subtle tube saturation and harmonic distortion. It is an immediate reminder that beautiful phenomena occur through physical continuous coupling without a single line of software.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 3: WORLD CINEMA -->
+    <section class="hobby-section" id="cinema">
+      <div class="hobby-header">
+        <span class="hobby-index">03</span>
+        <h2 class="hobby-title">World Cinema &amp; Visual Storytelling</h2>
+      </div>
+
+      <div class="article-prose">
+        <p>
+          I have a deep devotion to auteur world cinema—films that treat cinema not as rapid commercial entertainment, but as an art of time, composition, and interior reflection.
+        </p>
+        <p>
+          I am drawn to directors who understand temporal rhythm and architectural framing:
+        </p>
+        <ul>
+          <li><strong>Andrei Tarkovsky:</strong> <em>"Sculpting in Time."</em> His long, meditative tracking shots (in <em>Stalker</em>, <em>Mirror</em>, and <em>Solaris</em>) allow the audience to experience time itself as a physical substance.</li>
+          <li><strong>Stanley Kubrick:</strong> Uncompromising geometric perspective, one-point symmetry, and calculated pacing that views human fallibility from an almost cosmic distance.</li>
+          <li><strong>Abbas Kiarostami:</strong> Blurring the boundary between documentary realism and fiction, finding profound human truth in patient car conversations traversing rural Iranian landscapes.</li>
+          <li><strong>Edward Yang:</strong> Capturing modern urban alienation, memory, and generational transition through intricate multi-threaded architectural compositions (in <em>Yi Yi</em> and <em>A Brighter Summer Day</em>).</li>
+        </ul>
+        <p>
+          Cinema, like theoretical physics, is about observing reality with uncompromising patience and discovering the hidden architecture that connects fleeting moments.
+        </p>
+      </div>
+    </section>
+
+    <!-- NOW / DISCREET CORNER -->
+    <div class="now-card">
+      <span class="meta-label">Dispatches from the Present</span>
+      <h3 style="font-size: 1.3rem; margin-top: 0.3rem;">The "Now" Registry</h3>
+      <p style="color: var(--text-muted); font-size: 0.92rem;">A live, low-friction record of what currently occupies my attention outside the laboratory.</p>
+
+      <div class="now-grid">
+        <div class="now-col">
+          <h4>// Recent Films Logged</h4>
+          <ul>
+            <li><strong>Stalker (1979)</strong><span>Andrei Tarkovsky — Revisit for sound design and temporal patience.</span></li>
+            <li><strong>Yi Yi (2000)</strong><span>Edward Yang — Life across childhood, youth, and elderly reflection.</span></li>
+            <li><strong>Close-Up (1990)</strong><span>Abbas Kiarostami — The ethics and poetry of human cinema.</span></li>
+          </ul>
+        </div>
+
+        <div class="now-col">
+          <h4>// Fretboard Explorations</h4>
+          <ul>
+            <li><strong>DADGAD Modal Tunings</strong><span>Exploring Celtic drone voicings and ringing sustain.</span></li>
+            <li><strong>Inversion Voicings</strong><span>Rootless jazz triads across middle strings.</span></li>
+            <li><strong>Harmonic Tapping</strong><span>Natural overtone series along the 5th and 7th frets.</span></li>
+          </ul>
+        </div>
+
+        <div class="now-col">
+          <h4>// Current Off-Field Reads</h4>
+          <ul>
+            <li><strong>Sculpting in Time</strong><span>Andrei Tarkovsky's aesthetic treatise on film.</span></li>
+            <li><strong>The Maniac</strong><span>Benjamín Labatut — Von Neumann, quantum theory, and the birth of AI.</span></li>
+            <li><strong>Zen in the Art of Archery</strong><span>Eugen Herrigel — Muscle memory, detachment, and flow.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
+        <a href="contacts.html">Communication Terminal</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

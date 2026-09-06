@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Communication Terminal — Yash Dewangan | IISc Bengaluru</title>
+  <meta name="description" content="Contact and communication portal for academic collaborations, research inquiries, and discussions with Yash Dewangan.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 3.5rem;
+      margin-top: 2rem;
+    }
+
+    .node-info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .node-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .node-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .node-value {
+      color: var(--text-main);
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    a.node-value:hover {
+      color: var(--amber);
+    }
+
+    @media (max-width: 860px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg"></div>
+  <div class="lattice-grid"></div>
+
+  <!-- Global Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="name">Yash Dewangan</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="domain.html">Research</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Notes</a></li>
+        <li><a href="hobbies.html">Analog</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contacts.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="page-offset container">
+    
+    <header class="page-header">
+      <a href="index.html" class="back-link">&larr; Return to Overview</a>
+      <span class="meta-label">Node Coordinates</span>
+      <h1>Initialize Boundary Communication</h1>
+      <p class="lead">
+        Establish secure communication pathways for research collaborations, graduate inquiries, mathematical discussions, or shared analog interests.
+      </p>
+    </header>
+
+    <div class="contact-layout">
+
+      <!-- Left Column: Spatial & Academic Coordinates -->
+      <div class="node-info-block">
+        <div>
+          <span class="meta-label">System Coordinates</span>
+          <h3 style="font-size: 1.3rem; margin-top: 0.3rem; margin-bottom: 0.8rem;">Physical &amp; Network Nodes</h3>
+          <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7;">
+            Direct coordinates for correspondence. Open to inquiries regarding physics-informed machine learning, stochastic dynamical systems, and collaborative research projects.
+          </p>
+        </div>
+
+        <div class="node-item">
+          <span class="node-label">// Primary Academic Email</span>
+          <a href="mailto:yashdewangan@iisc.ac.in" class="node-value">yashdewangan@iisc.ac.in</a>
+        </div>
+
+        <div class="node-item">
+          <span class="node-label">// Institutional Node</span>
+          <span class="node-value" style="font-size: 0.95rem; line-height: 1.6;">
+            Department of Physics &bull; Quantum Technology<br>
+            Indian Institute of Science (IISc)<br>
+            Bengaluru, Karnataka 560012, India
+          </span>
+        </div>
+
+        <div class="node-item">
+          <span class="node-label">// Open Repositories</span>
+          <a href="https://github.com/kyrtyy" target="_blank" class="node-value">github.com/kyrtyy</a>
+        </div>
+
+        <div class="eq-box" style="margin-top: 1rem;">
+          $$\lim_{\Delta t \to 0} \frac{\Delta \text{Message}}{\Delta t} = \text{Signal Transmission}$$
+        </div>
+      </div>
+
+      <!-- Right Column: Terminal Form -->
+      <div class="terminal-window">
+        <div class="terminal-bar">
+          <span class="terminal-dot dot-red"></span>
+          <span class="terminal-dot dot-amber"></span>
+          <span class="terminal-dot dot-green"></span>
+          <span class="terminal-title">signal_transmission.sh</span>
+        </div>
+
+        <form action="https://formsubmit.co/yashdewangan@iisc.ac.in" method="POST" class="terminal-body">
+          <div class="form-group">
+            <label for="name">$$\text{Input Vector: [Identity / Name]}$$</label>
+            <input type="text" id="name" name="name" placeholder="e.g., Prof. K. Reynolds" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">$$\text{Return Destination: [Email Address]}$$</label>
+            <input type="email" id="email" name="email" placeholder="e.g., colleague@institution.edu" required>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">$$\text{Target Domain: [Subject Header]}$$</label>
+            <input type="text" id="subject" name="subject" placeholder="e.g., Stochastic Differential Operators Inquiry" required>
+          </div>
+
+          <div class="form-group">
+            <label for="message">$$\text{Payload Data: [Message Body]}$$</label>
+            <textarea id="message" name="message" rows="5" placeholder="Enter message parameters and inquiry details..." required></textarea>
+          </div>
+
+          <!-- FormSubmit Configuration -->
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+
+          <button type="submit" class="btn btn-amber" style="width: 100%; justify-content: center; padding: 0.85rem; margin-top: 0.5rem;">
+            Broadcast Signal &rarr;
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
+        <a href="contacts.html">Communication Terminal</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

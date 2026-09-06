@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PINNs for Stiff PDEs — Project Deep Dive | Yash Dewangan</title>
+  <meta name="description" content="Investigating gradient pathologies, spectral bias, and adaptive loss weighting schemes in physics-informed neural network optimization.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-bg"></div>
+  <div class="lattice-grid"></div>
+
+  <!-- Global Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="name">Yash Dewangan</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../domain.html">Research</a></li>
+        <li><a href="../projects.html" class="active">Projects</a></li>
+        <li><a href="../blog.html">Notes</a></li>
+        <li><a href="../hobbies.html">Analog</a></li>
+        <li><a href="../gallery.html">Gallery</a></li>
+        <li><a href="../contacts.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Article -->
+  <div class="page-offset container">
+    <a href="../projects.html" class="back-link">&larr; Return to Projects Registry</a>
+
+    <header class="page-header">
+      <span class="meta-label">Physics-Informed ML // Optimization Theory // Stiff Systems</span>
+      <h1>Physics-Informed Neural Networks for Stiff PDEs</h1>
+      <p class="lead">
+        Mitigating gradient pathologies and spectral bias in multiscale reaction-diffusion systems via dynamic learning rate annealing and Fourier feature embeddings.
+      </p>
+      
+      <div style="margin-top: 1.5rem;" class="tags">
+        <span class="tag">Adaptive Loss Weighting</span>
+        <span class="tag">Spectral Bias Mitigation</span>
+        <span class="tag">Allen-Cahn Phase Separation</span>
+        <span class="tag">Gradient Norm Balancing</span>
+        <span class="tag">Fourier Features</span>
+      </div>
+    </header>
+
+    <main class="article-prose">
+      <h2>1. The Pathology of Stiff Physical Losses</h2>
+      <p>
+        While standard Physics-Informed Neural Networks (PINNs) succeed on smooth, elliptic problems like Poisson or linear heat equations, they notoriously fail when applied to <strong>stiff dynamical systems</strong>. When the PDE exhibits multiscale behavior—such as sharp phase transitions in Allen-Cahn or fast chemical reactions in combustion—standard gradient descent often collapses into trivial or unphysical local minima.
+      </p>
+      <p>
+        Our investigation pinpoints two root causes for this breakdown:
+      </p>
+      <ul>
+        <li><strong>Gradient Incommensurability:</strong> The gradient backpropagated from the boundary conditions \(\nabla_\theta \mathcal{L}_{\text{bc}}\) can be orders of magnitude larger (or smaller) than the gradient from the interior PDE residual \(\nabla_\theta \mathcal{L}_{\text{pde}}\), causing one objective to overpower the optimization trajectory.</li>
+        <li><strong>Spectral Bias:</strong> Neural tangent kernel (NTK) analysis proves that standard MLPs learn lower spatial frequencies exponentially faster than higher frequencies, struggling to resolve steep phase interfaces without immense training steps.</li>
+      </ul>
+
+      <h2>2. Mathematical Architecture: Adaptive Loss Annealing</h2>
+      <p>
+        Consider a composite loss function with \(K\) competing objectives (initial conditions, boundary values, interior PDE residual):
+      </p>
+
+      <div class="eq-box">
+        $$\mathcal{L}(\theta) = \sum_{k=1}^{K} \lambda_k \, \mathcal{L}_k(\theta)$$
+      </div>
+
+      <p>
+        Instead of treating weights \(\{\lambda_k\}\) as static hyperparameters tuned by trial-and-error, we track the moving average of gradient norms with respect to shared network parameters \(\theta\):
+      </p>
+
+      <div class="eq-box">
+        $$\overline{G}_k^{(t)} = \frac{1}{|\theta|}\sum_{w \in \theta} \left|\frac{\partial \mathcal{L}_k}{\partial w}\right|$$
+      </div>
+
+      <p>
+        We balance the update trajectories by setting target weights inversely proportional to their relative gradient magnitude:
+      </p>
+
+      <div class="eq-box">
+        $$\hat{\lambda}_k = \frac{\max_{j} \overline{G}_j^{(t)}}{\overline{G}_k^{(t)}}, \qquad \lambda_k^{(t+1)} = (1 - \alpha)\lambda_k^{(t)} + \alpha \hat{\lambda}_k$$
+      </div>
+
+      <p>
+        where \(\alpha = 0.1\) provides smooth exponential momentum without volatile parameter oscillations.
+      </p>
+
+      <h2>3. Fourier Feature Input Encodings</h2>
+      <p>
+        To directly eliminate spectral bias, spatial input coordinates \(\mathbf{x} \in \mathbb{R}^d\) are projected through a Gaussian random Fourier matrix before feeding into the dense layers:
+      </p>
+
+      <div class="eq-box">
+        $$\gamma(\mathbf{x}) = \left[ \cos(2\pi \mathbf{B}\mathbf{x}), \; \sin(2\pi \mathbf{B}\mathbf{x}) \right]^T, \qquad \mathbf{B}_{ij} \sim \mathcal{N}(0, \sigma^2)$$
+      </div>
+
+      <p>
+        Tuning \(\sigma\) dynamically alters the eigenvalues of the Neural Tangent Kernel, allowing high-frequency wave numbers to be resolved without requiring ultra-deep network depths.
+      </p>
+
+      <h2>4. Benchmark Case: 1D Allen-Cahn Interface</h2>
+      <p>
+        We tested this stabilized pipeline against the stiff 1D Allen-Cahn equation, which models phase separation with a very small diffusion scale \(\epsilon = 0.0001\):
+      </p>
+
+      <div class="eq-box">
+        $$\partial_t u - \epsilon \partial_{xx} u + 5(u^3 - u) = 0, \quad x \in [-1, 1], \; t \in [0, 1]$$
+      </div>
+
+      <pre><code>import torch
+import torch.nn as nn
+
+class AdaptiveWeightAnnealer:
+    def __init__(self, num_losses=3, alpha=0.1):
+        self.num_losses = num_losses
+        self.alpha = alpha
+        self.lambdas = torch.ones(num_losses)
+
+    def update(self, loss_list, shared_layer_params):
+        grad_norms = []
+        for loss in loss_list:
+            grads = torch.autograd.grad(loss, shared_layer_params, retain_graph=True)
+            norm = torch.cat([g.view(-1) for g in grads]).abs().mean()
+            grad_norms.append(norm.item() + 1e-8)
+            
+        max_norm = max(grad_norms)
+        for k in range(self.num_losses):
+            target = max_norm / grad_norms[k]
+            self.lambdas[k] = (1 - self.alpha) * self.lambdas[k] + self.alpha * target
+            
+        return self.lambdas.detach()</code></pre>
+
+      <h2>5. Quantitative Findings</h2>
+      <ul>
+        <li><strong>Standard PINN Collapse:</strong> A standard PINN using constant loss weights (\(\lambda_{\text{bc}} = \lambda_{\text{pde}} = 1.0\)) completely failed to capture the phase boundary, collapsing into the constant solution \(u(x, t) \equiv 0\) (loss plateaus at \(0.45\)).</li>
+        <li><strong>Adaptive Fourier PINN:</strong> The adaptive loss weighting mechanism increased \(\lambda_{\text{pde}}\) by a factor of \(18.4\) during early epochs, forcing the optimizer to respect the cubic reaction potential. The model tracked interface boundary motion with a final \(L_2\) relative error of \(0.76\%\).</li>
+      </ul>
+
+      <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+        <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-amber">View Experiment Notebooks &rarr;</a>
+        <a href="../projects.html" class="btn btn-ghost">&larr; Back to All Projects</a>
+      </div>
+    </main>
+  </div>
+
+  <!-- Global Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
+        <a href="../contacts.html">Communication Terminal</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
