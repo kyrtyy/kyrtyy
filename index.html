@@ -19,11 +19,13 @@
   <!-- Core Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Stochastic Diffusion SDE Page Transition Engine -->
+  <!-- "One is All, All is One" Continuous Transmutation Engine -->
   <script defer src="diffusion-transition.js"></script>
 
+  <!-- Lorenz Butterfly Chaos & Entropy Engine -->
+  <script defer src="lorenz-attractor.js"></script>
+
   <style>
-    /* Specific Home Page Enhancements */
     .hero-section {
       min-height: calc(100vh - 4rem);
       display: flex;
@@ -52,7 +54,6 @@
       padding: 0.35rem 0.85rem;
       border-radius: 50px;
       margin-bottom: 1.8rem;
-      box-shadow: 0 0 16px rgba(124, 58, 237, 0.15);
     }
 
     .status-pulse {
@@ -60,13 +61,13 @@
       height: 7px;
       background: var(--purple-glow);
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--purple-glow);
+      box-shadow: 0 0 8px var(--purple-glow);
       animation: vacuum-pulse 2s infinite ease-in-out;
     }
 
     @keyframes vacuum-pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.4; }
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.3); opacity: 0.3; }
     }
 
     .hero-title {
@@ -81,7 +82,6 @@
     .hero-title em {
       font-style: italic;
       color: var(--purple-glow);
-      text-shadow: 0 0 20px rgba(167, 139, 250, 0.35);
     }
 
     .hero-bio {
@@ -103,7 +103,6 @@
       flex-wrap: wrap;
     }
 
-    /* Interactive Phase/Higgs Panel */
     .hero-panel {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -118,7 +117,7 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--purple-glow), var(--ice-cyan), transparent);
+      background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
     }
 
     .panel-header {
@@ -160,7 +159,6 @@
       color: var(--text-main);
     }
 
-    /* Pillars Grid */
     .pillars-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -195,7 +193,6 @@
       line-height: 1.68;
     }
 
-    /* Projects Bento */
     .bento-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -267,7 +264,6 @@
       color: #fff;
     }
 
-    /* Notes / Writing List */
     .notes-list {
       margin-top: 2.5rem;
       border-top: 1px solid var(--border-subtle);
@@ -307,7 +303,6 @@
       margin-top: 0.4rem;
     }
 
-    /* Analog Grid */
     .analog-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -350,12 +345,11 @@
 </head>
 <body>
 
-  <!-- Ambient Quantum Void Layers -->
+  <!-- Ambient Backdrop (Zero Grids) -->
   <div class="ambient-bg"></div>
-  <div class="lattice-grid"></div>
 
-  <!-- Interactive QFT Higgs Field Simulation Canvas -->
-  <canvas id="quantum-higgs-canvas"></canvas>
+  <!-- Persistent Interactive Lorenz Strange Attractor & Chaos/Entropy Canvas -->
+  <canvas id="lorenz-canvas"></canvas>
 
   <!-- Global Navigation -->
   <nav>
@@ -376,8 +370,8 @@
     </div>
   </nav>
 
-  <!-- Main Portal -->
-  <main>
+  <!-- Continuous Transmutation Main Container -->
+  <main id="app-content">
 
     <!-- HERO SECTION -->
     <section class="container hero-section">
@@ -426,7 +420,7 @@
             </div>
             <div class="field-spec-item">
               <span class="spec-label">Interactive Field</span>
-              <span class="spec-val glow-gold">[Drag cursor: Particle Yukawa wake / Click: Gauge ripple]</span>
+              <span class="spec-val glow-purple">[Move cursor: Yukawa wake / Click: Vacuum pulse]</span>
             </div>
           </div>
           <div class="eq-box" style="margin-top: 1.5rem; margin-bottom: 0;">
@@ -463,7 +457,7 @@
         <div class="obs-header">
           <div>
             <span class="meta-label">Observation Node // Easter Egg</span>
-            <h3 style="font-size: 1.15rem; margin-top: 0.2rem;">Quantum Measurement &amp; Physical Curiosities</h3>
+            <h3 style="font-size: 1.15rem; margin-top: 0.2rem;">Physical Curiosities &amp; Epiphanies</h3>
           </div>
           <button id="collapse-btn" class="btn btn-purple" style="font-size: 0.72rem; padding: 0.5rem 1rem;">
             ⚛ Collapse Wavefunction
@@ -471,10 +465,10 @@
         </div>
         <div id="obs-quote-container">
           <p class="obs-quote-text" id="obs-quote">
-            "Nature isn't classical, dammit, and if you want to make a simulation of nature, you'd better make it quantum mechanical!"
+            "The universe is the All, and I am the One. A tiny part of the whole. Everything flows and connects. Mass and energy cannot be created nor destroyed—only deconstructed and reconstructed."
           </p>
-          <span class="obs-author" id="obs-author">— Richard P. Feynman, Simulating Physics with Computers (1982)</span>
-          <span class="obs-trivia-tag" id="obs-tag">// Physical Truth: Microscopic reality is non-deterministic; macroscopic determinism is an emergent thermodynamic illusion.</span>
+          <span class="obs-author" id="obs-author">— Fullmetal Alchemist: Brotherhood (Yock Island Epiphany)</span>
+          <span class="obs-trivia-tag" id="obs-tag">// First Law of Thermodynamics &amp; Cosmic Unity: Mass-energy conservation and the eternal cycle of physical transformation.</span>
         </div>
       </div>
     </section>
@@ -775,296 +769,5 @@
       </div>
     </div>
   </footer>
-
-  <!-- Interactive QFT Higgs Field Simulation & Wavefunction Collapse Engine -->
-  <script>
-  (function () {
-    // ─── 1. INTERACTIVE HIGGS SCALAR FIELD SIMULATOR ───────────────────────
-    const cvs = document.getElementById('quantum-higgs-canvas');
-    if (!cvs) return;
-    const ctx = cvs.getContext('2d');
-    let W, H;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (reduceMotion) {
-      cvs.style.display = 'none';
-      return;
-    }
-
-    function resize() {
-      W = cvs.width = window.innerWidth;
-      H = cvs.height = window.innerHeight;
-    }
-
-    // 2D Discretized Scalar Field Grid (coupled wave oscillators)
-    const GRID_SPACING = 38;
-    let cols, rows;
-    let phi = [];      // Field amplitude phi(x, y)
-    let phi_vel = [];  // Field velocity dphi/dt
-    let phi_acc = [];  // Acceleration d^2phi/dt^2
-
-    function initGrid() {
-      resize();
-      cols = Math.ceil(W / GRID_SPACING) + 1;
-      rows = Math.ceil(H / GRID_SPACING) + 1;
-      phi = new Float32Array(cols * rows);
-      phi_vel = new Float32Array(cols * rows);
-      phi_acc = new Float32Array(cols * rows);
-
-      // Initialize with microscopic quantum zero-point fluctuations
-      for (let i = 0; i < phi.length; i++) {
-        phi[i] = (Math.random() - 0.5) * 0.08;
-        phi_vel[i] = 0;
-      }
-    }
-
-    const mouse = { x: -1000, y: -1000, prevX: -1000, prevY: -1000, vx: 0, vy: 0, active: false };
-
-    window.addEventListener('mousemove', e => {
-      mouse.prevX = mouse.x;
-      mouse.prevY = mouse.y;
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.vx = mouse.x - mouse.prevX;
-      mouse.vy = mouse.y - mouse.prevY;
-      mouse.active = true;
-    });
-
-    window.addEventListener('mouseleave', () => {
-      mouse.active = false;
-    });
-
-    // Gauge pulse on click
-    window.addEventListener('click', e => {
-      injectGaugePulse(e.clientX, e.clientY, 1.8);
-    });
-
-    function injectGaugePulse(x, y, magnitude) {
-      const gx = Math.floor(x / GRID_SPACING);
-      const gy = Math.floor(y / GRID_SPACING);
-      const radius = 3;
-
-      for (let i = -radius; i <= radius; i++) {
-        for (let j = -radius; j <= radius; j++) {
-          const cx = gx + i;
-          const cy = gy + j;
-          if (cx >= 0 && cx < cols && cy >= 0 && cy < rows) {
-            const d = Math.sqrt(i * i + j * j);
-            if (d <= radius) {
-              const factor = Math.cos((d / radius) * (Math.PI / 2));
-              phi_vel[cy * cols + cx] += magnitude * factor;
-            }
-          }
-        }
-      }
-    }
-
-    // Physics step: Discretized 2D Klein-Gordon Wave Equation
-    // d^2phi/dt^2 = c^2 * nabla^2(phi) - gamma * dphi/dt - m^2 * phi
-    function updatePhysics() {
-      const c2 = 0.28;       // Wave propagation velocity squared
-      const gamma = 0.024;   // Viscous vacuum damping
-      const m2 = 0.012;      // Effective mass term (Higgs curvature)
-
-      // 1. Moving particle (mouse) Yukawa coupling force
-      if (mouse.active) {
-        const speed = Math.min(30, Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy));
-        if (speed > 0.5) {
-          const gx = mouse.x / GRID_SPACING;
-          const gy = mouse.y / GRID_SPACING;
-          const r = 2;
-          for (let i = -r; i <= r; i++) {
-            for (let j = -r; j <= r; j++) {
-              const cx = Math.floor(gx + i);
-              const cy = Math.floor(gy + j);
-              if (cx >= 0 && cx < cols && cy >= 0 && cy < rows) {
-                const dist = Math.sqrt((cx - gx) * (cx - gx) + (cy - gy) * (cy - gy));
-                if (dist < r) {
-                  // Yukawa drag perturbation
-                  const force = (1 - dist / r) * (speed * 0.04);
-                  phi_vel[cy * cols + cx] += force;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      // 2. Spatial 5-point discrete Laplacian & wave acceleration
-      for (let y = 1; y < rows - 1; y++) {
-        for (let x = 1; x < cols - 1; x++) {
-          const idx = y * cols + x;
-          const laplacian = phi[idx - 1] + phi[idx + 1] + phi[idx - cols] + phi[idx + cols] - 4 * phi[idx];
-          phi_acc[idx] = c2 * laplacian - gamma * phi_vel[idx] - m2 * phi[idx];
-        }
-      }
-
-      // 3. Symplectic Euler integration
-      for (let i = 0; i < phi.length; i++) {
-        phi_vel[i] += phi_acc[i];
-        phi[i] += phi_vel[i];
-      }
-
-      // 4. Subtle quantum zero-point vacuum thermal kicks
-      const randomIdx = Math.floor(Math.random() * phi.length);
-      phi_vel[randomIdx] += (Math.random() - 0.5) * 0.06;
-    }
-
-    function render() {
-      ctx.clearRect(0, 0, W, H);
-
-      // Draw continuous scalar field mesh & particle coupling
-      for (let y = 0; y < rows - 1; y++) {
-        for (let x = 0; x < cols - 1; x++) {
-          const idx = y * cols + x;
-          const val = phi[idx];
-          const px = x * GRID_SPACING;
-          const py = y * GRID_SPACING;
-
-          // Connect mesh lines to right and bottom neighbors
-          const nextX = (x + 1) * GRID_SPACING;
-          const nextY = (y + 1) * GRID_SPACING;
-          const valRight = phi[idx + 1];
-          const valDown = phi[idx + cols];
-
-          // Color representation:
-          // Low energy: subtle deep carbon/violet
-          // Positive excitation: Cherenkov ice-cyan (#38bdf8)
-          // Negative condensate: Luminous violet (#a78bfa)
-          // High amplitude: Higgs gold (#fbbf24)
-          const amp = Math.min(1.5, Math.abs(val));
-          if (amp > 0.015) {
-            ctx.beginPath();
-            ctx.moveTo(px, py);
-            ctx.lineTo(nextX, py);
-            ctx.lineTo(nextX, nextY);
-
-            let strokeColor;
-            if (amp > 0.8) {
-              strokeColor = `rgba(251, 191, 36, ${Math.min(0.7, amp * 0.6).toFixed(3)})`; // Higgs Gold
-            } else if (val > 0) {
-              strokeColor = `rgba(56, 189, 248, ${Math.min(0.5, amp * 0.7).toFixed(3)})`; // Cherenkov Cyan
-            } else {
-              strokeColor = `rgba(167, 139, 250, ${Math.min(0.5, amp * 0.7).toFixed(3)})`; // Luminous Violet
-            }
-
-            ctx.strokeStyle = strokeColor;
-            ctx.lineWidth = 0.85;
-            ctx.stroke();
-
-            // Render glowing node at field excitation points
-            if (amp > 0.3) {
-              ctx.beginPath();
-              ctx.arc(px, py, Math.min(3.5, amp * 2.5), 0, Math.PI * 2);
-              ctx.fillStyle = strokeColor;
-              ctx.fill();
-            }
-          }
-        }
-      }
-
-      // Draw test particle cursor cursor coupling if active
-      if (mouse.active) {
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = '#fbbf24'; // Massive particle node
-        ctx.shadowColor = '#a78bfa';
-        ctx.shadowBlur = 12;
-        ctx.fill();
-        ctx.shadowBlur = 0; // Reset
-      }
-    }
-
-    function loop() {
-      updatePhysics();
-      render();
-      requestAnimationFrame(loop);
-    }
-
-    window.addEventListener('resize', initGrid, { passive: true });
-    initGrid();
-    loop();
-
-    // ─── 2. QUANTUM OBSERVATION BOX (EASTER EGG GENERATOR) ────────────────
-    const collapseBtn = document.getElementById('collapse-btn');
-    const quoteEl = document.getElementById('obs-quote');
-    const authorEl = document.getElementById('obs-author');
-    const tagEl = document.getElementById('obs-tag');
-
-    const easterEggs = [
-      {
-        quote: "Nature isn't classical, dammit, and if you want to make a simulation of nature, you'd better make it quantum mechanical!",
-        author: "— Richard P. Feynman, Simulating Physics with Computers (1982)",
-        tag: "// Quantum Supremacy: Exact representation of n entangled qubits requires 2^n complex amplitudes."
-      },
-      {
-        quote: "With four parameters I can fit an elephant, and with five I can make him wiggle his trunk.",
-        author: "— John von Neumann (as recounted by Freeman Dyson, 2004)",
-        tag: "// Overparameterization & Regularization: Why deep neural networks generalize despite millions of parameters."
-      },
-      {
-        quote: "A method is more important than a discovery, since the right method will lead to new and even more wonderful discoveries.",
-        author: "— Lev Landau, Course of Theoretical Physics",
-        tag: "// Theoretical Rigor: From symmetry groups to variational principles in computational mechanics."
-      },
-      {
-        quote: "Time is a state: the flame in which there lives the salamander of the human soul.",
-        author: "— Andrei Tarkovsky, Sculpting in Time (1986)",
-        tag: "// Non-Inertial Time: Exploring duration, temporal rhythm, and memory in cinema and non-equilibrium physics."
-      },
-      {
-        quote: "If your theory is found to be against the second law of thermodynamics I can give you no hope; there is nothing for it but to collapse in deepest humiliation.",
-        author: "— Sir Arthur Eddington, The Nature of the Physical World (1928)",
-        tag: "// Irreversibility: Microscopic laws are time-reversible; macroscopic thermodynamics dictates the arrow of time."
-      },
-      {
-        quote: "The mass of quarks accounts for only ~1% of a proton's mass; the remaining 99% is pure kinetic energy of gluons and quark fluctuations.",
-        author: "— Quantum Chromodynamics (QCD) Vacuum Fact",
-        tag: "// E = mc^2 Manifest: Matter is essentially trapped localized energy within the strong force quantum vacuum."
-      },
-      {
-        quote: "At 125 GeV, the Higgs boson mass places our universe right on the razor-edge of electroweak vacuum metastability.",
-        author: "— Standard Model Precision Cosmology",
-        tag: "// Vacuum Decay: A quantum tunneling barrier separates our current vacuum state from a deeper true minimum at Planckian energies."
-      },
-      {
-        quote: "Turbulence is the last great unsolved problem of classical physics.",
-        author: "— Attributed to Richard Feynman & Werner Heisenberg",
-        tag: "// Navier-Stokes Millennium Problem: Existence and smoothness of solutions in 3D remains unproven."
-      }
-    ];
-
-    let currentIdx = 0;
-    if (collapseBtn && quoteEl) {
-      collapseBtn.addEventListener('click', () => {
-        quoteEl.style.opacity = '0';
-        authorEl.style.opacity = '0';
-        tagEl.style.opacity = '0';
-
-        // Trigger gauge pulse on button location
-        const rect = collapseBtn.getBoundingClientRect();
-        injectGaugePulse(rect.left + rect.width / 2, rect.top + rect.height / 2, 2.5);
-
-        setTimeout(() => {
-          let nextIdx;
-          do {
-            nextIdx = Math.floor(Math.random() * easterEggs.length);
-          } while (nextIdx === currentIdx);
-          currentIdx = nextIdx;
-
-          quoteEl.textContent = `"${easterEggs[currentIdx].quote}"`;
-          authorEl.textContent = easterEggs[currentIdx].author;
-          tagEl.textContent = easterEggs[currentIdx].tag;
-
-          quoteEl.style.opacity = '1';
-          authorEl.style.opacity = '1';
-          tagEl.style.opacity = '1';
-        }, 220);
-      });
-    }
-
-  })();
-  </script>
-
 </body>
 </html>

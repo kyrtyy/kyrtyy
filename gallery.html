@@ -81,12 +81,13 @@
     }
   </style>
   <script defer src="diffusion-transition.js"></script>
+  <script defer src="lorenz-attractor.js"></script>
 </head>
 <body>
 
-  <!-- Ambient Quantum Void Layers -->
+  <!-- Ambient Quantum Void Layers (Zero Grids) -->
   <div class="ambient-bg"></div>
-  <div class="lattice-grid"></div>
+  <canvas id="lorenz-canvas"></canvas>
 
   <!-- Global Navigation -->
   <nav>
@@ -108,7 +109,7 @@
   </nav>
 
   <!-- Main Content -->
-  <div class="page-offset container">
+  <main class="page-offset container" id="app-content">
     
     <header class="page-header">
       <a href="index.html" class="back-link">&larr; Return to Overview</a>
@@ -272,7 +273,7 @@
 
     </div>
 
-  </div>
+  </main>
 
   <!-- Global Footer -->
   <footer>

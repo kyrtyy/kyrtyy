@@ -1,46 +1,45 @@
 /* ==========================================================================
    QUANTUM FIELD & STOCHASTIC LABORATORY: DESIGN SYSTEM
    Identity: Yash Dewangan — IISc Bengaluru (Physics × Quantum Tech × ML)
-   Aesthetic: Balanced Cosmic Laboratory — Deep Obsidian, Luminous Violet, Cherenkov Ice-Cyan, and Higgs Gold
+   Theme: "One is All, and All is One" — Continuous Field Transmutation & Cosmic Void
    ========================================================================== */
 
 :root {
-  /* Surfaces: Deep Space Obsidian & Cold Carbon (Clear, high-contrast, uncluttered) */
-  --bg:             #07090e;
-  --surface:        #0d1117;
-  --surface-2:      #161b22;
-  --surface-3:      #21262d;
+  /* Surfaces: Deep Cosmic Obsidian & Cold Carbon (Clear, High-Contrast) */
+  --bg:             #06080d;
+  --surface:        #0c0f17;
+  --surface-2:      #141923;
+  --surface-3:      #1c2331;
 
-  /* Luminous Violet & Purple (Intentional, High-Signal Accents) */
+  /* Subtle Energy Accents (Restrained, Non-Distracting) */
   --purple-glow:    #a78bfa;
   --purple-bright:  #8b5cf6;
   --purple-deep:    #7c3aed;
-  --purple-dim:     rgba(167, 139, 250, 0.1);
-  --purple-border:  rgba(167, 139, 250, 0.25);
+  --purple-dim:     rgba(167, 139, 250, 0.08);
+  --purple-border:  rgba(167, 139, 250, 0.22);
 
-  /* Energy Accents (Cherenkov Ice-Cyan, Higgs Gold, Fluctuation Rose) */
+  /* Secondary Accents */
   --ice-cyan:       #38bdf8;
-  --ice-cyan-dim:   rgba(56, 189, 248, 0.1);
-  --higgs-gold:     #fbbf24;
-  --higgs-gold-dim: rgba(251, 191, 36, 0.12);
-  --particle-rose:  #f43f5e;
+  --ice-cyan-dim:   rgba(56, 189, 248, 0.08);
+  --higgs-gold:     #f59e0b;
+  --higgs-gold-dim: rgba(245, 158, 11, 0.1);
 
-  /* Typography: High-Contrast Crisp Slate & Pure White */
+  /* High-Contrast Typography */
   --text-main:      #f8fafc;
   --text-muted:     #94a3b8;
   --text-faint:     #64748b;
 
-  /* Borders & Highlights */
-  --border:         rgba(255, 255, 255, 0.09);
-  --border-subtle:  rgba(255, 255, 255, 0.05);
-  --border-focus:   rgba(167, 139, 250, 0.55);
+  /* Subtle Borders */
+  --border:         rgba(255, 255, 255, 0.08);
+  --border-subtle:  rgba(255, 255, 255, 0.045);
+  --border-focus:   rgba(167, 139, 250, 0.45);
 
   /* Font Stacks */
   --font-serif:     'Newsreader', Georgia, Cambria, serif;
   --font-sans:      'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:      'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Spacing & Layout */
+  /* Layout */
   --max-width:      1180px;
   --radius-sm:      4px;
   --radius-md:      8px;
@@ -81,37 +80,24 @@ body {
   }
 }
 
-/* Ambient Quantum Vacuum Backdrop */
+/* Background Atmosphere: Soft & Non-Distracting */
 .ambient-bg {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 60% 45% at 15% 15%, rgba(124, 58, 237, 0.07) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 45% at 85% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 65%);
+    radial-gradient(ellipse 65% 50% at 15% 15%, rgba(124, 58, 237, 0.04) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 85% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 65%);
 }
 
-.lattice-grid {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 25%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 25%, transparent 100%);
-}
-
-#quantum-higgs-canvas {
+#lorenz-canvas {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
-  pointer-events: auto; /* Active physics interaction */
+  pointer-events: none;
 }
 
 /* Container */
@@ -133,14 +119,13 @@ nav {
   z-index: 200;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  background: rgba(7, 9, 14, 0.82);
+  background: rgba(6, 8, 13, 0.84);
   border-bottom: 1px solid var(--border);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
 nav:hover {
-  border-bottom-color: rgba(167, 139, 250, 0.35);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  border-bottom-color: rgba(167, 139, 250, 0.3);
 }
 
 .nav-inner {
@@ -166,7 +151,6 @@ nav:hover {
 .nav-brand .symbol {
   color: var(--purple-glow);
   font-weight: 600;
-  text-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
 }
 
 .nav-brand .name {
@@ -202,8 +186,8 @@ nav:hover {
   bottom: -2px;
   width: 0;
   height: 1px;
-  background: linear-gradient(90deg, var(--purple-glow), var(--ice-cyan));
-  transition: width 0.25s ease;
+  background: var(--purple-glow);
+  transition: width 0.22s ease;
 }
 
 .nav-links a:hover,
@@ -229,6 +213,75 @@ nav:hover {
   z-index: 1;
 }
 
+/* Continuous Transmutation Engine Transitions */
+#app-content {
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#app-content.deconstructing {
+  opacity: 0;
+  filter: blur(8px);
+  transform: scale(0.99) translateY(-6px);
+  pointer-events: none;
+}
+
+#app-content.reconstructing {
+  animation: alchemy-reconstruct 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes alchemy-reconstruct {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(0.99) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* HUD Transmutation Pill */
+#diffusion-hud {
+  position: fixed;
+  top: 1.1rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-25px);
+  z-index: 9999;
+  pointer-events: none;
+  background: rgba(12, 15, 23, 0.94);
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  border-radius: 50px;
+  padding: 0.35rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+#diffusion-hud.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#diffusion-hud .hud-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--purple-glow);
+  box-shadow: 0 0 8px var(--purple-glow);
+}
+
 /* Typography & Headings */
 h1, h2, h3, h4 {
   color: var(--text-main);
@@ -244,17 +297,14 @@ h1, h2, h3, h4 {
 
 .glow-purple {
   color: var(--purple-glow);
-  text-shadow: 0 0 16px rgba(167, 139, 250, 0.4);
 }
 
 .glow-cyan {
   color: var(--ice-cyan);
-  text-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
 }
 
 .glow-gold {
   color: var(--higgs-gold);
-  text-shadow: 0 0 12px rgba(251, 191, 36, 0.35);
 }
 
 .meta-label {
@@ -271,7 +321,7 @@ h1, h2, h3, h4 {
 
 .meta-label::before {
   content: '//';
-  opacity: 0.7;
+  opacity: 0.6;
   color: var(--ice-cyan);
 }
 
@@ -289,7 +339,7 @@ h1, h2, h3, h4 {
   left: 0;
   width: 140px;
   height: 1px;
-  background: linear-gradient(90deg, var(--purple-glow), var(--ice-cyan), transparent);
+  background: linear-gradient(90deg, var(--purple-glow), transparent);
 }
 
 .page-header h1 {
@@ -307,7 +357,7 @@ h1, h2, h3, h4 {
   line-height: 1.75;
 }
 
-/* Interactive Buttons */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -323,22 +373,22 @@ h1, h2, h3, h4 {
 }
 
 .btn-purple {
-  background: linear-gradient(135deg, var(--purple-deep) 0%, #6d28d9 100%);
+  background: var(--purple-deep);
   color: #fff;
   border: 1px solid var(--purple-glow);
   font-weight: 500;
-  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
 }
 
 .btn-purple:hover {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  box-shadow: 0 8px 30px rgba(167, 139, 250, 0.45);
+  background: #6d28d9;
+  box-shadow: 0 6px 24px rgba(167, 139, 250, 0.4);
   transform: translateY(-2px);
   color: #fff;
 }
 
 .btn-ghost {
-  background: rgba(22, 27, 34, 0.6);
+  background: rgba(20, 25, 35, 0.6);
   color: var(--text-muted);
   border: 1px solid var(--border);
 }
@@ -347,7 +397,6 @@ h1, h2, h3, h4 {
   color: var(--text-main);
   border-color: var(--purple-glow);
   background: var(--purple-dim);
-  box-shadow: 0 4px 20px rgba(167, 139, 250, 0.15);
   transform: translateY(-2px);
 }
 
@@ -386,14 +435,14 @@ h1, h2, h3, h4 {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--purple-glow), var(--ice-cyan), transparent);
+  background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .card:hover {
   border-color: var(--border-focus);
-  box-shadow: 0 16px 52px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
   transform: translateY(-2px);
 }
 
@@ -430,7 +479,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-mono);
   font-size: 0.86rem;
   color: var(--text-main);
-  background: rgba(22, 27, 34, 0.7);
+  background: rgba(20, 25, 35, 0.75);
   border-left: 2px solid var(--purple-glow);
   border-top: 1px solid var(--border-subtle);
   border-right: 1px solid var(--border-subtle);
@@ -447,7 +496,7 @@ h1, h2, h3, h4 {
   z-index: 1;
   overflow: hidden;
   padding: 0.85rem 0;
-  background: rgba(13, 17, 23, 0.88);
+  background: rgba(12, 15, 23, 0.88);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(12px);
@@ -524,7 +573,7 @@ h1, h2, h3, h4 {
 .obs-author {
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--higgs-gold);
+  color: var(--purple-glow);
   margin-top: 0.8rem;
   display: block;
 }
@@ -542,7 +591,7 @@ h1, h2, h3, h4 {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--higgs-gold);
+  color: var(--purple-glow);
   cursor: pointer;
   padding: 0 0.2rem;
   position: relative;
@@ -633,7 +682,7 @@ h1, h2, h3, h4 {
 
 .form-group input,
 .form-group textarea {
-  background: rgba(7, 9, 14, 0.8);
+  background: rgba(6, 8, 13, 0.8);
   border: 1px solid var(--border);
   padding: 0.85rem 1rem;
   border-radius: var(--radius-sm);
@@ -725,7 +774,7 @@ footer {
   z-index: 1;
   padding: 3.2rem 2rem;
   border-top: 1px solid var(--border);
-  background: rgba(7, 9, 14, 0.95);
+  background: rgba(6, 8, 13, 0.95);
   margin-top: auto;
 }
 

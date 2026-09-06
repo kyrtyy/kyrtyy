@@ -19,12 +19,13 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="../styles.css">
   <script defer src="../diffusion-transition.js"></script>
+  <script defer src="../lorenz-attractor.js"></script>
 </head>
 <body>
 
-  <!-- Ambient Backdrop -->
+  <!-- Ambient Backdrop (Zero Grids) -->
   <div class="ambient-bg"></div>
-  <div class="lattice-grid"></div>
+  <canvas id="lorenz-canvas"></canvas>
 
   <!-- Global Navigation -->
   <nav>
@@ -46,7 +47,7 @@
   </nav>
 
   <!-- Main Article -->
-  <div class="page-offset container">
+  <main class="page-offset container" id="app-content">
     <a href="../projects.html" class="back-link">&larr; Return to Projects Registry</a>
 
     <header class="page-header">
@@ -169,7 +170,7 @@ class SpectralConv1d(nn.Module):
         <a href="../projects.html" class="btn btn-ghost">&larr; Back to All Projects</a>
       </div>
     </main>
-  </div>
+  </main>
 
   <!-- Global Footer -->
   <footer>
