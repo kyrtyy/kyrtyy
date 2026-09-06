@@ -19,6 +19,9 @@
   <!-- Core Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 
+  <!-- Stochastic Diffusion SDE Page Transition Engine -->
+  <script defer src="diffusion-transition.js"></script>
+
   <style>
     /* Specific Home Page Enhancements */
     .hero-section {
@@ -43,21 +46,21 @@
       gap: 0.6rem;
       font-family: var(--font-mono);
       font-size: 0.74rem;
-      color: var(--purple-light);
+      color: var(--purple-glow);
       background: var(--purple-dim);
       border: 1px solid var(--purple-border);
       padding: 0.35rem 0.85rem;
       border-radius: 50px;
       margin-bottom: 1.8rem;
-      box-shadow: 0 0 16px rgba(168, 85, 247, 0.2);
+      box-shadow: 0 0 16px rgba(124, 58, 237, 0.15);
     }
 
     .status-pulse {
       width: 7px;
       height: 7px;
-      background: var(--purple-bright);
+      background: var(--purple-glow);
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--purple-light);
+      box-shadow: 0 0 10px var(--purple-glow);
       animation: vacuum-pulse 2s infinite ease-in-out;
     }
 
@@ -77,8 +80,8 @@
 
     .hero-title em {
       font-style: italic;
-      color: var(--purple-light);
-      text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+      color: var(--purple-glow);
+      text-shadow: 0 0 20px rgba(167, 139, 250, 0.35);
     }
 
     .hero-bio {
@@ -103,11 +106,11 @@
     /* Interactive Phase/Higgs Panel */
     .hero-panel {
       background: var(--surface);
-      border: 1px solid var(--purple-border);
+      border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 2.2rem;
       position: relative;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
     }
 
     .hero-panel::before {
@@ -115,7 +118,7 @@
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--purple-bright), var(--quantum-cyan), transparent);
+      background: linear-gradient(90deg, transparent, var(--purple-glow), var(--ice-cyan), transparent);
     }
 
     .panel-header {
@@ -130,7 +133,7 @@
     .panel-title {
       font-family: var(--font-mono);
       font-size: 0.74rem;
-      color: var(--purple-light);
+      color: var(--purple-glow);
       text-transform: uppercase;
       letter-spacing: 1px;
     }
@@ -177,7 +180,7 @@
     .pillar-card:hover {
       border-color: var(--border-focus);
       transform: translateY(-2px);
-      box-shadow: 0 14px 44px rgba(124, 58, 237, 0.22);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.5);
     }
 
     .pillar-card h3 {
@@ -214,7 +217,7 @@
     .bento-card:hover {
       border-color: var(--border-focus);
       transform: translateY(-2px);
-      box-shadow: 0 16px 48px rgba(124, 58, 237, 0.25);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
     }
 
     .bento-card h3 {
@@ -229,7 +232,7 @@
     }
 
     .bento-card h3 a:hover {
-      color: var(--purple-light);
+      color: var(--purple-glow);
     }
 
     .bento-card p {
@@ -251,7 +254,7 @@
     .bento-link {
       font-family: var(--font-mono);
       font-size: 0.74rem;
-      color: var(--purple-light);
+      color: var(--purple-glow);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -262,7 +265,6 @@
     .bento-link:hover {
       gap: 0.65rem;
       color: #fff;
-      text-shadow: 0 0 8px rgba(192, 132, 252, 0.6);
     }
 
     /* Notes / Writing List */
@@ -295,7 +297,7 @@
     }
 
     .note-title a:hover {
-      color: var(--purple-light);
+      color: var(--purple-glow);
     }
 
     .note-desc {
@@ -324,7 +326,7 @@
     .analog-card:hover {
       border-color: var(--border-focus);
       transform: translateY(-2px);
-      box-shadow: 0 12px 36px rgba(124, 58, 237, 0.18);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
     }
 
     .analog-card h4 {
@@ -352,8 +354,8 @@
   <div class="ambient-bg"></div>
   <div class="lattice-grid"></div>
 
-  <!-- Interactive Quantum-Fluid Vacuum Simulation Canvas -->
-  <canvas id="quantum-fluid-canvas"></canvas>
+  <!-- Interactive QFT Higgs Field Simulation Canvas -->
+  <canvas id="quantum-higgs-canvas"></canvas>
 
   <!-- Global Navigation -->
   <nav>
@@ -402,8 +404,8 @@
 
         <div class="hero-panel">
           <div class="panel-header">
-            <span class="panel-title">// System State: Vacuum &amp; Geometry</span>
-            <span class="tag glow-purple">IISc Quantum Lab</span>
+            <span class="panel-title">// System State: Higgs Field Vacuum</span>
+            <span class="tag glow-cyan">IISc Quantum Lab</span>
           </div>
           <div class="field-spec-list">
             <div class="field-spec-item">
@@ -424,7 +426,7 @@
             </div>
             <div class="field-spec-item">
               <span class="spec-label">Interactive Field</span>
-              <span class="spec-val glow-gold">[Move cursor to stir fluid vorticity / Click for pulse]</span>
+              <span class="spec-val glow-gold">[Drag cursor: Particle Yukawa wake / Click: Gauge ripple]</span>
             </div>
           </div>
           <div class="eq-box" style="margin-top: 1.5rem; margin-bottom: 0;">
@@ -774,17 +776,14 @@
     </div>
   </footer>
 
-  <!-- Interactive Quantum-Fluid Simulation & Wavefunction Collapse Engine -->
+  <!-- Interactive QFT Higgs Field Simulation & Wavefunction Collapse Engine -->
   <script>
   (function () {
-    // ─── 1. INTERACTIVE QUANTUM-FLUID VACUUM CANVAS ───────────────────────
-    const cvs = document.getElementById('quantum-fluid-canvas');
+    // ─── 1. INTERACTIVE HIGGS SCALAR FIELD SIMULATOR ───────────────────────
+    const cvs = document.getElementById('quantum-higgs-canvas');
     if (!cvs) return;
     const ctx = cvs.getContext('2d');
     let W, H;
-    let particles = [];
-    let shockwaves = []; // Higgs symmetry breaking ripples
-    const mouse = { x: -1000, y: -1000, prevX: -1000, prevY: -1000, speed: 0, active: false };
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reduceMotion) {
@@ -797,37 +796,37 @@
       H = cvs.height = window.innerHeight;
     }
 
-    function createParticle() {
-      return {
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        life: 0.2 + Math.random() * 0.8,
-        decay: 0.0012 + Math.random() * 0.001,
-        radius: 0.8 + Math.random() * 1.4,
-        hue: Math.random() > 0.3 ? 270 : 190 // Violet dominant, occasional cyan
-      };
-    }
+    // 2D Discretized Scalar Field Grid (coupled wave oscillators)
+    const GRID_SPACING = 38;
+    let cols, rows;
+    let phi = [];      // Field amplitude phi(x, y)
+    let phi_vel = [];  // Field velocity dphi/dt
+    let phi_acc = [];  // Acceleration d^2phi/dt^2
 
-    function init() {
+    function initGrid() {
       resize();
-      const count = Math.min(100, Math.floor((W * H) / 14000));
-      particles = [];
-      for (let i = 0; i < count; i++) {
-        particles.push(createParticle());
+      cols = Math.ceil(W / GRID_SPACING) + 1;
+      rows = Math.ceil(H / GRID_SPACING) + 1;
+      phi = new Float32Array(cols * rows);
+      phi_vel = new Float32Array(cols * rows);
+      phi_acc = new Float32Array(cols * rows);
+
+      // Initialize with microscopic quantum zero-point fluctuations
+      for (let i = 0; i < phi.length; i++) {
+        phi[i] = (Math.random() - 0.5) * 0.08;
+        phi_vel[i] = 0;
       }
     }
 
-    // Interactive mouse listeners
+    const mouse = { x: -1000, y: -1000, prevX: -1000, prevY: -1000, vx: 0, vy: 0, active: false };
+
     window.addEventListener('mousemove', e => {
       mouse.prevX = mouse.x;
       mouse.prevY = mouse.y;
       mouse.x = e.clientX;
       mouse.y = e.clientY;
-      const dx = mouse.x - mouse.prevX;
-      const dy = mouse.y - mouse.prevY;
-      mouse.speed = Math.sqrt(dx * dx + dy * dy);
+      mouse.vx = mouse.x - mouse.prevX;
+      mouse.vy = mouse.y - mouse.prevY;
       mouse.active = true;
     });
 
@@ -835,127 +834,156 @@
       mouse.active = false;
     });
 
-    // Click: Higgs symmetry breaking wave perturbation
+    // Gauge pulse on click
     window.addEventListener('click', e => {
-      shockwaves.push({
-        x: e.clientX,
-        y: e.clientY,
-        radius: 5,
-        maxRadius: 180 + Math.random() * 80,
-        speed: 4.5,
-        opacity: 0.75
-      });
+      injectGaugePulse(e.clientX, e.clientY, 1.8);
     });
 
-    function step() {
-      ctx.clearRect(0, 0, W, H);
+    function injectGaugePulse(x, y, magnitude) {
+      const gx = Math.floor(x / GRID_SPACING);
+      const gy = Math.floor(y / GRID_SPACING);
+      const radius = 3;
 
-      // 1. Render expanding Higgs vacuum ripples
-      for (let s = shockwaves.length - 1; s >= 0; s--) {
-        const sw = shockwaves[s];
-        sw.radius += sw.speed;
-        sw.opacity *= 0.96;
-
-        ctx.beginPath();
-        ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(192, 132, 252, ${sw.opacity.toFixed(3)})`;
-        ctx.lineWidth = 1.8;
-        ctx.stroke();
-
-        // Secondary subtle inner echo ring
-        if (sw.radius > 25) {
-          ctx.beginPath();
-          ctx.arc(sw.x, sw.y, sw.radius * 0.75, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(251, 191, 36, ${(sw.opacity * 0.4).toFixed(3)})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-
-        // Apply outward impulse force to proximate particles
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          const dx = p.x - sw.x;
-          const dy = p.y - sw.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (Math.abs(dist - sw.radius) < 20) {
-            const push = (1 - Math.abs(dist - sw.radius) / 20) * 1.5;
-            p.vx += (dx / (dist + 0.1)) * push;
-            p.vy += (dy / (dist + 0.1)) * push;
-          }
-        }
-
-        if (sw.opacity < 0.01 || sw.radius >= sw.maxRadius) {
-          shockwaves.splice(s, 1);
-        }
-      }
-
-      // 2. Update & render particles (stochastic Langevin walk + mouse fluid wake)
-      for (let i = 0; i < particles.length; i++) {
-        const p1 = particles[i];
-
-        // Thermal Langevin noise kicks
-        p1.vx += (Math.random() - 0.5) * 0.22;
-        p1.vy += (Math.random() - 0.5) * 0.22;
-
-        // Interaction with mouse cursor: fluid swirl & wake
-        if (mouse.active) {
-          const dx = p1.x - mouse.x;
-          const dy = p1.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 180 && dist > 2) {
-            // Tangential swirl (vorticity curl) + slight outward repulsion
-            const angle = Math.atan2(dy, dx);
-            const swirlForce = (1 - dist / 180) * 0.75;
-            p1.vx += -Math.sin(angle) * swirlForce + (dx / dist) * 0.25;
-            p1.vy +=  Math.cos(angle) * swirlForce + (dy / dist) * 0.25;
-            p1.life = Math.min(1.0, p1.life + 0.05); // Energize near mouse
-          }
-        }
-
-        // Viscous damping
-        p1.vx *= 0.95;
-        p1.vy *= 0.95;
-
-        p1.x += p1.vx;
-        p1.y += p1.vy;
-        p1.life -= p1.decay;
-
-        if (p1.life <= 0 || p1.x < -30 || p1.x > W + 30 || p1.y < -30 || p1.y > H + 30) {
-          particles[i] = createParticle();
-          continue;
-        }
-
-        // Render particle with purple / cyan quantum glow
-        ctx.beginPath();
-        ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
-        const col = p1.hue === 270 ? `rgba(168, 85, 247, ${p1.life * 0.5})` : `rgba(56, 189, 248, ${p1.life * 0.4})`;
-        ctx.fillStyle = col;
-        ctx.fill();
-
-        // Path integral strand connections between entangled nearby particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const distSq = dx * dx + dy * dy;
-          if (distSq < 14000) {
-            const alpha = (1 - distSq / 14000) * 0.12 * Math.min(p1.life, p2.life);
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(168, 85, 247, ${alpha.toFixed(3)})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
+      for (let i = -radius; i <= radius; i++) {
+        for (let j = -radius; j <= radius; j++) {
+          const cx = gx + i;
+          const cy = gy + j;
+          if (cx >= 0 && cx < cols && cy >= 0 && cy < rows) {
+            const d = Math.sqrt(i * i + j * j);
+            if (d <= radius) {
+              const factor = Math.cos((d / radius) * (Math.PI / 2));
+              phi_vel[cy * cols + cx] += magnitude * factor;
+            }
           }
         }
       }
-
-      requestAnimationFrame(step);
     }
 
-    window.addEventListener('resize', () => { resize(); }, { passive: true });
-    init();
-    step();
+    // Physics step: Discretized 2D Klein-Gordon Wave Equation
+    // d^2phi/dt^2 = c^2 * nabla^2(phi) - gamma * dphi/dt - m^2 * phi
+    function updatePhysics() {
+      const c2 = 0.28;       // Wave propagation velocity squared
+      const gamma = 0.024;   // Viscous vacuum damping
+      const m2 = 0.012;      // Effective mass term (Higgs curvature)
+
+      // 1. Moving particle (mouse) Yukawa coupling force
+      if (mouse.active) {
+        const speed = Math.min(30, Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy));
+        if (speed > 0.5) {
+          const gx = mouse.x / GRID_SPACING;
+          const gy = mouse.y / GRID_SPACING;
+          const r = 2;
+          for (let i = -r; i <= r; i++) {
+            for (let j = -r; j <= r; j++) {
+              const cx = Math.floor(gx + i);
+              const cy = Math.floor(gy + j);
+              if (cx >= 0 && cx < cols && cy >= 0 && cy < rows) {
+                const dist = Math.sqrt((cx - gx) * (cx - gx) + (cy - gy) * (cy - gy));
+                if (dist < r) {
+                  // Yukawa drag perturbation
+                  const force = (1 - dist / r) * (speed * 0.04);
+                  phi_vel[cy * cols + cx] += force;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // 2. Spatial 5-point discrete Laplacian & wave acceleration
+      for (let y = 1; y < rows - 1; y++) {
+        for (let x = 1; x < cols - 1; x++) {
+          const idx = y * cols + x;
+          const laplacian = phi[idx - 1] + phi[idx + 1] + phi[idx - cols] + phi[idx + cols] - 4 * phi[idx];
+          phi_acc[idx] = c2 * laplacian - gamma * phi_vel[idx] - m2 * phi[idx];
+        }
+      }
+
+      // 3. Symplectic Euler integration
+      for (let i = 0; i < phi.length; i++) {
+        phi_vel[i] += phi_acc[i];
+        phi[i] += phi_vel[i];
+      }
+
+      // 4. Subtle quantum zero-point vacuum thermal kicks
+      const randomIdx = Math.floor(Math.random() * phi.length);
+      phi_vel[randomIdx] += (Math.random() - 0.5) * 0.06;
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Draw continuous scalar field mesh & particle coupling
+      for (let y = 0; y < rows - 1; y++) {
+        for (let x = 0; x < cols - 1; x++) {
+          const idx = y * cols + x;
+          const val = phi[idx];
+          const px = x * GRID_SPACING;
+          const py = y * GRID_SPACING;
+
+          // Connect mesh lines to right and bottom neighbors
+          const nextX = (x + 1) * GRID_SPACING;
+          const nextY = (y + 1) * GRID_SPACING;
+          const valRight = phi[idx + 1];
+          const valDown = phi[idx + cols];
+
+          // Color representation:
+          // Low energy: subtle deep carbon/violet
+          // Positive excitation: Cherenkov ice-cyan (#38bdf8)
+          // Negative condensate: Luminous violet (#a78bfa)
+          // High amplitude: Higgs gold (#fbbf24)
+          const amp = Math.min(1.5, Math.abs(val));
+          if (amp > 0.015) {
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.lineTo(nextX, py);
+            ctx.lineTo(nextX, nextY);
+
+            let strokeColor;
+            if (amp > 0.8) {
+              strokeColor = `rgba(251, 191, 36, ${Math.min(0.7, amp * 0.6).toFixed(3)})`; // Higgs Gold
+            } else if (val > 0) {
+              strokeColor = `rgba(56, 189, 248, ${Math.min(0.5, amp * 0.7).toFixed(3)})`; // Cherenkov Cyan
+            } else {
+              strokeColor = `rgba(167, 139, 250, ${Math.min(0.5, amp * 0.7).toFixed(3)})`; // Luminous Violet
+            }
+
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = 0.85;
+            ctx.stroke();
+
+            // Render glowing node at field excitation points
+            if (amp > 0.3) {
+              ctx.beginPath();
+              ctx.arc(px, py, Math.min(3.5, amp * 2.5), 0, Math.PI * 2);
+              ctx.fillStyle = strokeColor;
+              ctx.fill();
+            }
+          }
+        }
+      }
+
+      // Draw test particle cursor cursor coupling if active
+      if (mouse.active) {
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#fbbf24'; // Massive particle node
+        ctx.shadowColor = '#a78bfa';
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0; // Reset
+      }
+    }
+
+    function loop() {
+      updatePhysics();
+      render();
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('resize', initGrid, { passive: true });
+    initGrid();
+    loop();
 
     // ─── 2. QUANTUM OBSERVATION BOX (EASTER EGG GENERATOR) ────────────────
     const collapseBtn = document.getElementById('collapse-btn');
@@ -1013,16 +1041,9 @@
         authorEl.style.opacity = '0';
         tagEl.style.opacity = '0';
 
-        // Trigger a visual Higgs wave pulse centered on the button
+        // Trigger gauge pulse on button location
         const rect = collapseBtn.getBoundingClientRect();
-        shockwaves.push({
-          x: rect.left + rect.width / 2,
-          y: rect.top + rect.height / 2,
-          radius: 10,
-          maxRadius: 300,
-          speed: 6.0,
-          opacity: 0.95
-        });
+        injectGaugePulse(rect.left + rect.width / 2, rect.top + rect.height / 2, 2.5);
 
         setTimeout(() => {
           let nextIdx;
