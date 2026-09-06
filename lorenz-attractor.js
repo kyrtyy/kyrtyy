@@ -17,77 +17,112 @@
     return;
   }
 
-  let W, H;
+  // DPR capping to prevent Retina pixel fill-rate lag
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+
   function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.floor(W * dpr);
+    canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
-  window.addEventListener('resize', resize, { passive: true });
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 100);
+  }, { passive: true });
   resize();
 
-  // Lorenz parameters
+  // Lorenz parameters: sigma=10, beta=8/3, rho=28
   const SIGMA = 10.0;
   const BETA = 8.0 / 3.0;
-  let baseRho = 28.0;
+  const BASE_RHO = 28.0;
 
   // 3D Camera / Mouse Gyroscope
-  let rotX = 0.35;
+  let rotX = 0.32;
   let rotY = 0.0;
-  let targetRotX = 0.35;
+  let targetRotX = 0.32;
   let targetRotY = 0.0;
 
   window.addEventListener('mousemove', e => {
     const nx = (e.clientX / W) * 2 - 1;
     const ny = (e.clientY / H) * 2 - 1;
-    targetRotY = nx * 0.75;
-    targetRotX = 0.35 + ny * 0.45;
+    targetRotY = nx * 0.45;
+    targetRotX = 0.32 + ny * 0.28;
   }, { passive: true });
 
   // Scroll Tracking & Entropy Dynamics
   let lastScrollY = window.scrollY;
-  let scrollSpeed = 0;
-  let entropy = 0; // Scales from 0 (coherent attractor) to 1 (entropy cloud)
+  let scrollDelta = 0;
+  let entropy = 0; // 0 = crystalline attractor manifold; >0 = entropy dispersion
 
   window.addEventListener('scroll', () => {
     const currentY = window.scrollY;
-    const delta = Math.abs(currentY - lastScrollY);
+    scrollDelta += Math.abs(currentY - lastScrollY);
     lastScrollY = currentY;
-    scrollSpeed = Math.min(45, scrollSpeed + delta * 0.15);
   }, { passive: true });
 
-  // Click: Entropy Burst
-  window.addEventListener('click', () => {
-    entropy = Math.min(1.8, entropy + 1.1);
-    for (let p of particles) {
-      p.vx += (Math.random() - 0.5) * 8;
-      p.vy += (Math.random() - 0.5) * 8;
-      p.vz += (Math.random() - 0.5) * 8;
+  // Click: Localized Kinetic Entropy Burst (ignored on clickable links/buttons)
+  window.addEventListener('click', e => {
+    if (e.target.closest('a, button, input, textarea')) return;
+    entropy = Math.min(1.6, entropy + 0.85);
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.vx += (Math.random() - 0.5) * 6;
+      p.vy += (Math.random() - 0.5) * 6;
+      p.vz += (Math.random() - 0.5) * 6;
     }
   });
 
-  // Particle Ensemble in Phase Space
-  const NUM_PARTICLES = 160;
-  const TRAIL_LENGTH = 18;
+  // ─── 1. CORE ATTRACTOR PARTICLES (Expansive Wingspan) ─────────────────
+  const NUM_PARTICLES = 130;
+  const TRAIL_LENGTH = 22;
   const particles = [];
 
-  function createParticle(seedOffset = 0) {
+  function createAttractorParticle() {
+    const side = Math.random() > 0.5 ? 1 : -1;
     return {
-      x: (Math.random() - 0.5) * 4 + 0.1,
-      y: (Math.random() - 0.5) * 4 + 0.1,
-      z: 20 + (Math.random() - 0.5) * 10,
+      x: side * (6 + Math.random() * 8),
+      y: side * (6 + Math.random() * 8),
+      z: 22 + (Math.random() - 0.5) * 12,
       vx: 0,
       vy: 0,
       vz: 0,
       trail: [],
-      speedMultiplier: 0.007 + Math.random() * 0.003
+      speed: 0.0075 + Math.random() * 0.003
     };
   }
 
   for (let i = 0; i < NUM_PARTICLES; i++) {
-    particles.push(createParticle(i));
+    particles.push(createAttractorParticle());
   }
 
-  // Runge-Kutta / Euler derivative
+  // ─── 2. AMBIENT PHASE-SPACE STREAMLINE FIELD ──────────────────────────
+  // Covers the entire screen to eliminate isolation
+  const NUM_AMBIENT = 75;
+  const ambientParticles = [];
+
+  function createAmbientParticle() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      life: 50 + Math.random() * 150,
+      maxLife: 200,
+      alpha: 0.04 + Math.random() * 0.08
+    };
+  }
+
+  for (let i = 0; i < NUM_AMBIENT; i++) {
+    ambientParticles.push(createAmbientParticle());
+  }
+
+  // Non-linear Lorenz ODE derivatives
   function getDerivatives(x, y, z, rho) {
     return {
       dx: SIGMA * (y - x),
@@ -99,40 +134,51 @@
   function step() {
     ctx.clearRect(0, 0, W, H);
 
-    // Smooth camera interpolation
-    rotX += (targetRotX - rotX) * 0.05;
-    rotY += (targetRotY - rotY) * 0.05;
+    // Camera smoothing
+    rotX += (targetRotX - rotX) * 0.06;
+    rotY += (targetRotY - rotY) * 0.06;
 
-    // Entropy evolution: scroll accelerates chaos; at rest it decays exponentially
-    if (scrollSpeed > 0.5) {
-      entropy = Math.min(1.5, entropy + scrollSpeed * 0.025);
+    // Scroll entropy dynamics
+    if (scrollDelta > 0.5) {
+      entropy = Math.min(1.4, entropy + scrollDelta * 0.018);
+      scrollDelta *= 0.65;
+    } else {
+      scrollDelta = 0;
     }
-    entropy *= 0.94; // Exponential relaxation back to strange attractor manifold
-    scrollSpeed *= 0.88;
+    entropy *= 0.94; // Exponential dissipative cooling back to the attractor
 
-    const currentRho = baseRho + entropy * 14.0;
+    const currentRho = BASE_RHO + entropy * 12.0;
     const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
     const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
 
-    const scale = Math.min(W, H) * 0.024;
+    // Adaptive scale: Wide wingspan embracing the viewport
+    const scale = Math.min(W * 0.032, Math.max(18, H * 0.038));
     const centerX = W / 2;
-    const centerY = H / 2 + 30;
+    const centerY = H / 2 + 20;
 
-    for (let p of particles) {
-      // 1. Evaluate Lorenz system
-      const dt = p.speedMultiplier;
+    // Batch buckets for 100% lag-free rendering
+    // Instead of thousands of ctx.stroke calls, we draw only 4 batch strokes!
+    const batchViolet = []; // Left wing (Cosmic Violet)
+    const batchCyan = [];   // Right wing (Cherenkov Cyan)
+    const batchGold = [];   // Saddle node crossings (Gold)
+    const batchAmbient = [];// Screen-wide ambient streamlines
+    const headDots = [];    // Leading glowing points
+
+    // ── Update & Project Core Attractor Particles ──
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      const dt = p.speed;
       const d = getDerivatives(p.x, p.y, p.z, currentRho);
 
-      // 2. Add stochastic Brownian noise proportional to entropy (scroll)
+      // Stochastic Brownian kicks proportional to scroll entropy
       let noiseX = 0, noiseY = 0, noiseZ = 0;
-      if (entropy > 0.05) {
-        const noiseMag = entropy * 2.4;
-        noiseX = (Math.random() - 0.5) * noiseMag;
-        noiseY = (Math.random() - 0.5) * noiseMag;
-        noiseZ = (Math.random() - 0.5) * noiseMag;
+      if (entropy > 0.04) {
+        const mag = entropy * 2.2;
+        noiseX = (Math.random() - 0.5) * mag;
+        noiseY = (Math.random() - 0.5) * mag;
+        noiseZ = (Math.random() - 0.5) * mag;
       }
 
-      // Update position
       p.x += d.dx * dt + noiseX + p.vx * 0.05;
       p.y += d.dy * dt + noiseY + p.vy * 0.05;
       p.z += d.dz * dt + noiseZ + p.vz * 0.05;
@@ -141,78 +187,154 @@
       p.vy *= 0.92;
       p.vz *= 0.92;
 
-      // Bound safety
-      if (isNaN(p.x) || Math.abs(p.x) > 120 || Math.abs(p.y) > 120 || p.z > 140 || p.z < -20) {
-        Object.assign(p, createParticle());
+      // Bound reset
+      if (isNaN(p.x) || Math.abs(p.x) > 90 || Math.abs(p.y) > 90 || p.z > 120 || p.z < -10) {
+        Object.assign(p, createAttractorParticle());
         continue;
       }
 
-      // 3. 3D to 2D Perspective Projection
-      // Center z around ~27 (attractor centroid)
+      // 3D Perspective Projection (centered at z ~ 27)
       const cx = p.x;
       const cy = p.y;
       const cz = p.z - 27;
 
-      // Rotation around Y then X
       const rx = cx * cosY + cz * sinY;
       const tempZ = -cx * sinY + cz * cosY;
       const ry = cy * cosX - tempZ * sinX;
       const rz = cy * sinX + tempZ * cosX;
 
-      // Subtle perspective divisor
-      const fov = 160;
-      const pers = fov / (fov + rz * 0.4);
+      const fov = 170;
+      const pers = fov / (fov + rz * 0.35);
 
       const px = centerX + rx * scale * pers;
       const py = centerY - ry * scale * pers;
 
-      // Store trail point
-      p.trail.push({ x: px, y: py, valX: p.x, entropy });
+      p.trail.push({ x: px, y: py, valX: p.x });
       if (p.trail.length > TRAIL_LENGTH) {
         p.trail.shift();
       }
 
-      // 4. Render smooth glowing trails
+      // Bucket segments for single-call drawing
       if (p.trail.length > 2) {
-        for (let j = 1; j < p.trail.length; j++) {
+        const len = p.trail.length;
+        for (let j = 1; j < len; j++) {
           const pt1 = p.trail[j - 1];
           const pt2 = p.trail[j];
-          const progress = j / p.trail.length;
-
-          // Color palette:
-          // Left wing (x < 0): Luminous cosmic violet (#a78bfa)
-          // Right wing (x > 0): Cherenkov ice-cyan (#38bdf8)
-          // Near origin / saddle: Gold highlight (#f59e0b)
-          let color;
-          const alpha = (progress * (0.16 - Math.min(0.08, entropy * 0.05))).toFixed(3);
+          const seg = [pt1.x, pt1.y, pt2.x, pt2.y];
 
           if (Math.abs(pt2.valX) < 2.5) {
-            color = `rgba(245, 158, 11, ${alpha})`; // Saddle point
+            batchGold.push(seg);
           } else if (pt2.valX < 0) {
-            color = `rgba(167, 139, 250, ${alpha})`; // Left wing (violet)
+            batchViolet.push(seg);
           } else {
-            color = `rgba(56, 189, 248, ${alpha})`; // Right wing (cyan)
+            batchCyan.push(seg);
           }
-
-          ctx.beginPath();
-          ctx.moveTo(pt1.x, pt1.y);
-          ctx.lineTo(pt2.x, pt2.y);
-          ctx.strokeStyle = color;
-          ctx.lineWidth = 0.65 + progress * 0.5;
-          ctx.stroke();
         }
       }
 
-      // Render leading point
-      const headAlpha = (0.35 + (1 - Math.min(1, entropy)) * 0.25).toFixed(3);
+      // Leading particle node
+      headDots.push({
+        x: px,
+        y: py,
+        color: p.x < 0 ? 'rgba(167, 139, 250, 0.45)' : 'rgba(56, 189, 248, 0.45)'
+      });
+    }
+
+    // ── Update & Project Ambient Phase-Space Streamlines ──
+    for (let i = 0; i < ambientParticles.length; i++) {
+      const ap = ambientParticles[i];
+      ap.life++;
+
+      // Subtle gravitational drift toward closest wing center
+      const targetX = ap.x < W / 2 ? centerX - scale * 12 : centerX + scale * 12;
+      const targetY = centerY;
+      const dx = targetX - ap.x;
+      const dy = targetY - ap.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) + 1;
+
+      // Subtle orbital circulation around lobes
+      ap.vx += (dy / dist) * 0.08 + (dx / dist) * 0.02;
+      ap.vy += (-dx / dist) * 0.08 + (dy / dist) * 0.02;
+
+      // Damping & speed cap
+      ap.vx *= 0.96;
+      ap.vy *= 0.96;
+
+      const prevX = ap.x;
+      const prevY = ap.y;
+      ap.x += ap.vx;
+      ap.y += ap.vy;
+
+      if (ap.life > ap.maxLife || ap.x < -20 || ap.x > W + 20 || ap.y < -20 || ap.y > H + 20) {
+        Object.assign(ap, createAmbientParticle());
+      } else {
+        batchAmbient.push([prevX, prevY, ap.x, ap.y]);
+      }
+    }
+
+    // ── FAST BATCH RENDER: DRAW CALL 1 (Ambient Streamlines) ──
+    if (batchAmbient.length > 0) {
       ctx.beginPath();
-      ctx.arc(px, py, entropy > 0.3 ? 1.2 : 1.8, 0, Math.PI * 2);
-      ctx.fillStyle = p.x < 0 ? `rgba(167, 139, 250, ${headAlpha})` : `rgba(56, 189, 248, ${headAlpha})`;
+      for (let i = 0; i < batchAmbient.length; i++) {
+        const s = batchAmbient[i];
+        ctx.moveTo(s[0], s[1]);
+        ctx.lineTo(s[2], s[3]);
+      }
+      ctx.strokeStyle = 'rgba(167, 139, 250, 0.07)';
+      ctx.lineWidth = 0.7;
+      ctx.stroke();
+    }
+
+    // ── FAST BATCH RENDER: DRAW CALL 2 (Left Wing — Cosmic Violet) ──
+    if (batchViolet.length > 0) {
+      ctx.beginPath();
+      for (let i = 0; i < batchViolet.length; i++) {
+        const s = batchViolet[i];
+        ctx.moveTo(s[0], s[1]);
+        ctx.lineTo(s[2], s[3]);
+      }
+      ctx.strokeStyle = 'rgba(167, 139, 250, 0.15)';
+      ctx.lineWidth = 0.9;
+      ctx.stroke();
+    }
+
+    // ── FAST BATCH RENDER: DRAW CALL 3 (Right Wing — Cherenkov Cyan) ──
+    if (batchCyan.length > 0) {
+      ctx.beginPath();
+      for (let i = 0; i < batchCyan.length; i++) {
+        const s = batchCyan[i];
+        ctx.moveTo(s[0], s[1]);
+        ctx.lineTo(s[2], s[3]);
+      }
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.14)';
+      ctx.lineWidth = 0.9;
+      ctx.stroke();
+    }
+
+    // ── FAST BATCH RENDER: DRAW CALL 4 (Saddle Node Crossings — Warm Gold) ──
+    if (batchGold.length > 0) {
+      ctx.beginPath();
+      for (let i = 0; i < batchGold.length; i++) {
+        const s = batchGold[i];
+        ctx.moveTo(s[0], s[1]);
+        ctx.lineTo(s[2], s[3]);
+      }
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.18)';
+      ctx.lineWidth = 1.0;
+      ctx.stroke();
+    }
+
+    // ── FAST BATCH RENDER: Leading Nodes (Faint Dots) ──
+    for (let i = 0; i < headDots.length; i++) {
+      const dot = headDots[i];
+      ctx.beginPath();
+      ctx.arc(dot.x, dot.y, 1.4, 0, Math.PI * 2);
+      ctx.fillStyle = dot.color;
       ctx.fill();
     }
 
     requestAnimationFrame(step);
   }
 
-  requestAnimationFrame(step);
+  step();
 })();

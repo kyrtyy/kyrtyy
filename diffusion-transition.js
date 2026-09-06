@@ -1,44 +1,46 @@
 /**
- * "ONE IS ALL, AND ALL IS ONE" — CONTINUOUS TRANSMUTATION ENGINE
- * Inspired by Fullmetal Alchemist: Brotherhood & Continuous-Time Diffusion SDEs:
- * - Deconstruction (One -> All): Content dissipates into the living quantum background.
- * - Transmutation: DOM and state swap asynchronously without refreshing the page or restarting the physics canvas.
- * - Reconstruction (All -> One): Coherent physical structure and equations condense from the field.
+ * "ONE IS ALL, AND ALL IS ONE" — CONTINUOUS TRANSMUTATION ENGINE (V2 — ZERO LAG & CACHED)
+ * - Deconstruction (One -> All): Content fades out smoothly without freezing the thread.
+ * - Instant Cache & Fetch: In-memory page preloading on hover for 0ms wait times.
+ * - Transmutation: Swaps #app-content AND synchronizes <nav> so relative links never break on subpages.
+ * - Reconstruction (All -> One): Snappy, hardware-accelerated fade-in with KaTeX rendering.
  */
 
 (function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 1. Create or ensure HUD element
-  let hud = document.getElementById('diffusion-hud');
-  if (!hud) {
-    hud = document.createElement('div');
-    hud.id = 'diffusion-hud';
-    hud.innerHTML = '<span class="hud-dot"></span><span id="hud-text">All is One &bull; Continuous Field</span>';
-    document.body.appendChild(hud);
-  }
-  const hudText = hud.querySelector('#hud-text');
+  // In-memory page cache for instant 0ms transitions
+  const pageCache = new Map();
 
-  function showHud(text, duration = 1200) {
-    if (reduceMotion) return;
-    hudText.textContent = text;
-    hud.classList.add('active');
-    setTimeout(() => {
-      hud.classList.remove('active');
-    }, duration);
+  // Sleek top progress indicator
+  let progressBar = document.getElementById('transmute-progress');
+  if (!progressBar) {
+    progressBar = document.createElement('div');
+    progressBar.id = 'transmute-progress';
+    document.body.appendChild(progressBar);
   }
 
-  // 2. Initial Page Load Animation
-  const initialContent = document.getElementById('app-content') || document.querySelector('main');
-  if (initialContent && !reduceMotion) {
-    initialContent.classList.add('reconstructing');
-    showHud('Reconstruction: All condenses into One', 1000);
-    setTimeout(() => {
-      initialContent.classList.remove('reconstructing');
-    }, 450);
+  function setProgress(pct, opacity = 1) {
+    if (reduceMotion || !progressBar) return;
+    progressBar.style.width = pct + '%';
+    progressBar.style.opacity = opacity;
   }
 
-  // 3. Smooth Dynamic Transmutation (SPA-like without page reloads)
+  // Preload page in background on link hover
+  async function preloadPage(url) {
+    if (pageCache.has(url) || window.location.protocol === 'file:') return;
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const text = await res.text();
+        pageCache.set(url, text);
+      }
+    } catch (e) {
+      // Ignore background preload failures
+    }
+  }
+
+  // Smooth Dynamic Transmutation (SPA-like without page reloads)
   async function transmuteTo(url, push = true) {
     const contentEl = document.getElementById('app-content') || document.querySelector('main');
     if (!contentEl || reduceMotion) {
@@ -47,15 +49,22 @@
     }
 
     try {
-      // Phase 1: Deconstruction (One -> All)
-      showHud('Deconstruction: One dissolves into All', 800);
+      setProgress(50, 1);
+
+      // Phase 1: Rapid deconstruction
       contentEl.classList.remove('reconstructing');
       contentEl.classList.add('deconstructing');
 
-      // Fetch new page content in parallel
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('Network response not ok');
-      const htmlText = await response.text();
+      // Fetch or retrieve from cache
+      let htmlText = pageCache.get(url);
+      if (!htmlText) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Network response not ok: ' + response.status);
+        htmlText = await response.text();
+        pageCache.set(url, htmlText);
+      }
+
+      setProgress(85, 1);
 
       // Parse incoming DOM
       const parser = new DOMParser();
@@ -67,12 +76,19 @@
         return;
       }
 
-      // Wait for deconstruction animation to complete (~250ms)
-      await new Promise(resolve => setTimeout(resolve, 260));
+      // Small tick for smooth opacity transition (~90ms)
+      await new Promise(resolve => setTimeout(resolve, 90));
 
-      // Phase 2: Transmutation (Swap DOM and Metadata)
+      // Phase 2: Transmutation (Swap DOM, Nav, and Metadata)
       contentEl.innerHTML = newContent.innerHTML;
       document.title = doc.title;
+
+      // Update navbar if present to ensure correct relative paths
+      const newNav = doc.querySelector('nav');
+      const currentNav = document.querySelector('nav');
+      if (newNav && currentNav) {
+        currentNav.innerHTML = newNav.innerHTML;
+      }
 
       if (push) {
         window.history.pushState({ url }, doc.title, url);
@@ -89,13 +105,14 @@
         }
       });
 
-      // Re-hydrate KaTeX mathematical expressions
+      // Re-hydrate KaTeX mathematical expressions safely
       if (window.renderMathInElement) {
         window.renderMathInElement(contentEl, {
           delimiters: [
             { left: '$$', right: '$$', display: true },
             { left: '$', right: '$', display: false }
           ],
+          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "canvas", "svg"],
           throwOnError: false
         });
       }
@@ -103,25 +120,41 @@
       // Re-wire Easter egg buttons if on index.html
       wireObservationNode();
 
-      // Scroll smoothly to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Scroll instantly to top
+      window.scrollTo({ top: 0, behavior: 'instant' });
 
-      // Phase 3: Reconstruction (All -> One)
+      // Phase 3: Reconstruction
       contentEl.classList.remove('deconstructing');
       contentEl.classList.add('reconstructing');
-      showHud('Reconstruction: All condenses into One', 1100);
 
+      setProgress(100, 1);
       setTimeout(() => {
+        setProgress(100, 0);
+        setTimeout(() => {
+          if (progressBar) progressBar.style.width = '0%';
+        }, 200);
         contentEl.classList.remove('reconstructing');
-      }, 420);
+      }, 160);
 
     } catch (err) {
-      console.warn('Continuous transmutation fallback to standard load:', err);
+      console.warn('Continuous transmutation fallback to standard navigation:', err);
       window.location.href = url;
     }
   }
 
-  // 4. Intercept Internal Clicks
+  // Preload on mouseover
+  document.addEventListener('mouseover', e => {
+    const link = e.target.closest('a');
+    if (!link || !link.href) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.target === '_blank') return;
+    const targetUrl = new URL(link.href, window.location.href);
+    if (targetUrl.origin === window.location.origin) {
+      preloadPage(link.href);
+    }
+  }, { passive: true });
+
+  // Intercept Internal Clicks
   document.addEventListener('click', e => {
     const link = e.target.closest('a');
     if (!link) return;
@@ -149,7 +182,7 @@
     transmuteTo(link.href, true);
   });
 
-  // 5. Handle Browser Back/Forward Buttons (Popstate)
+  // Handle Browser Back/Forward Buttons (Popstate)
   window.addEventListener('popstate', e => {
     transmuteTo(window.location.href, false);
   });
@@ -220,6 +253,28 @@
     };
   }
 
+  function renderMathSafely() {
+    if (window.renderMathInElement) {
+      window.renderMathInElement(document.getElementById('app-content') || document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false }
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "canvas", "svg"],
+        throwOnError: false
+      });
+    }
+  }
+
   // Initialize on load
-  wireObservationNode();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      wireObservationNode();
+      renderMathSafely();
+    });
+  } else {
+    wireObservationNode();
+    renderMathSafely();
+  }
+  window.addEventListener('load', renderMathSafely, { once: true });
 })();
