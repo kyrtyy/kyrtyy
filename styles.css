@@ -131,13 +131,13 @@ nav {
   z-index: 200;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  background: rgba(6, 4, 15, 0.84);
+  background: rgba(6, 8, 13, 0.88);
   border-bottom: 1px solid var(--border);
   transition: border-color 0.2s ease;
 }
 
 nav:hover {
-  border-bottom-color: rgba(217, 70, 239, 0.3);
+  border-bottom-color: rgba(167, 139, 250, 0.3);
 }
 
 .nav-inner {
@@ -452,9 +452,8 @@ h1, h2, h3, h4 {
 
 .card:hover {
   border-color: var(--border-focus);
-  /* Glowing entropy interaction */
-  box-shadow: 0 0 30px var(--purple-dim), 0 0 60px rgba(6, 182, 212, 0.1), inset 0 0 20px rgba(217, 70, 239, 0.05);
-  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 25px var(--purple-dim), 0 0 50px rgba(45, 212, 191, 0.08);
+  transform: translateY(-4px) scale(1.015);
 }
 
 .card:hover::before {
@@ -839,6 +838,127 @@ footer {
 }
 
 /* Responsive Utilities */
+
+/* ─── SCROLL-REVEAL ANIMATIONS (CSS-only, GitHub Pages friendly) ──────── */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Staggered entrance for cards and sections */
+.pillar-card,
+.bento-card,
+.analog-card,
+.concept-card,
+.project-entry,
+.gallery-card,
+.memo-entry,
+.hobby-section {
+  animation: fade-in-up 0.6s ease both;
+}
+
+.pillar-card:nth-child(1), .bento-card:nth-child(1) { animation-delay: 0.05s; }
+.pillar-card:nth-child(2), .bento-card:nth-child(2) { animation-delay: 0.12s; }
+.pillar-card:nth-child(3), .bento-card:nth-child(3) { animation-delay: 0.19s; }
+.pillar-card:nth-child(4), .bento-card:nth-child(4) { animation-delay: 0.26s; }
+
+.hero-panel {
+  animation: fade-in-scale 0.7s ease 0.15s both;
+}
+
+.page-header {
+  animation: fade-in-up 0.5s ease both;
+}
+
+/* ─── EXTENDED ENTROPY HOVER for all interactive cards ────────────────── */
+.pillar-card,
+.bento-card,
+.analog-card,
+.concept-card,
+.project-entry,
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pillar-card::after,
+.bento-card::after,
+.analog-card::after,
+.concept-card::after,
+.project-entry::after,
+.gallery-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--purple-dim) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(14px);
+}
+
+.pillar-card:hover::after,
+.bento-card:hover::after,
+.analog-card:hover::after,
+.concept-card:hover::after,
+.project-entry:hover::after,
+.gallery-card:hover::after {
+  opacity: 1;
+  transform: scale(1.4);
+}
+
+.pillar-card > *,
+.bento-card > *,
+.analog-card > *,
+.concept-card > *,
+.project-entry > *,
+.gallery-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Pillar cards — stagger hover accent colors */
+.pillar-card:nth-child(1):hover { border-color: rgba(167, 139, 250, 0.5); }
+.pillar-card:nth-child(2):hover { border-color: rgba(45, 212, 191, 0.5); }
+.pillar-card:nth-child(3):hover { border-color: rgba(251, 191, 36, 0.5); }
+.pillar-card:nth-child(4):hover { border-color: rgba(244, 114, 182, 0.5); }
+
+/* Bento cards — alternating accent glow */
+.bento-card:nth-child(odd):hover {
+  box-shadow: 0 0 25px var(--purple-dim), 0 0 40px rgba(45, 212, 191, 0.08);
+}
+.bento-card:nth-child(even):hover {
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.12), 0 0 40px var(--purple-dim);
+}
+
+/* ─── LINK HOVER GLOW ─────────────────────────────────────────────────── */
+a:not(.btn):not(.nav-links a):not(.nav-brand) {
+  transition: color 0.2s ease;
+}
+
+a:not(.btn):not(.nav-links a):not(.nav-brand):hover {
+  color: var(--purple-glow);
+}
 @media (max-width: 860px) {
   .nav-inner {
     padding: 0.85rem 1.5rem;

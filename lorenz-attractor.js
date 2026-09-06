@@ -333,8 +333,28 @@
       ctx.fill();
     }
 
-    requestAnimationFrame(step);
+    // Frame complete — loop is managed externally by startLoop/stopLoop
   }
 
-  step();
+  // Pause rendering when tab is not visible (battery + CPU optimization)
+  let animationId;
+  function startLoop() {
+    if (!animationId) animationId = requestAnimationFrame(function loop() {
+      step();
+      animationId = requestAnimationFrame(loop);
+    });
+  }
+  function stopLoop() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopLoop();
+    else startLoop();
+  });
+
+  startLoop();
 })();
