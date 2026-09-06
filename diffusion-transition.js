@@ -79,16 +79,28 @@
       // Small tick for smooth opacity transition (~90ms)
       await new Promise(resolve => setTimeout(resolve, 90));
 
-      // Phase 2: Transmutation (Swap DOM, Nav, and Metadata)
+      // Phase 2: Transmutation (Swap DOM, Nav, Styles, and Metadata)
       contentEl.innerHTML = newContent.innerHTML;
       document.title = doc.title;
 
-      // Update navbar if present to ensure correct relative paths
+      // Synchronize navbar to maintain correct relative link depths
       const newNav = doc.querySelector('nav');
       const currentNav = document.querySelector('nav');
       if (newNav && currentNav) {
         currentNav.innerHTML = newNav.innerHTML;
       }
+
+      // Synchronize any page-specific style blocks from incoming head
+      const incomingStyles = doc.querySelectorAll('style');
+      let dynamicStyles = document.getElementById('transmute-dynamic-styles');
+      if (!dynamicStyles) {
+        dynamicStyles = document.createElement('style');
+        dynamicStyles.id = 'transmute-dynamic-styles';
+        document.head.appendChild(dynamicStyles);
+      }
+      let combinedCss = '';
+      incomingStyles.forEach(s => { combinedCss += s.textContent + '\n'; });
+      dynamicStyles.textContent = combinedCss;
 
       if (push) {
         window.history.pushState({ url }, doc.title, url);
@@ -105,17 +117,8 @@
         }
       });
 
-      // Re-hydrate KaTeX mathematical expressions safely
-      if (window.renderMathInElement) {
-        window.renderMathInElement(contentEl, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "canvas", "svg"],
-          throwOnError: false
-        });
-      }
+      // Re-hydrate ALL KaTeX mathematical expressions across the entire document
+      window.renderAllMath(document.body);
 
       // Re-wire Easter egg buttons if on index.html
       wireObservationNode();
@@ -253,28 +256,47 @@
     };
   }
 
-  function renderMathSafely() {
-    if (window.renderMathInElement) {
-      window.renderMathInElement(document.getElementById('app-content') || document.body, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '$', right: '$', display: false }
-        ],
-        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "canvas", "svg"],
-        throwOnError: false
-      });
+  // Universal KaTeX Math Renderer (Supporting $$, $, \(, and \[)
+  window.renderAllMath = function (target = document.body) {
+    if (typeof renderMathInElement === 'function') {
+      try {
+        renderMathInElement(target, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '\\[', right: '\\]', display: true },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '$', right: '$', display: false }
+          ],
+          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code", "canvas", "svg"],
+          throwOnError: false
+        });
+      } catch (e) {
+        console.warn('KaTeX render issue:', e);
+      }
+    } else {
+      // Retry if script is still downloading from CDN
+      let retries = 0;
+      const interval = setInterval(() => {
+        retries++;
+        if (typeof renderMathInElement === 'function') {
+          clearInterval(interval);
+          window.renderAllMath(target);
+        } else if (retries > 30) {
+          clearInterval(interval);
+        }
+      }, 80);
     }
-  }
+  };
 
   // Initialize on load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       wireObservationNode();
-      renderMathSafely();
+      window.renderAllMath(document.body);
     });
   } else {
     wireObservationNode();
-    renderMathSafely();
+    window.renderAllMath(document.body);
   }
-  window.addEventListener('load', renderMathSafely, { once: true });
+  window.addEventListener('load', () => window.renderAllMath(document.body), { once: true });
 })();
