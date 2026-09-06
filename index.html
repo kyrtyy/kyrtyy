@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yash Dewangan — Physics, Stochastic Systems & Learning Machines</title>
-  <meta name="description" content="5th-year BS-MS researcher at IISc Bengaluru working at the intersection of non-equilibrium physics, stochastic systems, quantum technology, and modern machine learning.">
+  <title>Yash Dewangan — Physics, Quantum Fields &amp; Learning Machines</title>
+  <meta name="description" content="Physics & Quantum Technology researcher at IISc Bengaluru working at the intersection of non-equilibrium physics, stochastic systems, quantum mechanics, and physics-informed AI.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
   
-  <!-- KaTeX for crisp mathematical typography -->
+  <!-- KaTeX -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
@@ -40,28 +40,35 @@
     .hero-status {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--amber);
-      background: var(--amber-dim);
-      border: 1px solid rgba(229, 158, 86, 0.25);
-      padding: 0.3rem 0.75rem;
-      border-radius: var(--radius-sm);
+      font-size: 0.74rem;
+      color: var(--purple-light);
+      background: var(--purple-dim);
+      border: 1px solid var(--purple-border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
       margin-bottom: 1.8rem;
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.2);
     }
 
     .status-pulse {
-      width: 6px;
-      height: 6px;
-      background: var(--amber);
+      width: 7px;
+      height: 7px;
+      background: var(--purple-bright);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--amber);
+      box-shadow: 0 0 10px var(--purple-light);
+      animation: vacuum-pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes vacuum-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
     }
 
     .hero-title {
       font-family: var(--font-serif);
-      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-size: clamp(2.7rem, 5.2vw, 4.4rem);
       font-weight: 500;
       line-height: 1.08;
       letter-spacing: -1px;
@@ -70,14 +77,15 @@
 
     .hero-title em {
       font-style: italic;
-      color: var(--amber-light);
+      color: var(--purple-light);
+      text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
     }
 
     .hero-bio {
       font-size: 1.08rem;
       color: var(--text-muted);
       line-height: 1.8;
-      max-width: 580px;
+      max-width: 590px;
       margin-bottom: 2.5rem;
     }
 
@@ -92,14 +100,22 @@
       flex-wrap: wrap;
     }
 
-    /* Interactive Phase/Lattice Visualizer */
+    /* Interactive Phase/Higgs Panel */
     .hero-panel {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--purple-border);
       border-radius: var(--radius-md);
       padding: 2.2rem;
       position: relative;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple-bright), var(--quantum-cyan), transparent);
     }
 
     .panel-header {
@@ -113,8 +129,8 @@
 
     .panel-title {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--amber);
+      font-size: 0.74rem;
+      color: var(--purple-light);
       text-transform: uppercase;
       letter-spacing: 1px;
     }
@@ -155,12 +171,13 @@
       border-radius: var(--radius-md);
       padding: 2.2rem;
       transition: all 0.25s ease;
+      position: relative;
     }
 
     .pillar-card:hover {
       border-color: var(--border-focus);
       transform: translateY(-2px);
-      box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+      box-shadow: 0 14px 44px rgba(124, 58, 237, 0.22);
     }
 
     .pillar-card h3 {
@@ -197,7 +214,7 @@
     .bento-card:hover {
       border-color: var(--border-focus);
       transform: translateY(-2px);
-      box-shadow: 0 14px 42px rgba(0,0,0,0.45);
+      box-shadow: 0 16px 48px rgba(124, 58, 237, 0.25);
     }
 
     .bento-card h3 {
@@ -212,7 +229,7 @@
     }
 
     .bento-card h3 a:hover {
-      color: var(--amber);
+      color: var(--purple-light);
     }
 
     .bento-card p {
@@ -234,7 +251,7 @@
     .bento-link {
       font-family: var(--font-mono);
       font-size: 0.74rem;
-      color: var(--amber);
+      color: var(--purple-light);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -244,7 +261,8 @@
 
     .bento-link:hover {
       gap: 0.65rem;
-      color: var(--amber-light);
+      color: #fff;
+      text-shadow: 0 0 8px rgba(192, 132, 252, 0.6);
     }
 
     /* Notes / Writing List */
@@ -277,7 +295,7 @@
     }
 
     .note-title a:hover {
-      color: var(--amber);
+      color: var(--purple-light);
     }
 
     .note-desc {
@@ -287,7 +305,7 @@
       margin-top: 0.4rem;
     }
 
-    /* Off-screen / Analog Section */
+    /* Analog Grid */
     .analog-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -306,6 +324,7 @@
     .analog-card:hover {
       border-color: var(--border-focus);
       transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(124, 58, 237, 0.18);
     }
 
     .analog-card h4 {
@@ -329,16 +348,18 @@
 </head>
 <body>
 
-  <!-- Ambient Backdrop -->
+  <!-- Ambient Quantum Void Layers -->
   <div class="ambient-bg"></div>
   <div class="lattice-grid"></div>
-  <canvas id="diffusion-canvas"></canvas>
+
+  <!-- Interactive Quantum-Fluid Vacuum Simulation Canvas -->
+  <canvas id="quantum-fluid-canvas"></canvas>
 
   <!-- Global Navigation -->
   <nav>
     <div class="nav-inner">
       <a href="index.html" class="nav-brand">
-        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="symbol">$$\langle \phi \rangle = \frac{v}{\sqrt{2}}$$</span>
         <span class="name">Yash Dewangan</span>
       </a>
       <ul class="nav-links">
@@ -356,32 +377,33 @@
   <!-- Main Portal -->
   <main>
 
-    <!-- HERO -->
+    <!-- HERO SECTION -->
     <section class="container hero-section">
       <div class="hero-grid">
         <div class="hero-content">
           <div class="hero-status">
             <span class="status-pulse"></span>
-            <span>Active Researcher · IISc Bengaluru</span>
+            <span>Vacuum State: Active &bull; IISc Bengaluru [Physics × Quantum Tech]</span>
           </div>
           <h1 class="hero-title">
-            Physics, Chance &amp;<br>
+            Quantum Fields, Stochastic Flows &amp;<br>
             <em>Learning Machines</em>
           </h1>
           <p class="hero-bio">
-            5th-year BS-MS researcher with a Minor in <strong>Quantum Technology</strong> at the Indian Institute of Science. Working at the interface of <strong>non-equilibrium statistical mechanics</strong>, <strong>stochastic processes</strong>, and modern AI—investigating how deep networks can inherit rigorous physical conservation laws rather than memorizing data blind.
+            5th-year BS-MS researcher at the Indian Institute of Science with a Minor in <strong>Quantum Technology</strong>. I investigate the deep synthesis of <strong>non-equilibrium statistical mechanics</strong>, <strong>stochastic calculus</strong>, and quantum field theory—designing machine learning architectures that inherit physical conservation laws rather than approximating data blind.
+            <span class="footnote-ref">[†]<span class="footnote-popup">Reference: Spontaneous symmetry breaking &amp; conservation laws via Noether's theorem: continuous symmetries generate exact invariants in both continuous fields and neural loss landscapes.</span></span>
           </p>
           <div class="hero-actions">
-            <a href="projects.html" class="btn btn-amber">Explore Projects &rarr;</a>
+            <a href="projects.html" class="btn btn-purple">Explore Projects &rarr;</a>
             <a href="domain.html" class="btn btn-ghost">Research Pillars</a>
-            <a href="contacts.html" class="btn btn-ghost">Node Coordinates</a>
+            <a href="#observation" class="btn btn-ghost">Observation Node</a>
           </div>
         </div>
 
         <div class="hero-panel">
           <div class="panel-header">
-            <span class="panel-title">// System State &amp; Focus</span>
-            <span class="tag">IISc Physics Lab</span>
+            <span class="panel-title">// System State: Vacuum &amp; Geometry</span>
+            <span class="tag glow-purple">IISc Quantum Lab</span>
           </div>
           <div class="field-spec-list">
             <div class="field-spec-item">
@@ -389,24 +411,24 @@
               <span class="spec-val">Physics-Informed Deep Operators</span>
             </div>
             <div class="field-spec-item">
-              <span class="spec-label">Mathematical Core</span>
-              <span class="spec-val">Langevin SDEs &amp; Navier-Stokes</span>
+              <span class="spec-label">Field Theory Core</span>
+              <span class="spec-val">Path Integrals &amp; Symmetry Breaking</span>
             </div>
             <div class="field-spec-item">
-              <span class="spec-label">Minor Discipline</span>
-              <span class="spec-val">Quantum Technology / QFT</span>
+              <span class="spec-label">Stochastic Dynamics</span>
+              <span class="spec-val">Langevin SDEs &amp; Navier-Stokes</span>
             </div>
             <div class="field-spec-item">
               <span class="spec-label">Computational Stack</span>
               <span class="spec-val">PyTorch, CUDA, JAX, DeepXDE</span>
             </div>
             <div class="field-spec-item">
-              <span class="spec-label">Location Node</span>
-              <span class="spec-val">Bengaluru, India [12.9716° N, 77.5946° E]</span>
+              <span class="spec-label">Interactive Field</span>
+              <span class="spec-val glow-gold">[Move cursor to stir fluid vorticity / Click for pulse]</span>
             </div>
           </div>
           <div class="eq-box" style="margin-top: 1.5rem; margin-bottom: 0;">
-            $$\mathrm{d}X_t = \mu(X_t, t)\,\mathrm{d}t + \sigma(X_t, t)\,\mathrm{d}W_t$$
+            $$V(\phi) = -\mu^2 |\phi|^2 + \lambda |\phi|^4 \quad\implies\quad \langle \phi \rangle = \frac{v}{\sqrt{2}}$$
           </div>
         </div>
       </div>
@@ -415,90 +437,113 @@
     <!-- TICKER RIBBON -->
     <div class="ticker-ribbon" aria-hidden="true">
       <div class="ticker-track">
-        <span class="ticker-item">$$\partial_t u + (u \cdot \nabla)u = -\nabla p + \nu \nabla^2 u$$</span>
-        <span class="ticker-item">$$\mathrm{d}X_t = \mu\,\mathrm{d}t + \sigma\,\mathrm{d}W_t$$</span>
-        <span class="ticker-item">$$i\hbar\,\partial_t \psi = \hat{H}\psi$$</span>
+        <span class="ticker-item">$$\partial_t \boldsymbol{\omega} + (\mathbf{u}\cdot\nabla)\boldsymbol{\omega} = (\boldsymbol{\omega}\cdot\nabla)\mathbf{u} + \nu\nabla^2\boldsymbol{\omega}$$</span>
+        <span class="ticker-item">$$\mathcal{Z} = \int \mathcal{D}\phi \, \exp\left(\frac{i}{\hbar} S[\phi]\right)$$</span>
+        <span class="ticker-item">$$\mathrm{d}\mathbf{X}_t = \mathbf{b}(\mathbf{X}_t, t)\,\mathrm{d}t + \boldsymbol{\sigma}(\mathbf{X}_t, t)\,\mathrm{d}\mathbf{W}_t$$</span>
+        <span class="ticker-item">$$(i\gamma^\mu \partial_\mu - m)\psi = 0$$</span>
         <span class="ticker-item">$$\nabla_x \log p_t(x) \;\text{[Score Function]}$$</span>
-        <span class="ticker-item">$$\mathcal{L}(\theta) = \mathcal{L}_{\text{data}} + \lambda\,\mathcal{L}_{\text{pde}}$$</span>
-        <span class="ticker-item">$$\hat{v}(k) = \mathcal{F}(v)(k)$$</span>
-        <span class="ticker-item">$$\Delta S_{\text{univ}} \geq 0$$</span>
-        <!-- Duplicated track for smooth infinite ticker loop -->
-        <span class="ticker-item">$$\partial_t u + (u \cdot \nabla)u = -\nabla p + \nu \nabla^2 u$$</span>
-        <span class="ticker-item">$$\mathrm{d}X_t = \mu\,\mathrm{d}t + \sigma\,\mathrm{d}W_t$$</span>
-        <span class="ticker-item">$$i\hbar\,\partial_t \psi = \hat{H}\psi$$</span>
+        <span class="ticker-item">$$D = \mu k_B T \;\text{[Fluctuation-Dissipation]}$$</span>
+        <span class="ticker-item">$$\Delta S_{\text{universe}} \geq 0$$</span>
+        <!-- Repeated for smooth infinite loop -->
+        <span class="ticker-item">$$\partial_t \boldsymbol{\omega} + (\mathbf{u}\cdot\nabla)\boldsymbol{\omega} = (\boldsymbol{\omega}\cdot\nabla)\mathbf{u} + \nu\nabla^2\boldsymbol{\omega}$$</span>
+        <span class="ticker-item">$$\mathcal{Z} = \int \mathcal{D}\phi \, \exp\left(\frac{i}{\hbar} S[\phi]\right)$$</span>
+        <span class="ticker-item">$$\mathrm{d}\mathbf{X}_t = \mathbf{b}(\mathbf{X}_t, t)\,\mathrm{d}t + \boldsymbol{\sigma}(\mathbf{X}_t, t)\,\mathrm{d}\mathbf{W}_t$$</span>
+        <span class="ticker-item">$$(i\gamma^\mu \partial_\mu - m)\psi = 0$$</span>
         <span class="ticker-item">$$\nabla_x \log p_t(x) \;\text{[Score Function]}$$</span>
-        <span class="ticker-item">$$\mathcal{L}(\theta) = \mathcal{L}_{\text{data}} + \lambda\,\mathcal{L}_{\text{pde}}$$</span>
-        <span class="ticker-item">$$\hat{v}(k) = \mathcal{F}(v)(k)$$</span>
-        <span class="ticker-item">$$\Delta S_{\text{univ}} \geq 0$$</span>
+        <span class="ticker-item">$$D = \mu k_B T \;\text{[Fluctuation-Dissipation]}$$</span>
+        <span class="ticker-item">$$\Delta S_{\text{universe}} \geq 0$$</span>
       </div>
     </div>
 
+    <!-- INTERACTIVE EASTER EGG: QUANTUM OBSERVATION BOX -->
+    <section class="container" id="observation">
+      <div class="observation-box">
+        <div class="obs-header">
+          <div>
+            <span class="meta-label">Observation Node // Easter Egg</span>
+            <h3 style="font-size: 1.15rem; margin-top: 0.2rem;">Quantum Measurement &amp; Physical Curiosities</h3>
+          </div>
+          <button id="collapse-btn" class="btn btn-purple" style="font-size: 0.72rem; padding: 0.5rem 1rem;">
+            ⚛ Collapse Wavefunction
+          </button>
+        </div>
+        <div id="obs-quote-container">
+          <p class="obs-quote-text" id="obs-quote">
+            "Nature isn't classical, dammit, and if you want to make a simulation of nature, you'd better make it quantum mechanical!"
+          </p>
+          <span class="obs-author" id="obs-author">— Richard P. Feynman, Simulating Physics with Computers (1982)</span>
+          <span class="obs-trivia-tag" id="obs-tag">// Physical Truth: Microscopic reality is non-deterministic; macroscopic determinism is an emergent thermodynamic illusion.</span>
+        </div>
+      </div>
+    </section>
+
     <!-- RESEARCH PILLARS -->
-    <section class="container" style="padding: 6.5rem 2rem 4rem;">
-      <span class="meta-label">Conceptual Framework</span>
-      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Research &amp; Technical Pillars</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 680px; margin-top: 0.5rem;">
-        Bridging the analytical rigor of non-equilibrium physics with modern deep learning and high-performance computing.
+    <section class="container" style="padding: 4rem 2rem 4rem;">
+      <span class="meta-label">Conceptual Structure</span>
+      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Research &amp; Thematic Pillars</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin-top: 0.5rem;">
+        Bridging the analytical power of quantum field theory and stochastic mechanics with modern deep learning and high-performance simulation.
       </p>
 
       <div class="pillars-grid">
         <div class="pillar-card">
-          <span class="meta-label">Pillar 01</span>
+          <span class="meta-label">Pillar 01 // Stochasticity</span>
           <h3>Stochastic Systems &amp; Statistical Physics</h3>
           <p>
-            Non-equilibrium statistical mechanics, Langevin dynamics, Fokker-Planck evolution, and the thermodynamics of learning. Viewing gradient descent as relaxation toward thermal equilibrium.
+            Non-equilibrium statistical mechanics, Langevin dynamics, and Fokker-Planck evolution. Viewing stochastic gradient descent as a physical particle exploring an energetic loss landscape with thermal fluctuation kicks.
+            <span class="footnote-ref">[λ]<span class="footnote-popup">Mini-batch noise acts as an effective temperature \(T_{\text{eff}} \approx \frac{\eta B}{2}\) facilitating barrier-crossing out of sharp non-generalizing local minima.</span></span>
           </p>
           <div class="eq-box">$$\partial_t p(x,t) = -\nabla \cdot (\mu p) + \frac{1}{2}\nabla^2(\sigma^2 p)$$</div>
           <div class="tags">
             <span class="tag">Langevin SDEs</span>
             <span class="tag">Fokker-Planck</span>
+            <span class="tag">Fluctuation Theorems</span>
             <span class="tag">Game Theory</span>
-            <span class="tag">Stat Mech</span>
           </div>
         </div>
 
         <div class="pillar-card">
-          <span class="meta-label">Pillar 02</span>
+          <span class="meta-label">Pillar 02 // Neural Fields</span>
           <h3>Modern Machine Learning &amp; AI</h3>
           <p>
-            Generative modeling via stochastic differential equations (score-based diffusion), physics-informed neural networks (PINNs), joint embeddings, and high-dimensional representation dynamics.
+            Score-based generative modeling framed as continuous forward-backward SDEs, physics-informed neural networks (PINNs), and Fourier Neural Operators that learn continuous mappings between infinite-dimensional function spaces.
           </p>
           <div class="eq-box">$$\mathrm{d}x = [f(x,t) - g(t)^2 \nabla_x \log p_t(x)]\,\mathrm{d}t + g(t)\,\mathrm{d}\bar{w}$$</div>
           <div class="tags">
             <span class="tag">Diffusion Models</span>
             <span class="tag">PINNs</span>
-            <span class="tag">Deep Operators</span>
+            <span class="tag">Fourier Operators</span>
             <span class="tag">Score Matching</span>
           </div>
         </div>
 
         <div class="pillar-card">
-          <span class="meta-label">Pillar 03</span>
+          <span class="meta-label">Pillar 03 // Quantum Geometry</span>
           <h3>Quantum Theory &amp; Field Systems</h3>
           <p>
-            Quantum mechanics, Feynman path integrals, and formal quantum computing foundations. Exploring quantum states and density operator evolution in noisy quantum information systems.
+            Quantum mechanics, path integrals, and formal quantum technology fundamentals. Investigating spontaneous symmetry breaking, Goldstone bosons, and open quantum systems governed by Lindblad master equations.
           </p>
-          <div class="eq-box">$$\mathcal{Z} = \int \mathcal{D}\phi \, \exp\left(\frac{i}{\hbar} S[\phi]\right)$$</div>
+          <div class="eq-box">$$\mathcal{L} = |D_\mu \phi|^2 - \mu^2 |\phi|^2 - \lambda |\phi|^4 - \frac{1}{4}F_{\mu\nu}F^{\mu\nu}$$</div>
           <div class="tags">
-            <span class="tag">Quantum Mechanics</span>
             <span class="tag">Path Integrals</span>
+            <span class="tag">Higgs Mechanism</span>
             <span class="tag">Quantum Tech Minor</span>
-            <span class="tag">QFT</span>
+            <span class="tag">Lindblad SDEs</span>
           </div>
         </div>
 
         <div class="pillar-card">
-          <span class="meta-label">Pillar 04</span>
+          <span class="meta-label">Pillar 04 // Computational Substrate</span>
           <h3>Computational Physics &amp; HPC</h3>
           <p>
-            Large-scale simulation of continuum systems, spectral methods, numerical fluid dynamics (Navier-Stokes), and parallel computing kernels across CUDA and MPI architectures.
+            Direct numerical simulation (DNS) of Navier-Stokes fluid flows, pseudo-spectral methods, and CUDA streaming multiprocessor optimization. Benchmarking the memory scaling of autograd tapes versus classical finite differences.
           </p>
-          <div class="eq-box">$$\mathcal{O}(N \log N) \quad\text{via GPU-accelerated FFT kernels}$$</div>
+          <div class="eq-box">$$\mathcal{O}(N \log N) \quad\text{via GPU-accelerated cuFFT spectral kernels}$$</div>
           <div class="tags">
-            <span class="tag">CUDA</span>
-            <span class="tag">MPI / HPC</span>
-            <span class="tag">Fluid Simulation</span>
-            <span class="tag">Spectral Methods</span>
+            <span class="tag">CUDA / C++</span>
+            <span class="tag">Navier-Stokes</span>
+            <span class="tag">Spectral DNS</span>
+            <span class="tag">Memory Profiling</span>
           </div>
         </div>
       </div>
@@ -508,12 +553,12 @@
       </div>
     </section>
 
-    <!-- FEATURED PROJECTS BENTO -->
+    <!-- SELECTED PROJECTS BENTO -->
     <section class="container" style="padding: 4rem 2rem 5rem;">
-      <span class="meta-label">Implementation &amp; Code</span>
-      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Selected Projects</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 680px; margin-top: 0.5rem;">
-        Complete mathematical formulations, numerical architectures, and open implementations.
+      <span class="meta-label">Implementations</span>
+      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Selected Research Projects</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin-top: 0.5rem;">
+        Mathematical formulations, numerical architectures, and reproducible code repositories.
       </p>
 
       <div class="bento-grid">
@@ -521,19 +566,19 @@
         <!-- Project 1: Navier-Stokes -->
         <div class="bento-card">
           <div>
-            <span class="meta-label">Fluid Dynamics // Inverse Problem</span>
+            <span class="meta-label">Fluid Mechanics // Inverse PINN</span>
             <h3><a href="projects/navier-stokes.html">Navier-Stokes Inverse Solver</a></h3>
             <p>
-              Reconstructed continuous velocity and latent pressure distributions from sparse, noisy sensor observations by minimizing momentum Navier-Stokes residuals via automatic differentiation.
+              Reconstructed continuous velocity vectors and unobserved scalar pressure fields from sparse, noisy velocity measurements in vortex shedding wakes. Enforces divergence-free incompressibility strictly via stream function autograd.
             </p>
             <div class="eq-box">
-              $$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{data}} + \lambda_{\text{ns}} \|\partial_t u + (u \cdot \nabla)u + \nabla p - \nu \nabla^2 u\|_2^2$$
+              $$\mathcal{L}_{\text{NS}} = \|\partial_t u + u u_x + v u_y + p_x - \nu \nabla^2 u\|_2^2 + \|\partial_t v + u v_x + v v_y + p_y - \nu \nabla^2 v\|_2^2$$
             </div>
             <div class="tags" style="margin-bottom: 1.5rem;">
               <span class="tag">PyTorch Autograd</span>
+              <span class="tag">Stream Function</span>
               <span class="tag">L-BFGS</span>
-              <span class="tag">CFD Validation</span>
-              <span class="tag">Inverse PINN</span>
+              <span class="tag">Pressure Recovery</span>
             </div>
           </div>
           <div class="bento-footer">
@@ -548,7 +593,7 @@
             <span class="meta-label">Operator Learning // Frequency Domain</span>
             <h3><a href="projects/fourier-operators.html">Fourier Neural Operators (FNO-1D)</a></h3>
             <p>
-              Implemented zero-shot mesh-independent operator learning for time-dependent wave systems, mapping initial function spaces to continuous trajectories directly in the Fourier domain.
+              Implemented zero-shot mesh-independent operator learning for wave mechanics and Burgers' equation. Parameterizes kernel integration directly in the frequency domain with complex mode weights.
             </p>
             <div class="eq-box">
               $$v_{t+1}(x) = \sigma\left(W v_t(x) + \mathcal{F}^{-1}\Big(R_\theta \cdot \mathcal{F}(v_t)\Big)(x)\right)$$
@@ -556,8 +601,8 @@
             <div class="tags" style="margin-bottom: 1.5rem;">
               <span class="tag">torch.fft</span>
               <span class="tag">Complex Weights</span>
-              <span class="tag">Resolution Invariance</span>
-              <span class="tag">Spectral Conv</span>
+              <span class="tag">Zero-Shot Super-Res</span>
+              <span class="tag">Burgers' PDE</span>
             </div>
           </div>
           <div class="bento-footer">
@@ -569,64 +614,64 @@
         <!-- Project 3: Autograd vs CFD -->
         <div class="bento-card">
           <div>
-            <span class="meta-label">Numerical Methods // Benchmarks</span>
+            <span class="meta-label">Numerical Benchmarks // VRAM Scaling</span>
             <h3><a href="projects/Automatic-Differentiation.html">Automatic Differentiation vs CFD Stencils</a></h3>
             <p>
-              An analytical benchmark evaluating compute graph memory scaling, floating point precision, and wall-clock performance between PyTorch dual numbers and classical 5-point finite difference stencils.
+              An analytical benchmark evaluating graph memory overhead, floating point precision, and throughput between reverse-mode autograd tapes and discrete 2nd/4th order finite difference stencils on \(1024^2\) grids.
             </p>
             <div class="eq-box">
-              $$\nabla f(x) \approx \frac{f(x+h) - f(x-h)}{2h} \quad \longleftrightarrow \quad \left(f(x), \frac{\partial f}{\partial x}\right)$$
+              $$\text{Memory Overhead: } \mathcal{O}(1) \text{ [Stencil]} \quad \longleftrightarrow \quad \mathcal{O}(N \times \text{Depth}) \text{ [Autograd Graph]}$$
             </div>
             <div class="tags" style="margin-bottom: 1.5rem;">
-              <span class="tag">Computational Limits</span>
               <span class="tag">Dual Numbers</span>
+              <span class="tag">Tape Memory</span>
               <span class="tag">Finite Difference</span>
-              <span class="tag">Memory Profiling</span>
+              <span class="tag">HPC Benchmark</span>
             </div>
           </div>
           <div class="bento-footer">
             <a href="projects/Automatic-Differentiation.html" class="bento-link">Read Deep Dive &rarr;</a>
-            <a href="https://github.com/kyrtyy" target="_blank" class="tag" style="text-decoration: none;">Research Notes</a>
+            <a href="https://github.com/kyrtyy" target="_blank" class="tag" style="text-decoration: none;">Benchmark Scripts</a>
           </div>
         </div>
 
-        <!-- Project 4: PINN Optimization -->
+        <!-- Project 4: PINN for Stiff PDEs -->
         <div class="bento-card">
           <div>
             <span class="meta-label">Physics-Informed ML // Optimization</span>
             <h3><a href="projects/PINN.html">Physics-Informed Neural Networks for Stiff PDEs</a></h3>
             <p>
-              Investigating failure modes in PINN convergence on multiscale, stiff PDE regimes. Addressing gradient pathologies using dynamic loss weighting and Fourier feature embeddings.
+              Investigating failure modes in PINN convergence on multiscale, stiff reaction-diffusion systems. Mitigates gradient pathologies and spectral bias using adaptive learning rate annealing and Fourier feature embeddings.
             </p>
             <div class="eq-box">
-              $$\min_\theta \sum_{i} \lambda_i(t) \, \mathcal{L}_i(\theta) \quad \text{s.t.} \quad \lambda_i(t) \propto \|\nabla_\theta \mathcal{L}_i\|^{-1}$$
+              $$\hat{\lambda}_k = \frac{\max_j \overline{\|\nabla_\theta \mathcal{L}_j\|}}{\overline{\|\nabla_\theta \mathcal{L}_k\|}}, \qquad \gamma(x) = [\cos(2\pi B x), \sin(2\pi B x)]^T$$
             </div>
             <div class="tags" style="margin-bottom: 1.5rem;">
-              <span class="tag">Adaptive Weighting</span>
               <span class="tag">Spectral Bias</span>
-              <span class="tag">Stiff Systems</span>
+              <span class="tag">Adaptive Annealing</span>
+              <span class="tag">Allen-Cahn PDE</span>
               <span class="tag">DeepXDE</span>
             </div>
           </div>
           <div class="bento-footer">
             <a href="projects/PINN.html" class="bento-link">Read Deep Dive &rarr;</a>
-            <a href="https://github.com/kyrtyy" target="_blank" class="tag" style="text-decoration: none;">Research Notes</a>
+            <a href="https://github.com/kyrtyy" target="_blank" class="tag" style="text-decoration: none;">Experiment Code</a>
           </div>
         </div>
 
       </div>
 
-      <div style="margin-top: 2rem; text-align: center;">
-        <a href="projects.html" class="btn btn-amber">View All Research Projects &rarr;</a>
+      <div style="margin-top: 2.5rem; text-align: center;">
+        <a href="projects.html" class="btn btn-purple">View All Research Projects &rarr;</a>
       </div>
     </section>
 
-    <!-- WRITING / NOTES -->
+    <!-- WRITING / FIELD NOTES -->
     <section class="container" style="padding: 4rem 2rem 5rem;">
-      <span class="meta-label">Publications &amp; Notes</span>
-      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Field Notes &amp; Derivations</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 680px; margin-top: 0.5rem;">
-        Technical memos, mathematical derivations, and essays on physics and computation.
+      <span class="meta-label">Memos &amp; Derivations</span>
+      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Field Notes &amp; Technical Memos</h2>
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin-top: 0.5rem;">
+        Mathematical reflections, derivations, and essays on physics and computation.
       </p>
 
       <div class="notes-list">
@@ -665,24 +710,24 @@
       </div>
 
       <div style="margin-top: 2rem; text-align: right;">
-        <a href="blog.html" class="btn btn-ghost">View All Notes &amp; Derivations &rarr;</a>
+        <a href="blog.html" class="btn btn-ghost">View All Field Notes &rarr;</a>
       </div>
     </section>
 
-    <!-- ANALOG & OFF-SCREEN -->
+    <!-- ANALOG PERSPECTIVES -->
     <section class="container" style="padding: 4rem 2rem 6.5rem;">
-      <span class="meta-label">Off-Screen &amp; Human</span>
+      <span class="meta-label">Off-Screen Life &amp; Texture</span>
       <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Analog Dimensions</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 680px; margin-top: 0.5rem;">
-        Grounding theoretical computation with tactile physical activities, acoustic resonance, and cinematic storytelling.
+      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin-top: 0.5rem;">
+        Grounding theoretical computation with tactile athletics, acoustic resonance, and cinematic visual grammar.
       </p>
 
       <div class="analog-grid">
         <div class="analog-card">
-          <span class="meta-label">Athletics // Aerodynamics</span>
+          <span class="meta-label">Athletics // Field Kinetics</span>
           <h4>Ultimate Frisbee</h4>
           <p>
-            Field vision, disc aerodynamics, and emergent team coordination. Non-refereed spirit of the game where spatial awareness and rapid non-inertial adjustments dictate play.
+            Field vision, disc aerodynamics, and rapid non-inertial adjustments across the IISc Gymkhana grounds. Self-officiated spirit of the game where physical exhaustion meets complete mutual trust.
           </p>
           <div style="margin-top: 1.2rem;">
             <a href="hobbies.html#ultimate" class="bento-link">Field Perspectives &rarr;</a>
@@ -690,10 +735,10 @@
         </div>
 
         <div class="analog-card">
-          <span class="meta-label">Acoustics // Resonance</span>
-          <h4>Guitar</h4>
+          <span class="meta-label">Acoustics // Standing Waves</span>
+          <h4>Guitar &amp; Harmonics</h4>
           <p>
-            Acoustic wood vibration, string tension harmonics, and modal tunings. Exploring mechanical oscillation and resonance without a single line of software.
+            Acoustic spruce resonance, phosphor-bronze tension, and modal open tunings (DADGAD). Exploring physical boundary values and standing wave overtones without a single transistor.
           </p>
           <div style="margin-top: 1.2rem;">
             <a href="hobbies.html#guitar" class="bento-link">Acoustic Logs &rarr;</a>
@@ -701,10 +746,10 @@
         </div>
 
         <div class="analog-card">
-          <span class="meta-label">Culture // Visual Language</span>
+          <span class="meta-label">Visual Grammar // Time</span>
           <h4>World Cinema</h4>
           <p>
-            Auteur directing, deliberate pacing, and visual storytelling. Analyzing cinematic composition and philosophical framing in the works of Tarkovsky, Kubrick, and Edward Yang.
+            Auteur visual storytelling and temporal rhythm. Analyzing the meditative tracking shots of Andrei Tarkovsky, the geometric framing of Kubrick, and the urban memory of Edward Yang.
           </p>
           <div style="margin-top: 1.2rem;">
             <a href="hobbies.html#cinema" class="bento-link">Film Studies &rarr;</a>
@@ -729,13 +774,17 @@
     </div>
   </footer>
 
-  <!-- Discrete 2D Langevin / Random Walk Diffusion Canvas Simulation -->
+  <!-- Interactive Quantum-Fluid Simulation & Wavefunction Collapse Engine -->
   <script>
   (function () {
-    const cvs = document.getElementById('diffusion-canvas');
+    // ─── 1. INTERACTIVE QUANTUM-FLUID VACUUM CANVAS ───────────────────────
+    const cvs = document.getElementById('quantum-fluid-canvas');
     if (!cvs) return;
     const ctx = cvs.getContext('2d');
-    let W, H, particles = [], animId;
+    let W, H;
+    let particles = [];
+    let shockwaves = []; // Higgs symmetry breaking ripples
+    const mouse = { x: -1000, y: -1000, prevX: -1000, prevY: -1000, speed: 0, active: false };
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reduceMotion) {
@@ -752,79 +801,247 @@
       return {
         x: Math.random() * W,
         y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        life: 0.3 + Math.random() * 0.7,
-        decay: 0.0015 + Math.random() * 0.001,
-        radius: 0.8 + Math.random() * 1.2,
-        // Thermal random walk kick parameter
-        thermalKick: 0.18
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        life: 0.2 + Math.random() * 0.8,
+        decay: 0.0012 + Math.random() * 0.001,
+        radius: 0.8 + Math.random() * 1.4,
+        hue: Math.random() > 0.3 ? 270 : 190 // Violet dominant, occasional cyan
       };
     }
 
     function init() {
       resize();
-      const count = Math.min(80, Math.floor((W * H) / 16000));
+      const count = Math.min(100, Math.floor((W * H) / 14000));
       particles = [];
       for (let i = 0; i < count; i++) {
         particles.push(createParticle());
       }
     }
 
+    // Interactive mouse listeners
+    window.addEventListener('mousemove', e => {
+      mouse.prevX = mouse.x;
+      mouse.prevY = mouse.y;
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      const dx = mouse.x - mouse.prevX;
+      const dy = mouse.y - mouse.prevY;
+      mouse.speed = Math.sqrt(dx * dx + dy * dy);
+      mouse.active = true;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      mouse.active = false;
+    });
+
+    // Click: Higgs symmetry breaking wave perturbation
+    window.addEventListener('click', e => {
+      shockwaves.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 5,
+        maxRadius: 180 + Math.random() * 80,
+        speed: 4.5,
+        opacity: 0.75
+      });
+    });
+
     function step() {
       ctx.clearRect(0, 0, W, H);
 
-      // Render subtle connection lattice when particles are proximate
+      // 1. Render expanding Higgs vacuum ripples
+      for (let s = shockwaves.length - 1; s >= 0; s--) {
+        const sw = shockwaves[s];
+        sw.radius += sw.speed;
+        sw.opacity *= 0.96;
+
+        ctx.beginPath();
+        ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(192, 132, 252, ${sw.opacity.toFixed(3)})`;
+        ctx.lineWidth = 1.8;
+        ctx.stroke();
+
+        // Secondary subtle inner echo ring
+        if (sw.radius > 25) {
+          ctx.beginPath();
+          ctx.arc(sw.x, sw.y, sw.radius * 0.75, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(251, 191, 36, ${(sw.opacity * 0.4).toFixed(3)})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Apply outward impulse force to proximate particles
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          const dx = p.x - sw.x;
+          const dy = p.y - sw.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (Math.abs(dist - sw.radius) < 20) {
+            const push = (1 - Math.abs(dist - sw.radius) / 20) * 1.5;
+            p.vx += (dx / (dist + 0.1)) * push;
+            p.vy += (dy / (dist + 0.1)) * push;
+          }
+        }
+
+        if (sw.opacity < 0.01 || sw.radius >= sw.maxRadius) {
+          shockwaves.splice(s, 1);
+        }
+      }
+
+      // 2. Update & render particles (stochastic Langevin walk + mouse fluid wake)
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i];
 
-        // Langevin thermal noise update: dx = v dt + sqrt(2D) dW
-        p1.vx += (Math.random() - 0.5) * p1.thermalKick;
-        p1.vy += (Math.random() - 0.5) * p1.thermalKick;
-        // Damping / friction term: - gamma * v
-        p1.vx *= 0.96;
-        p1.vy *= 0.96;
+        // Thermal Langevin noise kicks
+        p1.vx += (Math.random() - 0.5) * 0.22;
+        p1.vy += (Math.random() - 0.5) * 0.22;
+
+        // Interaction with mouse cursor: fluid swirl & wake
+        if (mouse.active) {
+          const dx = p1.x - mouse.x;
+          const dy = p1.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 180 && dist > 2) {
+            // Tangential swirl (vorticity curl) + slight outward repulsion
+            const angle = Math.atan2(dy, dx);
+            const swirlForce = (1 - dist / 180) * 0.75;
+            p1.vx += -Math.sin(angle) * swirlForce + (dx / dist) * 0.25;
+            p1.vy +=  Math.cos(angle) * swirlForce + (dy / dist) * 0.25;
+            p1.life = Math.min(1.0, p1.life + 0.05); // Energize near mouse
+          }
+        }
+
+        // Viscous damping
+        p1.vx *= 0.95;
+        p1.vy *= 0.95;
 
         p1.x += p1.vx;
         p1.y += p1.vy;
         p1.life -= p1.decay;
 
-        if (p1.life <= 0 || p1.x < -20 || p1.x > W + 20 || p1.y < -20 || p1.y > H + 20) {
+        if (p1.life <= 0 || p1.x < -30 || p1.x > W + 30 || p1.y < -30 || p1.y > H + 30) {
           particles[i] = createParticle();
           continue;
         }
 
+        // Render particle with purple / cyan quantum glow
         ctx.beginPath();
         ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(229, 158, 86, ${p1.life * 0.35})`;
+        const col = p1.hue === 270 ? `rgba(168, 85, 247, ${p1.life * 0.5})` : `rgba(56, 189, 248, ${p1.life * 0.4})`;
+        ctx.fillStyle = col;
         ctx.fill();
 
+        // Path integral strand connections between entangled nearby particles
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
           const distSq = dx * dx + dy * dy;
-          if (distSq < 13000) {
-            const alpha = (1 - distSq / 13000) * 0.08 * Math.min(p1.life, p2.life);
+          if (distSq < 14000) {
+            const alpha = (1 - distSq / 14000) * 0.12 * Math.min(p1.life, p2.life);
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(229, 158, 86, ${alpha})`;
-            ctx.lineWidth = 0.75;
+            ctx.strokeStyle = `rgba(168, 85, 247, ${alpha.toFixed(3)})`;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
       }
 
-      animId = requestAnimationFrame(step);
+      requestAnimationFrame(step);
     }
 
-    window.addEventListener('resize', () => {
-      resize();
-    }, { passive: true });
-
+    window.addEventListener('resize', () => { resize(); }, { passive: true });
     init();
     step();
+
+    // ─── 2. QUANTUM OBSERVATION BOX (EASTER EGG GENERATOR) ────────────────
+    const collapseBtn = document.getElementById('collapse-btn');
+    const quoteEl = document.getElementById('obs-quote');
+    const authorEl = document.getElementById('obs-author');
+    const tagEl = document.getElementById('obs-tag');
+
+    const easterEggs = [
+      {
+        quote: "Nature isn't classical, dammit, and if you want to make a simulation of nature, you'd better make it quantum mechanical!",
+        author: "— Richard P. Feynman, Simulating Physics with Computers (1982)",
+        tag: "// Quantum Supremacy: Exact representation of n entangled qubits requires 2^n complex amplitudes."
+      },
+      {
+        quote: "With four parameters I can fit an elephant, and with five I can make him wiggle his trunk.",
+        author: "— John von Neumann (as recounted by Freeman Dyson, 2004)",
+        tag: "// Overparameterization & Regularization: Why deep neural networks generalize despite millions of parameters."
+      },
+      {
+        quote: "A method is more important than a discovery, since the right method will lead to new and even more wonderful discoveries.",
+        author: "— Lev Landau, Course of Theoretical Physics",
+        tag: "// Theoretical Rigor: From symmetry groups to variational principles in computational mechanics."
+      },
+      {
+        quote: "Time is a state: the flame in which there lives the salamander of the human soul.",
+        author: "— Andrei Tarkovsky, Sculpting in Time (1986)",
+        tag: "// Non-Inertial Time: Exploring duration, temporal rhythm, and memory in cinema and non-equilibrium physics."
+      },
+      {
+        quote: "If your theory is found to be against the second law of thermodynamics I can give you no hope; there is nothing for it but to collapse in deepest humiliation.",
+        author: "— Sir Arthur Eddington, The Nature of the Physical World (1928)",
+        tag: "// Irreversibility: Microscopic laws are time-reversible; macroscopic thermodynamics dictates the arrow of time."
+      },
+      {
+        quote: "The mass of quarks accounts for only ~1% of a proton's mass; the remaining 99% is pure kinetic energy of gluons and quark fluctuations.",
+        author: "— Quantum Chromodynamics (QCD) Vacuum Fact",
+        tag: "// E = mc^2 Manifest: Matter is essentially trapped localized energy within the strong force quantum vacuum."
+      },
+      {
+        quote: "At 125 GeV, the Higgs boson mass places our universe right on the razor-edge of electroweak vacuum metastability.",
+        author: "— Standard Model Precision Cosmology",
+        tag: "// Vacuum Decay: A quantum tunneling barrier separates our current vacuum state from a deeper true minimum at Planckian energies."
+      },
+      {
+        quote: "Turbulence is the last great unsolved problem of classical physics.",
+        author: "— Attributed to Richard Feynman & Werner Heisenberg",
+        tag: "// Navier-Stokes Millennium Problem: Existence and smoothness of solutions in 3D remains unproven."
+      }
+    ];
+
+    let currentIdx = 0;
+    if (collapseBtn && quoteEl) {
+      collapseBtn.addEventListener('click', () => {
+        quoteEl.style.opacity = '0';
+        authorEl.style.opacity = '0';
+        tagEl.style.opacity = '0';
+
+        // Trigger a visual Higgs wave pulse centered on the button
+        const rect = collapseBtn.getBoundingClientRect();
+        shockwaves.push({
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+          radius: 10,
+          maxRadius: 300,
+          speed: 6.0,
+          opacity: 0.95
+        });
+
+        setTimeout(() => {
+          let nextIdx;
+          do {
+            nextIdx = Math.floor(Math.random() * easterEggs.length);
+          } while (nextIdx === currentIdx);
+          currentIdx = nextIdx;
+
+          quoteEl.textContent = `"${easterEggs[currentIdx].quote}"`;
+          authorEl.textContent = easterEggs[currentIdx].author;
+          tagEl.textContent = easterEggs[currentIdx].tag;
+
+          quoteEl.style.opacity = '1';
+          authorEl.style.opacity = '1';
+          tagEl.style.opacity = '1';
+        }, 220);
+      });
+    }
+
   })();
   </script>
 

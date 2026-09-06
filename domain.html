@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Research &amp; Domains — Yash Dewangan | IISc Bengaluru</title>
-  <meta name="description" content="Research pillars: Non-equilibrium statistical mechanics, stochastic systems, physics-informed AI, quantum technology, and computational physics.">
+  <title>Research &amp; Domains — Yash Dewangan | Quantum Fields &amp; Stochastic AI</title>
+  <meta name="description" content="Research pillars: Non-equilibrium statistical mechanics, quantum field theory, the Higgs mechanism, physics-informed deep operators, and high-performance computing.">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,8 +22,19 @@
   <style>
     .domain-section {
       margin-bottom: 5.5rem;
-      padding-bottom: 4rem;
+      padding-bottom: 4.5rem;
       border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+    }
+
+    .domain-section::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 140px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--purple-bright), transparent);
     }
 
     .domain-header {
@@ -35,14 +46,15 @@
 
     .domain-index {
       font-family: var(--font-mono);
-      font-size: 1.4rem;
-      color: var(--amber);
+      font-size: 1.5rem;
+      color: var(--purple-light);
       font-weight: 600;
+      text-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
     }
 
     .domain-title {
       font-family: var(--font-serif);
-      font-size: 2rem;
+      font-size: 2.1rem;
       font-weight: 500;
     }
 
@@ -58,10 +70,17 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 1.8rem;
+      transition: all 0.22s ease;
+    }
+
+    .concept-card:hover {
+      border-color: var(--border-focus);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.18);
     }
 
     .concept-card h4 {
-      font-size: 1.08rem;
+      font-size: 1.1rem;
       margin-bottom: 0.6rem;
       color: var(--text-main);
     }
@@ -69,14 +88,14 @@
     .concept-card p {
       color: var(--text-muted);
       font-size: 0.9rem;
-      line-height: 1.65;
+      line-height: 1.68;
     }
 
     .reading-item {
       display: grid;
       grid-template-columns: 200px 1fr;
       gap: 1.5rem;
-      padding: 1.2rem 0;
+      padding: 1.4rem 0;
       border-bottom: 1px solid var(--border-subtle);
       font-size: 0.92rem;
     }
@@ -84,7 +103,7 @@
     .reading-category {
       font-family: var(--font-mono);
       font-size: 0.76rem;
-      color: var(--amber);
+      color: var(--purple-light);
     }
 
     .reading-detail strong {
@@ -105,7 +124,7 @@
 </head>
 <body>
 
-  <!-- Ambient Backdrop -->
+  <!-- Ambient Quantum Void Layers -->
   <div class="ambient-bg"></div>
   <div class="lattice-grid"></div>
 
@@ -113,7 +132,7 @@
   <nav>
     <div class="nav-inner">
       <a href="index.html" class="nav-brand">
-        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="symbol">$$\langle \phi \rangle = \frac{v}{\sqrt{2}}$$</span>
         <span class="name">Yash Dewangan</span>
       </a>
       <ul class="nav-links">
@@ -134,13 +153,13 @@
     <header class="page-header">
       <a href="index.html" class="back-link">&larr; Return to Overview</a>
       <span class="meta-label">Theoretical Architecture</span>
-      <h1>Research &amp; Thematic Pillars</h1>
+      <h1>Research &amp; Conceptual Foundations</h1>
       <p class="lead">
-        A systematic overview of my foundational investigations spanning non-equilibrium statistical mechanics, generative learning dynamics, quantum technology, and high-performance numerical physics.
+        A rigorous exploration across non-equilibrium statistical mechanics, quantum field theory, the Higgs mechanism, physics-informed neural representations, and high-performance fluid simulation.
       </p>
     </header>
 
-    <!-- PILLAR 1 -->
+    <!-- PILLAR 1: STOCHASTIC SYSTEMS -->
     <section class="domain-section" id="stochastic">
       <div class="domain-header">
         <span class="domain-index">01</span>
@@ -149,43 +168,47 @@
       
       <div class="article-prose">
         <p>
-          Classical mechanics studies trajectories determined by exact equations of motion. However, complex systems—from microscopic Brownian particles to neural networks undergoing mini-batch SGD—are driven by fluctuations. My work approaches these systems through non-equilibrium statistical mechanics, where entropy production and stochastic drift govern macroscopic phenomena.
+          Classical mechanics studies idealized, isolated trajectories. But real systems—from colloidal particles buffeted by thermal water molecules to deep neural networks navigating non-convex loss landscapes under stochastic mini-batch noise—are fundamentally governed by fluctuations.
+        </p>
+        <p>
+          My work models these systems through <strong>non-equilibrium statistical mechanics</strong> and continuous-time stochastic differential equations (SDEs). Using the framework of Itô and Stratonovich calculus, we analyze how dissipation, thermal kicks, and microscopic entropy production give rise to macroscopic order.
+          <span class="footnote-ref">[†]<span class="footnote-popup">Jarzynski's Equality: \(\langle e^{-\beta W} \rangle = e^{-\beta \Delta F}\), connecting non-equilibrium work measurements to equilibrium free energy differences.</span></span>
         </p>
       </div>
 
       <div class="eq-box">
-        $$\mathrm{d}X_t = -\nabla V(X_t)\,\mathrm{d}t + \sqrt{2\beta^{-1}}\,\mathrm{d}W_t \quad\Longleftrightarrow\quad \partial_t p(x,t) = \nabla \cdot \left(p(x,t)\nabla V(x) + \beta^{-1}\nabla p(x,t)\right)$$
+        $$\mathrm{d}\mathbf{X}_t = -\nabla V(\mathbf{X}_t)\,\mathrm{d}t + \sqrt{2\beta^{-1}}\,\mathrm{d}\mathbf{W}_t \quad\Longleftrightarrow\quad \partial_t p(\mathbf{x},t) = \nabla \cdot \Big(p(\mathbf{x},t)\nabla V(\mathbf{x}) + \beta^{-1}\nabla p(\mathbf{x},t)\Big)$$
       </div>
 
       <div class="concept-grid">
         <div class="concept-card">
-          <h4>Langevin Dynamics &amp; Itô Calculus</h4>
+          <h4>Langevin SDEs &amp; Itô Calculus</h4>
           <p>
-            Formulating continuous-time Markovian processes with stochastic differentials. Exploring the transition between underdamped (inertial) and overdamped regimes, and the convergence of numerical integrators (Euler-Maruyama, BAOAB).
+            Formulating continuous-time Markovian processes with stochastic differentials. Exploring the transition between underdamped (inertial) and overdamped regimes, and the stability of symplectic numerical integrators (BAOAB, Euler-Maruyama).
           </p>
         </div>
         <div class="concept-card">
           <h4>Thermodynamics of Learning</h4>
           <p>
-            Treating gradient descent as an open thermodynamic system relaxing in an energetic loss landscape. Analyzing how stochastic noise from mini-batches acts as an effective temperature parameter facilitating barrier-crossing.
+            Treating gradient descent as an open thermodynamic system relaxing in an energetic loss landscape. Mini-batch gradient covariance acts as an effective temperature facilitating barrier-crossing out of sharp non-generalizing minima.
           </p>
         </div>
         <div class="concept-card">
-          <h4>Fokker-Planck Evolution</h4>
+          <h4>Fokker-Planck Probability Currents</h4>
           <p>
-            Tracking probability distribution densities under drift and diffusion fields. Investigating stationary states, Gibbs-Boltzmann measures, and non-equilibrium steady states (NESS) with non-zero probability currents.
+            Tracking probability distribution densities under drift and diffusion fields. Investigating stationary states, Gibbs-Boltzmann distributions, and Non-Equilibrium Steady States (NESS) where non-zero probability currents circulate continuously.
           </p>
         </div>
         <div class="concept-card">
           <h4>Dynamical Game Theory</h4>
           <p>
-            Analyzing multi-agent interactions and strategic equilibria as coupled stochastic differential systems. Understanding how local utility optimization gives rise to emergent macroscopic organization.
+            Analyzing multi-agent strategic interactions as coupled stochastic differential systems. Formulating Nash equilibria as fixed points of coupled Fokker-Planck equations where individual agent optimization yields emergent macro-dynamics.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- PILLAR 2 -->
+    <!-- PILLAR 2: MODERN MACHINE LEARNING -->
     <section class="domain-section" id="ml">
       <div class="domain-header">
         <span class="domain-index">02</span>
@@ -194,12 +217,15 @@
 
       <div class="article-prose">
         <p>
-          Standard deep learning treats neural networks as unconstrained function approximators, requiring massive datasets to avoid pathological failure modes. My focus is on embedding physical symmetries, differential operators, and continuous-time dynamics directly into the model architecture.
+          Standard deep learning treats neural networks as unconstrained, black-box function approximators that rely on massive training sets to prevent unphysical extrapolation. In physical systems, this is unacceptable: mass must be conserved, energy cannot spontaneously emerge, and Navier-Stokes momentum must be respected.
+        </p>
+        <p>
+          My research focuses on embedding physical conservation laws, differential operators, and continuous-time dynamics directly into backpropagation graphs.
         </p>
       </div>
 
       <div class="eq-box">
-        $$\mathcal{L}_{\text{PINN}}(\theta) = \frac{1}{N_d}\sum_{i=1}^{N_d} |u_\theta(x_i, t_i) - u_i|^2 + \frac{\lambda}{N_f}\sum_{j=1}^{N_f} \left|\mathcal{N}_x[u_\theta](x_j, t_j) - f(x_j, t_j)\right|^2$$
+        $$\mathcal{L}_{\text{PINN}}(\theta) = \frac{1}{N_d}\sum_{i=1}^{N_d} |u_\theta(x_i, t_i) - u_i|^2 + \lambda \int_\Omega \left|\partial_t u_\theta + (u_\theta \cdot \nabla)u_\theta + \nabla p_\theta - \nu \nabla^2 u_\theta\right|^2 \mathrm{d}\Omega$$
       </div>
 
       <div class="concept-grid">
@@ -216,103 +242,126 @@
           </p>
         </div>
         <div class="concept-card">
-          <h4>Operator Learning (FNO &amp; DeepONet)</h4>
+          <h4>Fourier Neural Operators (FNO)</h4>
           <p>
-            Learning infinite-dimensional mappings between function spaces rather than discrete vectors. Fourier Neural Operators (FNO) parameterize kernel integrals in frequency space, allowing zero-shot resolution transfer.
+            Learning infinite-dimensional mappings between function spaces rather than discrete vectors. Fourier Neural Operators parameterize kernel integrals in frequency space, allowing zero-shot resolution transfer.
           </p>
         </div>
         <div class="concept-card">
           <h4>Representation Learning &amp; Symmetries</h4>
           <p>
-            Joint embedding architectures and equivariant networks respecting physical conservation laws (momentum, mass, energy) and geometric Lie groups (\(SO(3)\), \(SE(3)\)).
+            Joint embedding architectures respecting physical conservation laws (momentum, mass, energy) and geometric Lie groups (\(SO(3)\), \(SE(3)\)).
           </p>
         </div>
       </div>
     </section>
 
-    <!-- PILLAR 3 -->
+    <!-- PILLAR 3: QUANTUM & HIGGS -->
     <section class="domain-section" id="quantum">
       <div class="domain-header">
         <span class="domain-index">03</span>
-        <h2 class="domain-title">Quantum Theory &amp; Quantum Technology</h2>
+        <h2 class="domain-title">Quantum Theory, Path Integrals &amp; The Higgs Mechanism</h2>
       </div>
 
       <div class="article-prose">
         <p>
-          As part of my academic minor in Quantum Technology at IISc Bengaluru, I study the foundations of quantum mechanics, path integrals, and open quantum systems. Understanding coherent superposition, entanglement, and decoherence provides deep insights into information limits and non-classical dynamics.
+          As part of my academic minor in Quantum Technology at the Indian Institute of Science, I study quantum mechanics, path integrals, and gauge field theories. A central marvel of modern theoretical physics is <strong>spontaneous symmetry breaking and the Higgs mechanism</strong>.
+        </p>
+        <p>
+          In a complex scalar field \(\phi\), when the mass parameter squared is negative (\(-\mu^2 < 0\)), the potential takes on the famous "Mexican hat" shape:
         </p>
       </div>
 
       <div class="eq-box">
-        $$\frac{\mathrm{d}\rho}{\mathrm{d}t} = -\frac{i}{\hbar}[\hat{H}, \rho] + \sum_k \left( \hat{L}_k \rho \hat{L}_k^\dagger - \frac{1}{2}\{\hat{L}_k^\dagger \hat{L}_k, \rho\} \right) \quad\text{[Lindblad Master Equation]}$$
+        $$V(\phi) = -\mu^2 |\phi|^2 + \lambda |\phi|^4 \quad\implies\quad \langle 0 | \phi | 0 \rangle = \frac{v}{\sqrt{2}} = \sqrt{\frac{\mu^2}{2\lambda}}$$
+      </div>
+
+      <div class="article-prose">
+        <p>
+          While the Lagrangian remains invariant under \(U(1)\) phase rotations, the physical vacuum state chooses a specific phase, spontaneously breaking the symmetry. When coupled to a gauge field through the covariant derivative \(D_\mu = \partial_\mu - i g A_\mu\), the massless Goldstone mode is "eaten" by the gauge boson, generating the mass term:
+        </p>
+      </div>
+
+      <div class="eq-box">
+        $$|D_\mu \phi|^2 \supset g^2 |\phi|^2 A_\mu A^\mu \xrightarrow{\phi \to (v + h)/\sqrt{2}} \frac{1}{2} M_A^2 A_\mu A^\mu, \qquad M_A = g v$$
       </div>
 
       <div class="concept-grid">
         <div class="concept-card">
           <h4>Feynman Path Integrals &amp; QFT</h4>
           <p>
-            Connecting quantum transitions to functional integrals over all possible field configurations. Wick rotation (\(t \to -i\tau\)) mapping quantum field theory directly onto Euclidean statistical mechanics partition functions.
+            Connecting quantum transitions to functional integrals over all possible field histories. Wick rotation (\(t \to -i\tau\)) mapping quantum field theory directly onto Euclidean statistical mechanics partition functions.
           </p>
         </div>
         <div class="concept-card">
           <h4>Open Quantum Systems</h4>
           <p>
-            Describing system-bath interactions where environmental coupling induces decoherence and dissipation. Solving master equations for quantum state fidelity in realistic, noisy quantum hardware.
+            Describing system-bath interactions where environmental coupling induces decoherence and dissipation. Solving Lindblad master equations for quantum state fidelity in realistic, noisy quantum hardware.
           </p>
         </div>
         <div class="concept-card">
-          <h4>Quantum Computing Fundamentals</h4>
+          <h4>Quantum Computing &amp; Circuits</h4>
           <p>
-            Quantum circuits, unitary transformations, quantum Fourier transform (QFT), variational quantum eigensolvers (VQE), and error mitigation strategies in NISQ-era devices.
+            Quantum state tomography, unitary operators, quantum Fourier transform (QFT), variational quantum eigensolvers (VQE), and error mitigation strategies in NISQ-era devices.
           </p>
         </div>
         <div class="concept-card">
-          <h4>Quantum State Tomography</h4>
+          <h4>Casimir Effect &amp; Vacuum Polarization</h4>
           <p>
-            Reconstructing unknown quantum density operators \(\rho\) from projective measurement statistics, evaluating purity, von Neumann entropy, and entanglement measures.
+            The quantum vacuum is not empty; zero-point fluctuations of the electromagnetic field produce a physically measurable attractive force between uncharged conducting boundaries.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- PILLAR 4 -->
+    <!-- PILLAR 4: COMPUTATIONAL PHYSICS & FLUIDS -->
     <section class="domain-section" id="computational">
       <div class="domain-header">
         <span class="domain-index">04</span>
-        <h2 class="domain-title">Computational Physics &amp; High-Performance Systems</h2>
+        <h2 class="domain-title">Computational Physics, Fluid Flow &amp; High-Performance Systems</h2>
       </div>
 
       <div class="article-prose">
         <p>
-          Theoretical formulas require computational scale to tackle realistic physical geometries and multiscale turbulence. I build scalable numerical pipelines utilizing GPU acceleration, parallel computing, and spectral methods.
+          Fluid dynamics represents one of the most intellectually compelling arenas of non-linear physics. Incompressible fluid flow is governed by the continuous balance of momentum and incompressibility:
         </p>
       </div>
 
       <div class="eq-box">
-        $$\text{Speedup } S(P) = \frac{1}{(1-f) + \frac{f}{P}} \quad\text{combined with memory bandwidth saturation analysis on modern CUDA streaming multiprocessors}$$
+        $$\frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u} = -\frac{1}{\rho}\nabla p + \nu \nabla^2 \mathbf{u}, \qquad \nabla \cdot \mathbf{u} = 0$$
+      </div>
+
+      <div class="article-prose">
+        <p>
+          Taking the curl of the momentum equation yields the <strong>vorticity transport equation</strong>:
+        </p>
+      </div>
+
+      <div class="eq-box">
+        $$\frac{\partial \boldsymbol{\omega}}{\partial t} + (\mathbf{u} \cdot \nabla)\boldsymbol{\omega} = (\boldsymbol{\omega} \cdot \nabla)\mathbf{u} + \nu \nabla^2 \boldsymbol{\omega}, \qquad \boldsymbol{\omega} = \nabla \times \mathbf{u}$$
       </div>
 
       <div class="concept-grid">
         <div class="concept-card">
-          <h4>Numerical Fluid Dynamics (CFD)</h4>
+          <h4>Direct Numerical Simulation (DNS)</h4>
           <p>
-            Direct numerical simulation (DNS) and finite-difference / finite-volume schemes for the incompressible Navier-Stokes equations. Solving pressure Poisson equations and resolving boundary layer gradients.
+            Resolving the full spectrum of turbulent scales down to the Kolmogorov dissipation scale \(\eta = (\nu^3 / \epsilon)^{1/4}\) without empirical sub-grid modeling.
           </p>
         </div>
         <div class="concept-card">
-          <h4>GPU Computing &amp; CUDA</h4>
+          <h4>GPU Acceleration &amp; CUDA</h4>
           <p>
             Writing high-throughput parallel kernels, coalesced global memory access patterns, shared memory cache utilization, and multi-stream concurrent execution on NVIDIA hardware.
           </p>
         </div>
         <div class="concept-card">
-          <h4>Spectral &amp; Pseudo-Spectral Methods</h4>
+          <h4>Pseudo-Spectral Methods</h4>
           <p>
             Transforming continuous spatial derivatives into algebraic multiplications via Fast Fourier Transforms (\(\partial_x \to ik_x\)), achieving exponential convergence for smooth periodic flows.
           </p>
         </div>
         <div class="concept-card">
-          <h4>Automatic Differentiation vs Classical Solvers</h4>
+          <h4>Autograd Memory Scaling Analysis</h4>
           <p>
             Benchmarking the memory overhead of autograd backward calculation graphs against lean, memory-efficient classical finite-difference stencils in large-scale simulation grids.
           </p>
@@ -320,16 +369,24 @@
       </div>
     </section>
 
-    <!-- DESK & READING LOG -->
+    <!-- READING LOG -->
     <section>
       <span class="meta-label">Intellectual Lineage</span>
-      <h2 class="editorial-title" style="font-size: 2rem; margin-bottom: 1.5rem;">Current Reading &amp; Field Foundations</h2>
+      <h2 class="editorial-title" style="font-size: 2rem; margin-bottom: 1.5rem;">Current Desk &amp; Field Foundations</h2>
       
       <div class="reading-item">
         <span class="reading-category">Stochastic SDEs</span>
         <div class="reading-detail">
           <strong>Stochastic Methods: A Handbook for the Natural and Social Sciences</strong>
           <span>C.W. Gardiner — Master text on Langevin equations, Master equations, and Fokker-Planck formulations.</span>
+        </div>
+      </div>
+
+      <div class="reading-item">
+        <span class="reading-category">Quantum Field Theory</span>
+        <div class="reading-detail">
+          <strong>Quantum Field Theory and the Standard Model</strong>
+          <span>Matthew D. Schwartz — Gauge symmetries, spontaneous symmetry breaking, and path integrals.</span>
         </div>
       </div>
 
@@ -346,14 +403,6 @@
         <div class="reading-detail">
           <strong>Score-Based Generative Modeling Through Stochastic Differential Equations</strong>
           <span>Yang Song et al. (ICLR 2021) — Unifying SGM and DDPM under continuous-time reverse-time SDEs.</span>
-        </div>
-      </div>
-
-      <div class="reading-item">
-        <span class="reading-category">Operator Learning</span>
-        <div class="reading-detail">
-          <strong>Neural Operator: Learning Maps Between Function Spaces</strong>
-          <span>Nikola Kovachki, Zongyi Li et al. — Mathematical foundations of mesh-independent operator learning.</span>
         </div>
       </div>
     </section>

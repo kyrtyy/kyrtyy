@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery &amp; Visual Archive — Yash Dewangan | IISc Bengaluru</title>
-  <meta name="description" content="Visual archive blending scientific simulation renderings, phase space attractors, cinema stills commentary, and IISc laboratory life.">
+  <meta name="description" content="Visual archive blending scientific simulation renderings, Higgs potentials, phase space attractors, cinema stills commentary, and IISc laboratory life.">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,11 +40,11 @@
     .gallery-card:hover {
       border-color: var(--border-focus);
       transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 16px 48px rgba(124, 58, 237, 0.25);
     }
 
     .gallery-visual {
-      height: 200px;
+      height: 210px;
       background: var(--surface-2);
       position: relative;
       overflow: hidden;
@@ -60,7 +60,7 @@
     }
 
     .gallery-caption {
-      padding: 1.5rem;
+      padding: 1.6rem;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -68,7 +68,7 @@
     }
 
     .gallery-caption h4 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       margin-bottom: 0.5rem;
       color: var(--text-main);
     }
@@ -76,14 +76,14 @@
     .gallery-caption p {
       font-size: 0.88rem;
       color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 1rem;
+      line-height: 1.62;
+      margin-bottom: 1.2rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Ambient Backdrop -->
+  <!-- Ambient Quantum Void Layers -->
   <div class="ambient-bg"></div>
   <div class="lattice-grid"></div>
 
@@ -91,7 +91,7 @@
   <nav>
     <div class="nav-inner">
       <a href="index.html" class="nav-brand">
-        <span class="symbol">$$\partial S / \partial t \geq 0$$</span>
+        <span class="symbol">$$\langle \phi \rangle = \frac{v}{\sqrt{2}}$$</span>
         <span class="name">Yash Dewangan</span>
       </a>
       <ul class="nav-links">
@@ -111,10 +111,10 @@
     
     <header class="page-header">
       <a href="index.html" class="back-link">&larr; Return to Overview</a>
-      <span class="meta-label">Visual Archive &amp; Stills</span>
+      <span class="meta-label">Visual Archive &amp; Computational Stills</span>
       <h1>Computational Stills &amp; Visual Explorations</h1>
       <p class="lead">
-        Visual moments combining scientific simulations, phase-space trajectories, cinema studies, and the daily texture of computational life at the Indian Institute of Science.
+        Visual artifacts bridging fluid vorticity simulations, Higgs potential landscapes, stochastic phase-space trajectories, cinema studies, and the texture of computational research at IISc.
       </p>
     </header>
 
@@ -126,144 +126,146 @@
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="vortGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#090c10"/>
-                <stop offset="50%" stop-color="#e59e56" stop-opacity="0.6"/>
+                <stop offset="0%" stop-color="#7c3aed"/>
+                <stop offset="50%" stop-color="#c084fc" stop-opacity="0.8"/>
                 <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.7"/>
               </linearGradient>
             </defs>
-            <rect width="300" height="150" fill="#0f141c"/>
+            <rect width="300" height="150" fill="#0c0b17"/>
             <!-- Cylinder obstacle -->
-            <circle cx="50" cy="75" r="16" fill="#1c2534" stroke="#e59e56" stroke-width="1.5"/>
+            <circle cx="50" cy="75" r="16" fill="#1b1633" stroke="#a855f7" stroke-width="1.8"/>
             <!-- Alternating vortex contours -->
-            <path d="M 70 75 Q 110 40 140 70 T 210 65 T 280 70" fill="none" stroke="url(#vortGrad)" stroke-width="2" stroke-dasharray="3 3"/>
-            <path d="M 70 75 Q 110 110 140 80 T 210 85 T 280 80" fill="none" stroke="url(#vortGrad)" stroke-width="2"/>
-            <circle cx="120" cy="55" r="14" fill="none" stroke="#e59e56" stroke-opacity="0.4" stroke-width="1.5"/>
-            <circle cx="175" cy="95" r="18" fill="none" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5"/>
-            <circle cx="235" cy="52" r="22" fill="none" stroke="#e59e56" stroke-opacity="0.3" stroke-width="1.5"/>
+            <path d="M 70 75 Q 110 40 140 70 T 210 65 T 280 70" fill="none" stroke="url(#vortGrad)" stroke-width="2.2" stroke-dasharray="3 3"/>
+            <path d="M 70 75 Q 110 110 140 80 T 210 85 T 280 80" fill="none" stroke="url(#vortGrad)" stroke-width="2.2"/>
+            <circle cx="120" cy="55" r="15" fill="none" stroke="#a855f7" stroke-opacity="0.5" stroke-width="1.5"/>
+            <circle cx="175" cy="95" r="19" fill="none" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5"/>
+            <circle cx="235" cy="52" r="23" fill="none" stroke="#a855f7" stroke-opacity="0.4" stroke-width="1.5"/>
           </svg>
         </div>
         <div class="gallery-caption">
-          <span class="meta-label">Fluid Mechanics // Simulation</span>
+          <span class="meta-label">Fluid Mechanics // Vorticity</span>
           <h4>von Kármán Vortex Street</h4>
           <p>
-            Vorticity contour reconstruction in the wake of a circular cylinder at \(Re = 100\). Alternating low-pressure vortex cores resolved from sparse sensor observations.
+            Vorticity contour reconstruction behind a circular cylinder at \(Re = 100\). Alternating low-pressure vortex cores captured via stream function PINN inversion.
           </p>
-          <div class="tags"><span class="tag">Navier-Stokes</span><span class="tag">PINN Field</span></div>
+          <div class="tags"><span class="tag">Navier-Stokes</span><span class="tag">Vorticity Transport</span></div>
         </div>
       </article>
 
-      <!-- ITEM 2: Langevin Stochastic Path -->
+      <!-- ITEM 2: Mexican Hat / Higgs Potential -->
       <article class="gallery-card">
         <div class="gallery-visual">
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="150" fill="#0f141c"/>
-            <!-- Grid lines -->
-            <line x1="0" y1="75" x2="300" y2="75" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-            <!-- Brownian stochastic path -->
-            <polyline points="10,75 30,82 50,65 70,90 90,85 110,60 130,55 150,78 170,105 190,95 210,70 230,45 250,52 270,72 290,68"
-                      fill="none" stroke="#e59e56" stroke-width="1.8"/>
-            <!-- Confidence envelope -->
-            <path d="M 10 75 Q 150 20 290 35 L 290 115 Q 150 130 10 75 Z" fill="rgba(229, 158, 86, 0.04)"/>
+            <rect width="300" height="150" fill="#0c0b17"/>
+            <!-- 3D projection of Mexican Hat potential V(phi) = -mu^2 |phi|^2 + lambda |phi|^4 -->
+            <ellipse cx="150" cy="110" rx="110" ry="25" fill="none" stroke="rgba(168, 85, 247, 0.3)" stroke-width="1"/>
+            <ellipse cx="150" cy="95" rx="75" ry="18" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4 2"/>
+            <!-- Center local maximum -->
+            <path d="M 40 110 Q 75 95 110 100 Q 150 40 190 100 Q 225 95 260 110" fill="none" stroke="#c084fc" stroke-width="2"/>
+            <!-- Vacuum state point -->
+            <circle cx="110" cy="100" r="4" fill="#fbbf24"/>
+            <text x="118" y="102" fill="#fbbf24" font-family="JetBrains Mono" font-size="8">&lang;&phi;&rang; = v/&radic;2</text>
           </svg>
         </div>
         <div class="gallery-caption">
-          <span class="meta-label">Stochastic Physics // Itô Calculus</span>
+          <span class="meta-label">QFT // Symmetry Breaking</span>
+          <h4>The Higgs "Mexican Hat" Potential</h4>
+          <p>
+            Spontaneous symmetry breaking landscape \(V(\phi) = -\mu^2 |\phi|^2 + \lambda |\phi|^4\). The central symmetric state is unstable; rolling into the brim gives mass to gauge bosons.
+          </p>
+          <div class="tags"><span class="tag">Higgs Mechanism</span><span class="tag">Spontaneous Symmetry</span></div>
+        </div>
+      </article>
+
+      <!-- ITEM 3: Langevin Stochastic Trajectory -->
+      <article class="gallery-card">
+        <div class="gallery-visual">
+          <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="150" fill="#0c0b17"/>
+            <line x1="0" y1="75" x2="300" y2="75" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <!-- Brownian stochastic path -->
+            <polyline points="10,75 30,82 50,65 70,92 90,85 110,58 130,52 150,80 170,108 190,95 210,68 230,42 250,54 270,72 290,66"
+                      fill="none" stroke="#a855f7" stroke-width="2"/>
+            <!-- Thermal confidence envelope -->
+            <path d="M 10 75 Q 150 15 290 30 L 290 120 Q 150 135 10 75 Z" fill="rgba(168, 85, 247, 0.08)"/>
+          </svg>
+        </div>
+        <div class="gallery-caption">
+          <span class="meta-label">Stochastic Physics // Itô SDE</span>
           <h4>Langevin Trajectory in Potential Well</h4>
           <p>
-            Sample realization of a particle undergoing thermal Brownian kicks in a bistable quartic potential \(V(x) = x^4 - 2x^2\), demonstrating barrier-crossing transitions.
+            Sample realization of a Brownian particle in a bistable potential undergoing thermal fluctuations, exhibiting Kramers escape rate transitions.
           </p>
-          <div class="tags"><span class="tag">SDE Path</span><span class="tag">Thermal Fluctuation</span></div>
+          <div class="tags"><span class="tag">Langevin SDE</span><span class="tag">Thermal Jumps</span></div>
         </div>
       </article>
 
-      <!-- ITEM 3: Spectral Mode Energy Decay -->
+      <!-- ITEM 4: Cinema Study: One-Point Perspective -->
       <article class="gallery-card">
         <div class="gallery-visual">
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="150" fill="#0f141c"/>
-            <!-- Log-log energy cascade curve k^(-5/3) -->
-            <path d="M 25 30 Q 100 50 160 85 T 280 135" fill="none" stroke="#38bdf8" stroke-width="2"/>
-            <!-- Reference slope guide -->
-            <line x1="60" y1="40" x2="220" y2="120" stroke="rgba(229,158,86,0.5)" stroke-width="1" stroke-dasharray="4 4"/>
-            <text x="210" y="110" fill="#e59e56" font-family="JetBrains Mono" font-size="9">k^(-5/3)</text>
+            <rect width="300" height="150" fill="#06070d"/>
+            <!-- Vanishing lines -->
+            <line x1="0" y1="0" x2="150" y2="75" stroke="#a855f7" stroke-opacity="0.4" stroke-width="1"/>
+            <line x1="300" y1="0" x2="150" y2="75" stroke="#a855f7" stroke-opacity="0.4" stroke-width="1"/>
+            <line x1="0" y1="150" x2="150" y2="75" stroke="#a855f7" stroke-opacity="0.4" stroke-width="1"/>
+            <line x1="300" y1="150" x2="150" y2="75" stroke="#a855f7" stroke-opacity="0.4" stroke-width="1"/>
+            <rect x="105" y="52" width="90" height="46" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+            <circle cx="150" cy="75" r="2.5" fill="#c084fc"/>
           </svg>
         </div>
         <div class="gallery-caption">
-          <span class="meta-label">Turbulence // Energy Cascade</span>
-          <h4>Kolmogorov -5/3 Spectrum</h4>
-          <p>
-            Turbulent kinetic energy transfer across spatial wavenumbers \(k\) captured via pseudo-spectral Navier-Stokes simulations in periodic domains.
-          </p>
-          <div class="tags"><span class="tag">Spectral DNS</span><span class="tag">Inertial Subrange</span></div>
-        </div>
-      </article>
-
-      <!-- ITEM 4: Cinema Study / Perspective -->
-      <article class="gallery-card">
-        <div class="gallery-visual">
-          <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="150" fill="#090c10"/>
-            <!-- One point perspective vanishing lines -->
-            <line x1="0" y1="0" x2="150" y2="75" stroke="#e59e56" stroke-opacity="0.3" stroke-width="1"/>
-            <line x1="300" y1="0" x2="150" y2="75" stroke="#e59e56" stroke-opacity="0.3" stroke-width="1"/>
-            <line x1="0" y1="150" x2="150" y2="75" stroke="#e59e56" stroke-opacity="0.3" stroke-width="1"/>
-            <line x1="300" y1="150" x2="150" y2="75" stroke="#e59e56" stroke-opacity="0.3" stroke-width="1"/>
-            <rect x="110" y="55" width="80" height="40" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-            <circle cx="150" cy="75" r="2" fill="#e59e56"/>
-          </svg>
-        </div>
-        <div class="gallery-caption">
-          <span class="meta-label">Culture // Framing Analysis</span>
+          <span class="meta-label">Culture // Visual Composition</span>
           <h4>One-Point Perspective &amp; Symmetry</h4>
           <p>
-            Architectural geometric breakdown of Stanley Kubrick's single-point vanishing frame compositions, contrasting with Tarkovsky's fluid lateral tracking shots.
+            Architectural geometric breakdown of Stanley Kubrick and Andrei Tarkovsky's meditative vanishing-point frames, exploring non-inertial time through visual storytelling.
           </p>
-          <div class="tags"><span class="tag">Visual Language</span><span class="tag">Geometry of Cinema</span></div>
+          <div class="tags"><span class="tag">Visual Language</span><span class="tag">Tarkovsky Studies</span></div>
         </div>
       </article>
 
-      <!-- ITEM 5: IISc Lab & Compute Terminal -->
+      <!-- ITEM 5: IISc Lab & GPU Terminal -->
       <article class="gallery-card">
         <div class="gallery-visual">
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="150" fill="#0f141c"/>
-            <rect x="30" y="25" width="240" height="100" rx="4" fill="#090c10" stroke="rgba(255,255,255,0.1)"/>
-            <text x="45" y="48" fill="#10b981" font-family="JetBrains Mono" font-size="8">yash@iisc-phys-node01:~$ nvidia-smi</text>
-            <text x="45" y="65" fill="#8b97a8" font-family="JetBrains Mono" font-size="7">| GPU  Name        Persistence-M | Bus-Id        Disp.A |</text>
-            <text x="45" y="78" fill="#e59e56" font-family="JetBrains Mono" font-size="7">|   0  RTX A6000             On  | 00000000:01:00.0 Off |</text>
-            <text x="45" y="91" fill="#38bdf8" font-family="JetBrains Mono" font-size="7">| 94%   68C    P2   280W / 300W |  41250MiB / 49140MiB |</text>
-            <text x="45" y="106" fill="#10b981" font-family="JetBrains Mono" font-size="8">training_fno_1d.py: Epoch 4500/5000 | Loss: 1.14e-4</text>
+            <rect width="300" height="150" fill="#0c0b17"/>
+            <rect x="25" y="22" width="250" height="105" rx="4" fill="#06070d" stroke="rgba(168, 85, 247, 0.25)"/>
+            <text x="38" y="44" fill="#10b981" font-family="JetBrains Mono" font-size="8">yash@iisc-phys-cluster:~$ nvidia-smi</text>
+            <text x="38" y="60" fill="#a7a1be" font-family="JetBrains Mono" font-size="7">| GPU  Name        Persistence-M | Bus-Id        Disp.A |</text>
+            <text x="38" y="73" fill="#c084fc" font-family="JetBrains Mono" font-size="7">|   0  RTX A6000             On  | 00000000:01:00.0 Off |</text>
+            <text x="38" y="86" fill="#38bdf8" font-family="JetBrains Mono" font-size="7">| 98%   67C    P2   290W / 300W |  43120MiB / 49140MiB |</text>
+            <text x="38" y="101" fill="#fbbf24" font-family="JetBrains Mono" font-size="8">train_fno_pde.py: Mode 16 | Rel L2 Loss: 1.12e-4</text>
           </svg>
         </div>
         <div class="gallery-caption">
           <span class="meta-label">Laboratory // Compute Stills</span>
           <h4>Late Night Cluster Runs</h4>
           <p>
-            Real-time profiling of VRAM bandwidth and loss convergence during large-scale Fourier operator training at the IISc Department of Physics compute cluster.
+            Real-time profiling of memory bandwidth and loss convergence during large-scale Fourier operator training at the IISc Department of Physics compute cluster.
           </p>
           <div class="tags"><span class="tag">CUDA Compute</span><span class="tag">IISc Lab</span></div>
         </div>
       </article>
 
-      <!-- ITEM 6: Acoustic Membrane Modes -->
+      <!-- ITEM 6: Acoustic Chladni Patterns -->
       <article class="gallery-card">
         <div class="gallery-visual">
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="150" fill="#0f141c"/>
+            <rect width="300" height="150" fill="#0c0b17"/>
             <circle cx="150" cy="75" r="50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
             <!-- Nodal lines of vibration -->
-            <line x1="150" y1="25" x2="150" y2="125" stroke="#e59e56" stroke-width="1.5"/>
-            <line x1="100" y1="75" x2="200" y2="75" stroke="#e59e56" stroke-width="1.5"/>
-            <circle cx="150" cy="75" r="28" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <line x1="150" y1="25" x2="150" y2="125" stroke="#c084fc" stroke-width="1.8"/>
+            <line x1="100" y1="75" x2="200" y2="75" stroke="#c084fc" stroke-width="1.8"/>
+            <circle cx="150" cy="75" r="28" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 2"/>
           </svg>
         </div>
         <div class="gallery-caption">
-          <span class="meta-label">Acoustics // Resonance</span>
+          <span class="meta-label">Acoustics // Standing Waves</span>
           <h4>Chladni Patterns on Soundboard</h4>
           <p>
-            Harmonic standing wave nodal lines and boundary conditions across vibrating spruce guitar plates, connecting classical Bessel functions to acoustic resonance.
+            Harmonic standing wave nodal lines across vibrating spruce guitar plates, connecting classical Bessel functions to tactile acoustic resonance without software.
           </p>
-          <div class="tags"><span class="tag">Bessel Modes</span><span class="tag">Mechanical Acoustics</span></div>
+          <div class="tags"><span class="tag">Bessel Modes</span><span class="tag">Guitar Acoustics</span></div>
         </div>
       </article>
 
