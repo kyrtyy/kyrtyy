@@ -123,83 +123,98 @@
 
     <div class="gallery-grid">
 
-      <!-- ITEM 1: Navier-Stokes Vortex Shedding -->
+      <!-- ITEM 1: FLAME Lab Kolmogorov Turbulence -->
       <article class="gallery-card">
         <div class="gallery-visual">
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="vortGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#7c3aed"/>
-                <stop offset="50%" stop-color="#c084fc" stop-opacity="0.8"/>
-                <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.7"/>
+                <stop offset="0%" stop-color="#0077b6"/>
+                <stop offset="50%" stop-color="#00b4d8" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#ff2d6f" stop-opacity="0.7"/>
               </linearGradient>
             </defs>
-            <rect width="300" height="150" fill="#0c0b17"/>
-            <!-- Cylinder obstacle -->
-            <circle cx="50" cy="75" r="16" fill="#1b1633" stroke="#a855f7" stroke-width="1.8"/>
-            <!-- Alternating vortex contours -->
-            <path d="M 70 75 Q 110 40 140 70 T 210 65 T 280 70" fill="none" stroke="url(#vortGrad)" stroke-width="2.2" stroke-dasharray="3 3"/>
-            <path d="M 70 75 Q 110 110 140 80 T 210 85 T 280 80" fill="none" stroke="url(#vortGrad)" stroke-width="2.2"/>
-            <circle cx="120" cy="55" r="15" fill="none" stroke="#a855f7" stroke-opacity="0.5" stroke-width="1.5"/>
-            <circle cx="175" cy="95" r="19" fill="none" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5"/>
-            <circle cx="235" cy="52" r="23" fill="none" stroke="#a855f7" stroke-opacity="0.4" stroke-width="1.5"/>
+            <rect width="300" height="150" fill="#0a0a0a"/>
+            <!-- Sensor sampling points (1.56% sparse) -->
+            <circle cx="40" cy="35" r="3" fill="#ff2d6f"/>
+            <circle cx="120" cy="40" r="3" fill="#ff2d6f"/>
+            <circle cx="210" cy="30" r="3" fill="#ff2d6f"/>
+            <circle cx="70" cy="85" r="3" fill="#ff2d6f"/>
+            <circle cx="160" cy="80" r="3" fill="#ff2d6f"/>
+            <circle cx="250" cy="90" r="3" fill="#ff2d6f"/>
+            <circle cx="90" cy="130" r="3" fill="#ff2d6f"/>
+            <circle cx="190" cy="125" r="3" fill="#ff2d6f"/>
+            <!-- Reconstructed vorticity streamlines -->
+            <path d="M 20 40 Q 80 10 140 50 T 260 40" fill="none" stroke="url(#vortGrad)" stroke-width="2.2"/>
+            <path d="M 30 90 Q 100 130 180 85 T 280 110" fill="none" stroke="url(#vortGrad)" stroke-width="2.2" stroke-dasharray="3 3"/>
+            <circle cx="140" cy="65" r="22" fill="none" stroke="#00b4d8" stroke-opacity="0.5" stroke-width="1.5"/>
+            <circle cx="220" cy="85" r="18" fill="none" stroke="#ff2d6f" stroke-opacity="0.5" stroke-width="1.5"/>
           </svg>
         </div>
         <div class="gallery-caption">
-          <span class="meta-label">Fluid Mechanics // Vorticity</span>
-          <h4>von Kármán Vortex Street</h4>
+          <span class="meta-label">IISc FLAME Lab // Kolmogorov Flow</span>
+          <h4>Sparse-Sensor Turbulence Reconstruction</h4>
           <p>
-            Vorticity contour reconstruction behind a circular cylinder at \(Re = 100\). Alternating low-pressure vortex cores captured via stream function PINN inversion.
+            Reconstructing continuous 2D Kolmogorov vorticity fields (\(Re = 1000\)) from 1.56% sparse sensors using flow-matching multiscale graph U-Nets, beating diffusion baselines by 43%.
           </p>
-          <div class="tags"><span class="tag">Navier-Stokes</span><span class="tag">Vorticity Transport</span></div>
+          <div class="tags"><span class="tag">FLAME Lab</span><span class="tag">Flow Matching</span><span class="tag">Kolmogorov Re=1000</span></div>
         </div>
       </article>
 
-      <!-- ITEM 2: Mexican Hat / Higgs Potential -->
+      <!-- ITEM 2: LANSPE Lab Metalens Optimization -->
       <article class="gallery-card">
         <div class="gallery-visual">
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="150" fill="#0c0b17"/>
-            <!-- 3D projection of Mexican Hat potential V(phi) = -mu^2 |phi|^2 + lambda |phi|^4 -->
-            <ellipse cx="150" cy="110" rx="110" ry="25" fill="none" stroke="rgba(168, 85, 247, 0.3)" stroke-width="1"/>
-            <ellipse cx="150" cy="95" rx="75" ry="18" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4 2"/>
-            <!-- Center local maximum -->
-            <path d="M 40 110 Q 75 95 110 100 Q 150 40 190 100 Q 225 95 260 110" fill="none" stroke="#c084fc" stroke-width="2"/>
-            <!-- Vacuum state point -->
-            <circle cx="110" cy="100" r="4" fill="#fbbf24"/>
-            <text x="118" y="102" fill="#fbbf24" font-family="JetBrains Mono" font-size="8">&lang;&phi;&rang; = v/&radic;2</text>
+            <rect width="300" height="150" fill="#0a0a0a"/>
+            <!-- Incident wavefronts converging through metalens -->
+            <line x1="20" y1="30" x2="100" y2="30" stroke="rgba(0,180,216,0.4)" stroke-width="1.5"/>
+            <line x1="20" y1="75" x2="100" y2="75" stroke="rgba(0,180,216,0.6)" stroke-width="1.5"/>
+            <line x1="20" y1="120" x2="100" y2="120" stroke="rgba(0,180,216,0.4)" stroke-width="1.5"/>
+            <!-- Metalens nanopillar array -->
+            <rect x="100" y="20" width="8" height="110" fill="#0077b6" rx="2"/>
+            <!-- Converging rays past diffraction limit -->
+            <line x1="108" y1="30" x2="230" y2="75" stroke="#ff2d6f" stroke-width="1.5"/>
+            <line x1="108" y1="75" x2="230" y2="75" stroke="#ff6b9d" stroke-width="2"/>
+            <line x1="108" y1="120" x2="230" y2="75" stroke="#ff2d6f" stroke-width="1.5"/>
+            <!-- Super-resolved focal spot -->
+            <circle cx="230" cy="75" r="3" fill="#ff2d6f"/>
+            <text x="200" y="98" fill="#00b4d8" font-family="JetBrains Mono" font-size="8">Spot: 0.252 &mu;m &lt; 0.292 &mu;m</text>
           </svg>
         </div>
         <div class="gallery-caption">
-          <span class="meta-label">QFT // Symmetry Breaking</span>
-          <h4>The Higgs "Mexican Hat" Potential</h4>
+          <span class="meta-label">LANSPE Lab // BS-MS Thesis</span>
+          <h4>Metalens Sub-Diffraction Focusing</h4>
           <p>
-            Spontaneous symmetry breaking landscape \(V(\phi) = -\mu^2 |\phi|^2 + \lambda |\phi|^4\). The central symmetric state is unstable; rolling into the brim gives mass to gauge bosons.
+            Computational optimization of dielectric metalens phase profiles at LANSPE Lab (IISc), reaching a 0.252 &mu;m spot size beating the 0.292 &mu;m Abbe diffraction limit.
           </p>
-          <div class="tags"><span class="tag">Higgs Mechanism</span><span class="tag">Spontaneous Symmetry</span></div>
+          <div class="tags"><span class="tag">LANSPE Lab</span><span class="tag">Super-Resolution</span><span class="tag">Metalenses</span></div>
         </div>
       </article>
 
-      <!-- ITEM 3: Langevin Stochastic Trajectory -->
+      <!-- ITEM 3: PushT Latency-Robust Teleoperation -->
       <article class="gallery-card">
         <div class="gallery-visual">
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="150" fill="#0c0b17"/>
-            <line x1="0" y1="75" x2="300" y2="75" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-            <!-- Brownian stochastic path -->
-            <polyline points="10,75 30,82 50,65 70,92 90,85 110,58 130,52 150,80 170,108 190,95 210,68 230,42 250,54 270,72 290,66"
-                      fill="none" stroke="#a855f7" stroke-width="2"/>
-            <!-- Thermal confidence envelope -->
-            <path d="M 10 75 Q 150 15 290 30 L 290 120 Q 150 135 10 75 Z" fill="rgba(168, 85, 247, 0.08)"/>
+            <rect width="300" height="150" fill="#0a0a0a"/>
+            <!-- PushT T-Block representation -->
+            <rect x="60" y="65" width="50" height="16" fill="#0077b6" rx="2"/>
+            <rect x="77" y="81" width="16" height="35" fill="#0077b6" rx="2"/>
+            <!-- End-effector circular pusher -->
+            <circle cx="125" cy="73" r="8" fill="#ff2d6f"/>
+            <!-- Latent world model 600ms lookahead trajectory -->
+            <path d="M 125 73 Q 180 60 220 90" fill="none" stroke="#00b4d8" stroke-width="2" stroke-dasharray="4 2"/>
+            <!-- Projected block pose -->
+            <rect x="195" y="80" width="50" height="16" fill="none" stroke="#ff6b9d" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <rect x="212" y="96" width="16" height="35" fill="none" stroke="#ff6b9d" stroke-width="1.5" stroke-dasharray="2 2"/>
           </svg>
         </div>
         <div class="gallery-caption">
-          <span class="meta-label">Stochastic Physics // Itô SDE</span>
-          <h4>Langevin Trajectory in Potential Well</h4>
+          <span class="meta-label">Robotics // Latent World Model</span>
+          <h4>PushT Manipulation 600 ms Lookahead</h4>
           <p>
-            Sample realization of a Brownian particle in a bistable potential undergoing thermal fluctuations, exhibiting Kramers escape rate transitions.
+            Block-causal transformer forecasting contact-rich visual states on frozen DINOv2-S representations, cutting 600 ms teleoperation pose error by ~40%.
           </p>
-          <div class="tags"><span class="tag">Langevin SDE</span><span class="tag">Thermal Jumps</span></div>
+          <div class="tags"><span class="tag">DINOv2-S</span><span class="tag">PushT Teleop</span><span class="tag">World Model</span></div>
         </div>
       </article>
 
@@ -231,22 +246,23 @@
       <article class="gallery-card">
         <div class="gallery-visual">
           <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="150" fill="#0c0b17"/>
-            <rect x="25" y="22" width="250" height="105" rx="4" fill="#06070d" stroke="rgba(168, 85, 247, 0.25)"/>
-            <text x="38" y="44" fill="#10b981" font-family="JetBrains Mono" font-size="8">yash@iisc-phys-cluster:~$ nvidia-smi</text>
-            <text x="38" y="60" fill="#a7a1be" font-family="JetBrains Mono" font-size="7">| GPU  Name        Persistence-M | Bus-Id        Disp.A |</text>
-            <text x="38" y="73" fill="#c084fc" font-family="JetBrains Mono" font-size="7">|   0  RTX A6000             On  | 00000000:01:00.0 Off |</text>
-            <text x="38" y="86" fill="#38bdf8" font-family="JetBrains Mono" font-size="7">| 98%   67C    P2   290W / 300W |  43120MiB / 49140MiB |</text>
-            <text x="38" y="101" fill="#fbbf24" font-family="JetBrains Mono" font-size="8">train_fno_pde.py: Mode 16 | Rel L2 Loss: 1.12e-4</text>
+            <rect width="300" height="150" fill="#0a0a0a"/>
+            <rect x="25" y="20" width="250" height="110" rx="4" fill="#0e0e10" stroke="rgba(0, 180, 216, 0.25)"/>
+            <text x="38" y="40" fill="#10b981" font-family="Courier Prime" font-size="8">yash@iisc-gpu-node:~$ torchrun --nproc_per_node=2</text>
+            <text x="38" y="55" fill="#b0b8c4" font-family="Courier Prime" font-size="7">| GPU 0: RTX 4090 (24GB) | bf16 DDP | Temp: 64C |</text>
+            <text x="38" y="68" fill="#00b4d8" font-family="Courier Prime" font-size="7">| GPU 1: RTX 4090 (24GB) | bf16 DDP | Temp: 66C |</text>
+            <text x="38" y="81" fill="#ff2d6f" font-family="Courier Prime" font-size="7">| FlowMatch U-Net (3.2M params) | Step 42000/50000 |</text>
+            <text x="38" y="96" fill="#00b4d8" font-family="Courier Prime" font-size="8">Kolmogorov L2: 1.008 vs Baseline 1.770 (-43%)</text>
+            <text x="38" y="110" fill="#ff6b9d" font-family="Courier Prime" font-size="8">NS Residual: 71.9 -&gt; 4.6 (15x reduction)</text>
           </svg>
         </div>
         <div class="gallery-caption">
           <span class="meta-label">Laboratory // Compute Stills</span>
-          <h4>Late Night Cluster Runs</h4>
+          <h4>Distributed RTX 4090 GPU Clusters</h4>
           <p>
-            Real-time profiling of memory bandwidth and loss convergence during large-scale Fourier operator training at the IISc Department of Physics compute cluster.
+            Real-time multi-GPU DDP training and evaluation of flow-matching graph networks and latent world models at IISc.
           </p>
-          <div class="tags"><span class="tag">CUDA Compute</span><span class="tag">IISc Lab</span></div>
+          <div class="tags"><span class="tag">PyTorch DDP</span><span class="tag">RTX 4090</span><span class="tag">IISc Compute</span></div>
         </div>
       </article>
 
@@ -283,9 +299,10 @@
         &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
       </div>
       <div class="footer-meta">
-        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a>
         <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
-        <a href="contacts.html">Communication Terminal</a>
+        <a href="https://linkedin.com/in/yash-dewangan" target="_blank">LinkedIn</a>
+        <a href="contacts.html">Contact</a>
       </div>
     </div>
   </footer>

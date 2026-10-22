@@ -89,115 +89,81 @@
     </header>
 
     <!-- MEMO 1 -->
-    <article class="memo-entry" id="autodiff">
+    <article class="memo-entry" id="flow-matching">
       <div class="memo-meta">
-        <span class="meta-label">Numerical Physics // Autograd</span>
-        <span class="memo-date">June 14, 2026</span>
+        <span class="meta-label">IISc FLAME Lab // Optimal Transport</span>
+        <span class="memo-date">FLAME Lab Research</span>
       </div>
-      <h2>Why Automatic Differentiation is Changing Numerical Physics</h2>
+      <h2>Flow-Matching vs Diffusion for Sparse-Sensor Turbulence Reconstruction</h2>
       <div class="article-prose">
         <p>
-          For over half a century, computational physics has been fundamentally tethered to <em>spatial discretization</em>. Whether via finite difference stencils, finite elements, or spectral collocation, the first step in solving a partial differential equation has always been to replace the smooth continuum with a discrete grid.
+          Reconstructing turbulent velocity and vorticity fields from sparse physical sensors is a cornerstone problem in fluid mechanics and experimental aerodynamics. Shu et al. (JCP 2023) established a benchmark utilizing diffusion U-Nets to reconstruct 2D Kolmogorov flow (\(Re=1000\)). However, continuous-time score-based diffusion requires dozens of stochastic sampling steps, introducing high-wavenumber dispersion errors and substantial inference latency.
         </p>
         <p>
-          Grid generation is notoriously the most labor-intensive and fragile stage of computational fluid dynamics. Boundary-fitted meshes for non-trivial geometries require manual intervention, and refining grids in multiscale turbulence causes computational requirements to scale as \(\mathcal{O}(N^3)\) or worse.
-        </p>
-        <p>
-          Reverse-mode automatic differentiation (autograd) introduces an alternative paradigm: rather than discretizing the differential operators over an artificial grid, we parameterize the field continuously through a parameterized function approximator:
+          In our work at the <strong>FLAME Lab (IISc)</strong>, we formulated sparse turbulence reconstruction through continuous <strong>Optimal Transport Flow Matching (CNF)</strong> parameterized over a multiscale MeshGraphNets-style graph U-Net (3.2M parameters). Rather than stochastic Brownian drift, flow matching regresses straight probability paths:
         </p>
         
         <div class="eq-box">
-          $$u(x, t) \approx f_\theta(x, t), \qquad \frac{\partial u}{\partial x} \equiv \frac{\partial f_\theta}{\partial x}$$
+          $$x_t = (1 - t) x_0 + t x_1, \qquad u_t(x \mid x_1) = \frac{x_1 - (1 - \sigma_{\min})x}{1 - (1 - \sigma_{\min})t}$$
         </div>
 
         <p>
-          The derivatives computed via autograd are not finite differences—there is no discretization parameter \(h\), no truncation error \(\mathcal{O}(h^2)\), and no roundoff catastrophe from dividing small floating-point differences. Derivatives are computed to exact machine precision by applying the chain rule to the graph of elementary arithmetic operations.
+          On the full 1,272-window test set from 1.56% sparse sensors, this cut reconstruction error by <strong>43%</strong> against the published diffusion baseline (\(L_2\) error 1.008 vs 1.770) while running 1.4&times; faster during sampling on an RTX 4090.
         </p>
         <p>
-          However, as highlighted in our recent benchmarks, autograd is not a free lunch. Higher-order derivatives (\(\nabla^2 u\)) require building nested computation graphs (using <code>create_graph=True</code>), which store intermediate tensors in GPU memory. For large forward simulations, classical discrete stencils remain orders of magnitude faster. Autograd's true revolution lies in <strong>inverse problems, parameter estimation, and sparse sensor assimilation</strong>, where classical methods require complex adjoint state equations that are arduous to derive and implement.
+          Furthermore, spectral analysis revealed that the remaining physical error stemmed from numerical integrator noise concentrated at high wavenumbers (\(47\times\) excess energy at \(k \ge 96\)). By applying a <strong>late-heavy time schedule</strong> and a preconditioned residual projection, we suppressed high-frequency divergence, slashing the Navier-Stokes momentum residual \(15\times\) (from 71.9 down to 4.6) and energy-spectrum error by 64% with zero retraining.
         </p>
       </div>
     </article>
 
     <!-- MEMO 2 -->
-    <article class="memo-entry" id="spectral-bias">
+    <article class="memo-entry" id="teleoperation-notes">
       <div class="memo-meta">
-        <span class="meta-label">Deep Learning Theory // NTK</span>
-        <span class="memo-date">May 28, 2026</span>
+        <span class="meta-label">Robotics World Models // Latency Compensation</span>
+        <span class="memo-date">Research Project (2026)</span>
       </div>
-      <h2>Overcoming Spectral Bias in Deep Neural Networks</h2>
+      <h2>Compensating Teleoperation Network Jitter with Latent World Models</h2>
       <div class="article-prose">
         <p>
-          Anyone who has attempted to train a standard multilayer perceptron (MLP) on a physical problem with high-frequency oscillations or shock waves has encountered the <em>F-Principle</em>: neural networks learn low-frequency components rapidly, while high-frequency details require an immense number of gradient steps to converge.
+          Remote robotic teleoperation over wide-area networks suffers from variable round-trip latency, jitter, and packet loss (modeled via Gilbert-Elliott burst processes). When latency exceeds 200–300 ms, human operators destabilize, over-correcting commands and inducing destructive contact forces in manipulation tasks.
         </p>
         <p>
-          To understand why this happens mathematically, we turn to the <strong>Neural Tangent Kernel (NTK)</strong> in the infinite-width limit. Consider an MLP \(f(x; \theta)\) trained with mean squared error. In the continuous-time gradient flow limit:
-        </p>
-
-        <div class="eq-box">
-          $$\frac{\mathrm{d} f(x; \theta_t)}{\mathrm{d}t} = -\int_{\Omega} \Theta(x, x') \big(f(x'; \theta_t) - y(x')\big)\,\mathrm{d}x'$$
-        </div>
-
-        <p>
-          where \(\Theta(x, x') = \langle \nabla_\theta f(x), \nabla_\theta f(x') \rangle\) is the NTK. By Mercer's theorem, we can decompose this kernel into its eigenvalues and eigenfunctions:
+          To solve this without fragile real-time frame streaming, we designed an action-conditioned latent world model (5.0M-parameter block-causal transformer) operating directly on frozen representations extracted by a self-supervised vision backbone (<strong>DINOv2-S</strong>):
         </p>
 
         <div class="eq-box">
-          $$\Theta(x, x') = \sum_{i=1}^{\infty} \lambda_i \phi_i(x) \phi_i(x'), \qquad \lambda_1 \geq \lambda_2 \geq \dots \geq 0$$
+          $$\hat{z}_{t+k} = \mathcal{W}_\theta\Big(z_{\le t}, a_{\le t+k}\Big), \qquad z_t = \operatorname{DINOv2}(I_t)$$
         </div>
 
         <p>
-          The error along the \(i\)-th eigenmode decays exponentially at rate \(\lambda_i\):
-        </p>
-
-        <div class="eq-box">
-          $$|f_i(t) - y_i| \sim e^{-\lambda_i t}$$
-        </div>
-
-        <p>
-          For coordinate-based networks with ReLU or Tanh activations, the spectrum of \(\Theta\) decays rapidly: higher-frequency spatial modes correspond to minuscule eigenvalues \(\lambda_k \ll 1\). Consequently, high-frequency physics (such as turbulent vortex filaments or acoustic standing waves) are effectively frozen during standard gradient descent.
+          The causal transformer autoregressively projects the latent visual state up to 600 ms ahead based on the operator's queued action chunk. To enable rollout training on memory-constrained GPUs (6 GB VRAM), we implemented a <strong>KV-cached autoregressive rollout</strong> that accelerated training throughput by <strong>5.7&times;</strong> (3.3 &rarr; 0.58 s/step).
         </p>
         <p>
-          By applying a <strong>Gaussian random Fourier feature mapping</strong> \(\gamma(x) = [\cos(2\pi B x), \sin(2\pi B x)]\), we transform the effective NTK into a stationary, shift-invariant kernel whose bandwidth is directly tuned by the variance of \(B\). This shifts the eigenvalue spectrum, allowing deep networks to resolve steep gradients without numerical dissipation.
+          Benchmarking across 1,200 simulated teleoperation episodes on the PushT task demonstrated that training with multi-step rollouts cut 600 ms block-pose prediction error by ~40% compared to teacher forcing alone (8.5 vs 14.6 px), substantially beating physics-free baselines (hold-last-frame, constant velocity) during active contact phases.
         </p>
       </div>
     </article>
 
     <!-- MEMO 3 -->
-    <article class="memo-entry" id="diffusion-thermo">
+    <article class="memo-entry" id="leakage-audit">
       <div class="memo-meta">
-        <span class="meta-label">Stochastic Physics // Generative AI</span>
-        <span class="memo-date">April 19, 2026</span>
+        <span class="meta-label">LLM Systems // Replication &amp; Financial Auditing</span>
+        <span class="memo-date">arXiv 2412.20138 Replication</span>
       </div>
-      <h2>Thermodynamic Parallels in Denoising Diffusion Models</h2>
+      <h2>Auditing Multi-Agent Financial LLMs: Look-Ahead Bias &amp; In-Sample Memorization</h2>
       <div class="article-prose">
         <p>
-          Modern generative models—particularly score-based diffusion models (Song et al.) and Denoising Diffusion Probabilistic Models (Ho et al.)—are often explained through the language of variational autoencoders or score matching. Yet their deepest and most intuitive foundation comes directly from <strong>non-equilibrium statistical mechanics</strong>.
+          Recent academic preprints have proposed multi-agent LLM systems for autonomous financial trading, claiming superhuman annualized Sharpe ratios. We conducted an end-to-end reimplementation and rigorous ablation of the prominent <em>TradingAgents</em> framework (arXiv 2412.20138), deploying Qwen3-30B and Llama-3.1-8B via vLLM across dual GPUs.
         </p>
         <p>
-          Consider the forward diffusion process as a continuous Brownian motion drifting toward infinite entropy:
+          Our investigation uncovered two fundamental evaluation flaws in published literature:
         </p>
-
-        <div class="eq-box">
-          $$\mathrm{d}x_t = f(x_t, t)\,\mathrm{d}t + g(t)\,\mathrm{d}W_t$$
-        </div>
-
+        <ul>
+          <li><strong>Annualization Miscalculations:</strong> A 26.6% return over a 3-month sample period was reported as 30.5% annualized, when compound geometric annualization yields approximately 165%.</li>
+          <li><strong>Statistical Insufficiency:</strong> A 3-month window over 3 stocks cannot distinguish algorithmic skill from market beta and luck. In our tests, an unguided random walk baseline scored a Sharpe ratio of 3.58 on AAPL during the identical historical window.</li>
+        </ul>
         <p>
-          This is precisely the overdamped Langevin equation describing a particle immersed in a thermal reservoir. As \(t \to T\), the complex non-equilibrium data distribution \(p_0(x)\) relaxes to a maximum-entropy Gaussian state \(p_T(x) \sim \mathcal{N}(0, \sigma^2 I)\), effectively erasing all structure through microscopic entropy production.
-        </p>
-        <p>
-          Remarkably, Anderson (1982) proved that the time-reversed process is also a diffusion process that runs backward in time from \(t = T\) to \(t = 0\):
-        </p>
-
-        <div class="eq-box">
-          $$\mathrm{d}x_t = \left[ f(x_t, t) - g(t)^2 \nabla_x \log p_t(x_t) \right]\,\mathrm{d}t + g(t)\,\mathrm{d}\bar{W}_t$$
-        </div>
-
-        <p>
-          Notice the emergence of the <strong>score function</strong> \(\nabla_x \log p_t(x_t)\). This vector field acts as an osmotic drift velocity, counteracting the irreversible thermodynamic diffusion and driving probability back toward the original low-entropy data manifold.
-        </p>
-        <p>
-          Training a score-matching neural network is therefore physically equivalent to learning the non-equilibrium thermodynamic force needed to reverse dissipation. This conceptual connection illuminates why physical symmetries, energy conservation, and fluctuation theorems (like Jarzynski's equality) are becoming essential tools for designing next-generation generative architectures.
+          To test for training data leakage (in-sample memorization of historical prices), we built a synthetic probe that anonymized company tickers, shifted calendar timestamps by 7 years, and rescaled price curves. While Llama-3.1-8B showed no hidden memory (12.4% error vs 4.2% for trivial last-price guessing), our ablation proved that the multi-agent debate architecture multiplied inference token costs by ~6&times; with marginal risk-adjusted Sharpe improvements over single-agent analysts.
         </p>
       </div>
     </article>
@@ -211,9 +177,10 @@
         &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
       </div>
       <div class="footer-meta">
-        <a href="mailto:yashdewangan@iisc.ac.in">yashdewangan@iisc.ac.in</a>
+        <a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a>
         <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
-        <a href="contacts.html">Communication Terminal</a>
+        <a href="https://linkedin.com/in/yash-dewangan" target="_blank">LinkedIn</a>
+        <a href="contacts.html">Contact</a>
       </div>
     </div>
   </footer>
