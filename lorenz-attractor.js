@@ -236,7 +236,7 @@
       headDots.push({
         x: px,
         y: py,
-        color: p.x < 0 ? 'rgba(167, 139, 250, 0.6)' : 'rgba(45, 212, 191, 0.6)'
+        color: p.x < 0 ? 'rgba(0, 180, 216, 0.6)' : 'rgba(255, 45, 111, 0.6)'
       });
     }
 
@@ -280,7 +280,7 @@
         ctx.moveTo(s[0], s[1]);
         ctx.lineTo(s[2], s[3]);
       }
-      ctx.strokeStyle = 'rgba(167, 139, 250, 0.09)';
+      ctx.strokeStyle = 'rgba(0, 180, 216, 0.09)';
       ctx.lineWidth = 0.7;
       ctx.stroke();
     }
@@ -293,7 +293,7 @@
         ctx.moveTo(s[0], s[1]);
         ctx.lineTo(s[2], s[3]);
       }
-      ctx.strokeStyle = 'rgba(167, 139, 250, 0.25)';
+      ctx.strokeStyle = 'rgba(0, 180, 216, 0.25)';
       ctx.lineWidth = 0.9;
       ctx.stroke();
     }
@@ -306,7 +306,7 @@
         ctx.moveTo(s[0], s[1]);
         ctx.lineTo(s[2], s[3]);
       }
-      ctx.strokeStyle = 'rgba(45, 212, 191, 0.25)';
+      ctx.strokeStyle = 'rgba(255, 45, 111, 0.22)';
       ctx.lineWidth = 0.9;
       ctx.stroke();
     }
@@ -319,7 +319,7 @@
         ctx.moveTo(s[0], s[1]);
         ctx.lineTo(s[2], s[3]);
       }
-      ctx.strokeStyle = 'rgba(251, 191, 36, 0.3)';
+      ctx.strokeStyle = 'rgba(255, 107, 157, 0.3)';
       ctx.lineWidth = 1.0;
       ctx.stroke();
     }
