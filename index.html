@@ -1,827 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="theme-color" content="#0a0a0a">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yash Dewangan — Physics, Quantum Fields &amp; Learning Machines</title>
-  <meta name="description" content="Physics & Quantum Technology researcher at IISc Bengaluru working at the intersection of non-equilibrium physics, stochastic systems, quantum mechanics, and physics-informed AI.">
-  
-  <!-- Fonts -->
+  <title>Yash Dewangan</title>
+  <meta name="description" content="Yash Dewangan, physics at IISc Bengaluru. Generative models and world models for turbulence, robots and markets.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230a0a0a%22/%3E%3Ctext x=%2216%22 y=%2224%22 font-size=%2222%22 text-anchor=%22middle%22 fill=%22%23ff2d6f%22 font-family=%22Georgia%22%3E%CF%86%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-  
-  <!-- KaTeX -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="if(window.renderAllMath) window.renderAllMath();"></script>
-
-  <!-- Core Stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-
-  <!-- "One is All, All is One" Continuous Transmutation Engine -->
-  <script defer src="diffusion-transition.js"></script>
-
-  <!-- Lorenz Butterfly Chaos & Entropy Engine -->
-  <script defer src="lorenz-attractor.js"></script>
-
   <style>
-    .hero-section {
-      min-height: calc(100vh - 4rem);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 0 5rem;
-      position: relative;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.25fr 0.95fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .hero-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--purple-glow);
-      background: var(--purple-dim);
-      border: 1px solid var(--purple-border);
-      padding: 0.35rem 0.85rem;
-      border-radius: 50px;
-      margin-bottom: 1.8rem;
-    }
-
-    .status-pulse {
-      width: 7px;
-      height: 7px;
-      background: var(--purple-glow);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--purple-glow);
-      animation: vacuum-pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes vacuum-pulse {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.3); opacity: 0.3; }
-    }
-
-    .hero-title {
-      font-family: var(--font-serif);
-      font-size: clamp(2.7rem, 5.2vw, 4.4rem);
-      font-weight: 500;
-      line-height: 1.08;
-      letter-spacing: -1px;
-      margin-bottom: 1.6rem;
-    }
-
-    .hero-title em {
-      font-style: italic;
-      color: var(--purple-glow);
-    }
-
-    .hero-bio {
-      font-size: 1.08rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-      max-width: 590px;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-bio strong {
-      color: var(--text-main);
-      font-weight: 500;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 2.2rem;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-    }
-
-    .hero-panel::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--purple-glow), transparent);
-    }
-
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.8rem;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .panel-title {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--purple-glow);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .field-spec-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-    }
-
-    .field-spec-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-    }
-
-    .spec-label {
-      color: var(--text-muted);
-    }
-
-    .spec-val {
-      color: var(--text-main);
-    }
-
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .pillar-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 2.2rem;
-      transition: all 0.25s ease;
-      position: relative;
-    }
-
-    .pillar-card:hover {
-      border-color: var(--border-focus);
-      transform: translateY(-2px);
-      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.5);
-    }
-
-    .pillar-card h3 {
-      font-size: 1.25rem;
-      margin: 0.8rem 0 0.6rem;
-      font-weight: 600;
-    }
-
-    .pillar-card p {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      line-height: 1.68;
-    }
-
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-
-    .bento-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 2.2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.25s ease;
-    }
-
-    .bento-card:hover {
-      border-color: var(--border-focus);
-      transform: translateY(-2px);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
-    }
-
-    .bento-card h3 {
-      font-size: 1.28rem;
-      margin: 0.7rem 0 0.8rem;
-    }
-
-    .bento-card h3 a {
-      color: var(--text-main);
-      text-decoration: none;
-      transition: color 0.18s ease;
-    }
-
-    .bento-card h3 a:hover {
-      color: var(--purple-glow);
-    }
-
-    .bento-card p {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      line-height: 1.68;
-      margin-bottom: 1.4rem;
-    }
-
-    .bento-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--border-subtle);
-      margin-top: auto;
-    }
-
-    .bento-link {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--purple-glow);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: gap 0.18s ease;
-    }
-
-    .bento-link:hover {
-      gap: 0.65rem;
-      color: #fff;
-    }
-
-    .notes-list {
-      margin-top: 2.5rem;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .note-row {
-      display: grid;
-      grid-template-columns: 140px 1fr auto;
-      gap: 2rem;
-      align-items: baseline;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .note-date {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      color: var(--text-faint);
-    }
-
-    .note-title a {
-      font-family: var(--font-serif);
-      font-size: 1.3rem;
-      color: var(--text-main);
-      text-decoration: none;
-      transition: color 0.18s ease;
-    }
-
-    .note-title a:hover {
-      color: var(--purple-glow);
-    }
-
-    .note-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.65;
-      margin-top: 0.4rem;
-    }
-
-    .analog-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-
-    .analog-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 2rem;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .analog-card:hover {
-      border-color: var(--border-focus);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-    }
-
-    .analog-card h4 {
-      font-size: 1.15rem;
-      margin: 0.6rem 0 0.8rem;
-    }
-
-    .analog-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .pillars-grid, .bento-grid { grid-template-columns: 1fr; }
-      .analog-grid { grid-template-columns: 1fr; }
-      .note-row { grid-template-columns: 1fr; gap: 0.4rem; }
-    }
+    .hero { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
+    .hero h1 { font: 500 2.6rem/1.1 var(--serif); margin: 0 0 1rem; }
+    .hero p { margin: 0 0 0.8rem; }
+    figure { margin: 0; text-align: center; flex: none; }
+    #lorenz { width: 132px; height: 132px; cursor: pointer; display: block; }
+    figcaption { font: 0.68rem/1.3 var(--mono); color: var(--muted); max-width: 132px; }
+    @media (max-width: 560px) { .hero { flex-direction: column; } figure { align-self: flex-end; margin-top: -1rem; } }
   </style>
 </head>
 <body>
+<div class="wrap">
 
-  <!-- Ambient Backdrop (Zero Grids) -->
-  <div class="ambient-bg"></div>
-
-  <!-- Persistent Interactive Lorenz Strange Attractor & Chaos/Entropy Canvas -->
-  <canvas id="lorenz-canvas"></canvas>
-
-  <!-- Global Navigation -->
   <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <span class="symbol">$$\langle \phi \rangle = \frac{v}{\sqrt{2}}$$</span>
-        <span class="name">Yash Dewangan</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="domain.html">Research</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="blog.html">Notes</a></li>
-        <li><a href="hobbies.html">Analog</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="contacts.html">Contact</a></li>
-      </ul>
-    </div>
+    <a href="index.html" title="the vacuum picked a phase. so did I." aria-current="page">⟨φ⟩ = v/√2</a>
+    <span class="links"><a href="research.html">research</a><a href="projects.html">projects</a><a href="notes.html">notes</a><a href="about.html">about</a></span>
   </nav>
 
-  <!-- Continuous Transmutation Main Container -->
-  <main id="app-content">
-
-    <!-- HERO SECTION -->
-    <section class="container hero-section">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <div class="hero-status">
-            <span class="status-pulse"></span>
-            <span>IISc Bengaluru &bull; BS-MS Physics &bull; Minor: Quantum Technology [CGPA: 7.1/10]</span>
-          </div>
-          <h1 class="hero-title">
-            Quantum Fields, Stochastic Flows &amp;<br>
-            <em>Learning Machines</em>
-          </h1>
-          <p class="hero-bio">
-            BS-MS (Research) scholar at the <strong>Indian Institute of Science (IISc), Bengaluru</strong> majoring in Physics with a Minor in <strong>Quantum Technology</strong> (Oct 2022 – Present). Conducting deep learning &amp; physical modeling research across the <strong>FLAME Lab</strong> (flow matching for sparse-sensor turbulence), <strong>LANSPE Lab</strong> (metalens sub-diffraction optimization), and <strong>OUSUMS Lab</strong> (robotic 2D material transfer), alongside robotic manipulation world models and production full-stack engineering at <strong>ActiveToss</strong>.
-            <span class="footnote-ref">[†]<span class="footnote-popup">Research Focus: Flow matching on multiscale graph neural networks, action-conditioned latent world models for robot teleoperation, physics-informed neural operators (PINNs), and high-performance systems.</span></span>
-          </p>
-          <div class="hero-actions">
-            <a href="projects.html" class="btn btn-purple">Explore Projects &rarr;</a>
-            <a href="domain.html" class="btn btn-ghost">Research Pillars</a>
-            <a href="contacts.html" class="btn btn-ghost">Contact Node</a>
-          </div>
-        </div>
-
-        <div class="hero-panel">
-          <div class="panel-header">
-            <span class="panel-title">// System State: IISc Research Labs</span>
-            <span class="tag glow-cyan">IISc Bengaluru</span>
-          </div>
-          <div class="field-spec-list">
-            <div class="field-spec-item">
-              <span class="spec-label">Primary Research</span>
-              <span class="spec-val">Flow-Matching GNNs (FLAME Lab)</span>
-            </div>
-            <div class="field-spec-item">
-              <span class="spec-label">Robotics &amp; World Models</span>
-              <span class="spec-val">DINOv2 Latent Teleop &amp; FlowPolicy</span>
-            </div>
-            <div class="field-spec-item">
-              <span class="spec-label">Thesis (LANSPE Lab)</span>
-              <span class="spec-val">Metalenses (\(0.252\,\mu\text{m}\) &lt; \(0.292\,\mu\text{m}\) limit)</span>
-            </div>
-            <div class="field-spec-item">
-              <span class="spec-label">Work &amp; Leadership</span>
-              <span class="spec-val">ActiveToss Dev &bull; Pravega Fest (₹2.5 Cr+)</span>
-            </div>
-            <div class="field-spec-item">
-              <span class="spec-label">Computational Stack</span>
-              <span class="spec-val">PyTorch, DDP, vLLM, LeRobot, C++, Next.js</span>
-            </div>
-            <div class="field-spec-item">
-              <span class="spec-label">Academic Metrics</span>
-              <span class="spec-val glow-purple">IISc CGPA 7.1/10 &bull; Class XII 96.8%</span>
-            </div>
-          </div>
-          <div class="eq-box" style="margin-top: 1.5rem; margin-bottom: 0;">
-            $$\mathrm{d}\mathbf{X}_t = \mathbf{v}_\theta(\mathbf{X}_t, t)\,\mathrm{d}t \quad \longleftrightarrow \quad \partial_t \boldsymbol{\omega} + (\mathbf{u}\cdot\nabla)\boldsymbol{\omega} = \nu\nabla^2\boldsymbol{\omega}$$
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TICKER RIBBON -->
-    <div class="ticker-ribbon" aria-hidden="true">
-      <div class="ticker-track">
-        <span class="ticker-item">$$\partial_t \boldsymbol{\omega} + (\mathbf{u}\cdot\nabla)\boldsymbol{\omega} = (\boldsymbol{\omega}\cdot\nabla)\mathbf{u} + \nu\nabla^2\boldsymbol{\omega}$$</span>
-        <span class="ticker-item">$$\mathcal{Z} = \int \mathcal{D}\phi \, \exp\left(\frac{i}{\hbar} S[\phi]\right)$$</span>
-        <span class="ticker-item">$$\mathrm{d}\mathbf{X}_t = \mathbf{b}(\mathbf{X}_t, t)\,\mathrm{d}t + \boldsymbol{\sigma}(\mathbf{X}_t, t)\,\mathrm{d}\mathbf{W}_t$$</span>
-        <span class="ticker-item">$$(i\gamma^\mu \partial_\mu - m)\psi = 0$$</span>
-        <span class="ticker-item">$$\nabla_x \log p_t(x) \;\text{[Score Function]}$$</span>
-        <span class="ticker-item">$$D = \mu k_B T \;\text{[Fluctuation-Dissipation]}$$</span>
-        <span class="ticker-item">$$\Delta S_{\text{universe}} \geq 0$$</span>
-        <!-- Repeated for smooth infinite loop -->
-        <span class="ticker-item">$$\partial_t \boldsymbol{\omega} + (\mathbf{u}\cdot\nabla)\boldsymbol{\omega} = (\boldsymbol{\omega}\cdot\nabla)\mathbf{u} + \nu\nabla^2\boldsymbol{\omega}$$</span>
-        <span class="ticker-item">$$\mathcal{Z} = \int \mathcal{D}\phi \, \exp\left(\frac{i}{\hbar} S[\phi]\right)$$</span>
-        <span class="ticker-item">$$\mathrm{d}\mathbf{X}_t = \mathbf{b}(\mathbf{X}_t, t)\,\mathrm{d}t + \boldsymbol{\sigma}(\mathbf{X}_t, t)\,\mathrm{d}\mathbf{W}_t$$</span>
-        <span class="ticker-item">$$(i\gamma^\mu \partial_\mu - m)\psi = 0$$</span>
-        <span class="ticker-item">$$\nabla_x \log p_t(x) \;\text{[Score Function]}$$</span>
-        <span class="ticker-item">$$D = \mu k_B T \;\text{[Fluctuation-Dissipation]}$$</span>
-        <span class="ticker-item">$$\Delta S_{\text{universe}} \geq 0$$</span>
-      </div>
+  <header class="hero">
+    <div>
+      <h1>Yash Dewangan</h1>
+      <p>BS-MS (Research) in Physics, minor in Quantum Technology, at <a href="https://iisc.ac.in">IISc Bengaluru</a>.</p>
+      <p>I build generative models and world models for things that move: turbulent fluids, robots, order books.<sup><a href="#fn1" id="r1">1</a></sup> Mostly in PyTorch, mostly on GPUs with 6 GB of memory and an optimistic outlook.</p>
+      <p class="muted">Currently: an MS thesis on machine learning for turbulent flows, from sparse-sensor reconstruction to turbulent radiative mixing layers. Also a storefront for ActiveToss.</p>
     </div>
+    <figure>
+      <canvas id="lorenz" aria-label="Two Lorenz attractor trajectories that start 10^-9 apart and slowly diverge"></canvas>
+      <figcaption>two butterflies, 10⁻⁹ apart. click to retry.</figcaption>
+    </figure>
+  </header>
 
-    <!-- INTERACTIVE EASTER EGG: QUANTUM OBSERVATION BOX -->
-    <section class="container" id="observation">
-      <div class="observation-box">
-        <div class="obs-header">
-          <div>
-            <span class="meta-label">Observation Node // Easter Egg</span>
-            <h3 style="font-size: 1.15rem; margin-top: 0.2rem;">Physical Curiosities &amp; Epiphanies</h3>
-          </div>
-          <button id="collapse-btn" class="btn btn-purple" style="font-size: 0.72rem; padding: 0.5rem 1rem;">
-            ⚛ Collapse Wavefunction
-          </button>
-        </div>
-        <div id="obs-quote-container">
-          <p class="obs-quote-text" id="obs-quote">
-            "The universe is the All, and I am the One. A tiny part of the whole. Everything flows and connects. Mass and energy cannot be created nor destroyed—only deconstructed and reconstructed."
-          </p>
-          <span class="obs-author" id="obs-author">— Fullmetal Alchemist: Brotherhood (Yock Island Epiphany)</span>
-          <span class="obs-trivia-tag" id="obs-tag">// First Law of Thermodynamics &amp; Cosmic Unity: Mass-energy conservation and the eternal cycle of physical transformation.</span>
-        </div>
-      </div>
-    </section>
+  <h2>Start here</h2>
 
-    <!-- RESEARCH PILLARS -->
-    <section class="container" style="padding: 4rem 2rem 4rem;">
-      <span class="meta-label">Conceptual Architecture</span>
-      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Research &amp; Thematic Pillars</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin-top: 0.5rem;">
-        Bridging flow matching, latent world models, and quantum technology with high-performance C++ and distributed deep learning infrastructure.
-      </p>
+  <div class="entry">
+    <div class="date"><a href="research.html">research →</a></div>
+    <div>
+      <h3><a href="research.html">How much turbulence can 1024 sensors see?</a></h3>
+      <p>My MS thesis. Flow matching on graphs, carrying sensor readings along with the fluid, and a solver kept on track by a learned shift. Error goes from <span class="num">37% → 13%</span>, and to under 1% once the solver gets to use the equation.</p>
+    </div>
+  </div>
 
-      <div class="pillars-grid">
-        <div class="pillar-card">
-          <span class="meta-label">Pillar 01 // FLAME Lab</span>
-          <h3>Flow Matching &amp; Turbulence Reconstruction</h3>
-          <p>
-            Reconstructing full \(256 \times 256\) vorticity fields of 2D Kolmogorov flow (\(Re=1000\)) from 1.56% sparse sensors using a multiscale graph U-Net. Replaced diffusion U-Nets with flow matching, cutting error by 43% and sampling 1.4&times; faster on an RTX 4090.
-            <span class="footnote-ref">[λ]<span class="footnote-popup">A late-heavy time schedule and preconditioned residual projection cut Navier-Stokes residual 15&times; (71.9 &rarr; 4.6) and energy-spectrum error by 64% with zero retraining.</span></span>
-          </p>
-          <div class="eq-box">$$\partial_t \boldsymbol{\omega} + (\mathbf{u}\cdot\nabla)\boldsymbol{\omega} = \nu\nabla^2\boldsymbol{\omega} + \mathbf{f}, \quad \mathrm{d}\mathbf{X}_t = \mathbf{v}_\theta(\mathbf{X}_t, t)\,\mathrm{d}t$$</div>
-          <div class="tags">
-            <span class="tag">FLAME Lab, IISc</span>
-            <span class="tag">Flow Matching</span>
-            <span class="tag">MeshGraphNets GNN</span>
-            <span class="tag">Kolmogorov Flow</span>
-          </div>
-        </div>
+  <div class="entry">
+    <div class="date"><a href="projects.html">projects →</a></div>
+    <div>
+      <h3><a href="projects.html">Robots, markets, LLMs</a></h3>
+      <p>A world model that lets a teleoperator see past 600 ms of lag, a flow policy ~20× faster than Diffusion Policy, a PINN market maker, and an audit that found a paper's "30.5% annualized" was really ~165%.</p>
+    </div>
+  </div>
 
-        <div class="pillar-card">
-          <span class="meta-label">Pillar 02 // Robotics &amp; Embodied AI</span>
-          <h3>Latent World Models &amp; Flow Policies</h3>
-          <p>
-            Building action-conditioned latent world models (5.0M-parameter block-causal transformer on frozen DINOv2-S features) to predict contact-rich manipulation scenes up to 600 ms ahead for teleoperation latency compensation, plus flow-matching visuomotor policies via LeRobot.
-          </p>
-          <div class="eq-box">$$\hat{\mathbf{z}}_{t+k} = \mathcal{W}_\theta\Big(\mathbf{z}_{\le t}, \mathbf{a}_{\le t+k}\Big), \quad \mathbf{z}_t = \operatorname{DINOv2}(I_t)$$</div>
-          <div class="tags">
-            <span class="tag">LeRobot</span>
-            <span class="tag">MuJoCo &amp; PushT</span>
-            <span class="tag">DINOv2-S World Model</span>
-            <span class="tag">FlowPolicy</span>
-          </div>
-        </div>
+  <div class="entry">
+    <div class="date"><a href="notes.html">notes →</a></div>
+    <div>
+      <h3><a href="notes.html">Derivations, with code</a></h3>
+      <p>PINNs on stiff PDEs, Fourier neural operators, inverse Navier–Stokes, and what autograd costs you.</p>
+    </div>
+  </div>
 
-        <div class="pillar-card">
-          <span class="meta-label">Pillar 03 // LANSPE Lab &amp; Quantum</span>
-          <h3>Metalenses, Optics &amp; Quantum Technology</h3>
-          <p>
-            Investigating sub-diffraction optical structures and quantum technologies. At LANSPE Lab (IISc), optimized metalens designs using lens-optimization techniques to reach \(0.252\,\mu\text{m}\), beating the \(0.292\,\mu\text{m}\) Abbe diffraction limit. IISc Minor in Quantum Technology.
-          </p>
-          <div class="eq-box">$$\text{NA} = n \sin\theta \implies d_{\min} = \frac{\lambda}{2\text{NA}} = 0.292\,\mu\text{m} \quad\longrightarrow\quad d_{\text{achieved}} = 0.252\,\mu\text{m}$$</div>
-          <div class="tags">
-            <span class="tag">LANSPE Lab Thesis</span>
-            <span class="tag">Diffraction Limit</span>
-            <span class="tag">Quantum Tech Minor</span>
-            <span class="tag">ITQC 2025</span>
-          </div>
-        </div>
+  <div class="entry">
+    <div class="date"><a href="about.html">about →</a></div>
+    <div>
+      <h3><a href="about.html">CV, contact, frisbee</a></h3>
+      <p>Labs, jobs, the toolbox, and how to reach me.</p>
+    </div>
+  </div>
 
-        <div class="pillar-card">
-          <span class="meta-label">Pillar 04 // Systems &amp; Distributed ML</span>
-          <h3>High-Performance C++, PINNs &amp; Infrastructure</h3>
-          <p>
-            From low-latency deterministic C++ trading pipelines (lock-free SPSC ring buffers &amp; pre-allocated arenas for Avellaneda-Stoikov HJB PINNs) to distributed multi-GPU training (PyTorch DDP, vLLM, Qwen3-30B, AWS Terraform) and production full-stack engineering at ActiveToss.
-          </p>
-          <div class="eq-box">$$\partial_t V + \max_{\delta^a, \delta^b} \mathcal{H}(S, q, \delta^a, \delta^b, \nabla V) = 0 \quad\text{[C++ LibTorch &amp; SPSC]}$$</div>
-          <div class="tags">
-            <span class="tag">C++ LibTorch</span>
-            <span class="tag">PyTorch DDP</span>
-            <span class="tag">vLLM / Qwen3</span>
-            <span class="tag">Next.js &amp; Supabase</span>
-          </div>
-        </div>
-      </div>
+  <p id="fn1" class="fn"><a href="#r1">1.</a> Turbulence is famously the last unsolved problem of classical physics. I am working on the 1.56% of it I can see.</p>
 
-      <div style="margin-top: 2rem; text-align: right;">
-        <a href="domain.html" class="btn btn-ghost">Explore Full Research Landscape &rarr;</a>
-      </div>
-    </section>
-
-    <!-- SELECTED PROJECTS BENTO -->
-    <section class="container" style="padding: 4rem 2rem 5rem;">
-      <span class="meta-label">Implementations</span>
-      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Selected Research Projects</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin-top: 0.5rem;">
-        Mathematical formulations, empirical benchmarks, and production-tested systems from IISc labs, robotics, and quantitative research.
-      </p>
-
-      <div class="bento-grid">
-        
-        <!-- Project 1: FLAME Lab -->
-        <div class="bento-card">
-          <div>
-            <span class="meta-label">IISc FLAME Lab // Sparse Turbulence</span>
-            <h3><a href="projects.html#flame-lab">Flow-Matching Graph Networks for Turbulence</a></h3>
-            <p>
-              Multiscale graph U-Net (3.2M params) reconstructing full \(256\times 256\) vorticity fields of 2D Kolmogorov flow (\(Re=1000\)) from 1.56% sparse sensors. Cut reconstruction error by 43% against published diffusion baselines (\(L_2\) 1.008 vs 1.770) with 1.4&times; faster sampling on RTX 4090.
-            </p>
-            <div class="eq-box">
-              $$\mathcal{L}_{\text{FM}} = \mathbb{E}_{t, x_0, x_1}\left[\|v_\theta(x_t, t) - (x_1 - x_0)\|^2\right], \quad x_t = (1-t)x_0 + t x_1$$
-            </div>
-            <div class="tags" style="margin-bottom: 1.5rem;">
-              <span class="tag">Flow Matching</span>
-              <span class="tag">MeshGraphNets GNN</span>
-              <span class="tag">Kolmogorov Re=1000</span>
-              <span class="tag">153 Pytest Tests</span>
-            </div>
-          </div>
-          <div class="bento-footer">
-            <a href="projects.html#flame-lab" class="bento-link">Project Details &rarr;</a>
-            <span class="tag">FLAME Lab, IISc</span>
-          </div>
-        </div>
-
-        <!-- Project 2: Latency-Robust Teleoperation -->
-        <div class="bento-card">
-          <div>
-            <span class="meta-label">Robotics World Model // PushT</span>
-            <h3><a href="projects.html#teleoperation">Latency-Robust Teleoperation with Latent World Models</a></h3>
-            <p>
-              Action-conditioned latent world model (5.0M-parameter block-causal transformer on frozen DINOv2-S features) predicting contact-rich manipulation scenes up to 600 ms ahead to compensate network delays. KV-cached autoregressive rollout made training 5.7&times; faster (0.58 s/step).
-            </p>
-            <div class="eq-box">
-              $$\text{Error cut by } \sim 40\% \text{ (8.5 vs 14.6 px)} \quad \longleftrightarrow \quad \text{KV-Cache: } 5.7\times \text{ Training Speedup}$$
-            </div>
-            <div class="tags" style="margin-bottom: 1.5rem;">
-              <span class="tag">DINOv2-S</span>
-              <span class="tag">Block-Causal Transformer</span>
-              <span class="tag">PushT Teleoperation</span>
-              <span class="tag">7-GPU Cluster</span>
-            </div>
-          </div>
-          <div class="bento-footer">
-            <a href="projects.html#teleoperation" class="bento-link">Project Details &rarr;</a>
-            <span class="tag">Research Project 2026</span>
-          </div>
-        </div>
-
-        <!-- Project 3: MT-PINN HFT -->
-        <div class="bento-card">
-          <div>
-            <span class="meta-label">Quantitative Finance // Physics-Informed ML</span>
-            <h3><a href="projects.html#mt-pinn">High-Frequency Market Making Engine (MT-PINN)</a></h3>
-            <p>
-              Physics-informed neural network solving the Avellaneda-Stoikov HJB equation, incorporating order-flow-imbalance and queue-depletion features into the PDE residual. Deployed via deterministic low-latency C++ using lock-free SPSC ring buffers and pre-allocated arenas.
-            </p>
-            <div class="eq-box">
-              $$\text{Out-of-sample Binance Order Book: } +19\% \text{ Sharpe Ratio}, \quad -37\% \text{ Max Drawdown}$$
-            </div>
-            <div class="tags" style="margin-bottom: 1.5rem;">
-              <span class="tag">LibTorch &amp; C++</span>
-              <span class="tag">Avellaneda-Stoikov HJB</span>
-              <span class="tag">Lock-Free SPSC</span>
-              <span class="tag">Binance L2 Data</span>
-            </div>
-          </div>
-          <div class="bento-footer">
-            <a href="projects.html#mt-pinn" class="bento-link">Project Details &rarr;</a>
-            <span class="tag">C++ LibTorch</span>
-          </div>
-        </div>
-
-        <!-- Project 4: FlowPolicy -->
-        <div class="bento-card">
-          <div>
-            <span class="meta-label">Robot Learning // Visuomotor Policies</span>
-            <h3><a href="projects.html#flow-policy">FlowPolicy: Flow-Matching Policies for Robot Manipulation</a></h3>
-            <p>
-              Flow-matching visuomotor policy on Diffusion Policy's U-Net, targeting comparable task success with 10–25&times; fewer sampling steps (4–10 vs 100), slashing action-chunk latency from ~200 ms to 10–30 ms per query. Fit into 6 GB VRAM with 76M-param U-Net.
-            </p>
-            <div class="eq-box">
-              $$\text{Sampling Steps: } 4\text{--}10 \text{ vs } 100 \implies \text{Action Latency: } 10\text{--}30\,\text{ms} \text{ (from } 200\,\text{ms})$$
-            </div>
-            <div class="tags" style="margin-bottom: 1.5rem;">
-              <span class="tag">PyTorch</span>
-              <span class="tag">LeRobot</span>
-              <span class="tag">MuJoCo</span>
-              <span class="tag">In Progress</span>
-            </div>
-          </div>
-          <div class="bento-footer">
-            <a href="projects.html#flow-policy" class="bento-link">Project Details &rarr;</a>
-            <span class="tag">LeRobot / MuJoCo</span>
-          </div>
-        </div>
-
-        <!-- Project 5: Multi-Agent Trading Audit -->
-        <div class="bento-card">
-          <div>
-            <span class="meta-label">LLM Systems // Replication &amp; Leakage Audit</span>
-            <h3><a href="projects.html#multi-agent-trading">Multi-Agent LLM Trading: Audit of TradingAgents</a></h3>
-            <p>
-              Reimplemented TradingAgents (arXiv 2412.20138): 12 model calls per decision over 10 US stocks and 187 trading days (~21k decisions, ~0.4B tokens) self-hosted on 2 GPUs with vLLM (Qwen3-30B, Llama-3.1-8B). Uncovered critical evaluation flaws in the original paper.
-            </p>
-            <div class="eq-box">
-              $$\text{Audit: Original 3-mo return was misreported as 30.5\% annualized instead of } \sim 165\%$$
-            </div>
-            <div class="tags" style="margin-bottom: 1.5rem;">
-              <span class="tag">vLLM &amp; Qwen3-30B</span>
-              <span class="tag">Data Leakage Tests</span>
-              <span class="tag">Hardware Joulemeter</span>
-              <span class="tag">arXiv 2412.20138</span>
-            </div>
-          </div>
-          <div class="bento-footer">
-            <a href="projects.html#multi-agent-trading" class="bento-link">Project Details &rarr;</a>
-            <span class="tag">Multi-Agent vLLM</span>
-          </div>
-        </div>
-
-        <!-- Project 6: ActiveToss Full-Stack -->
-        <div class="bento-card">
-          <div>
-            <span class="meta-label">Production Engineering // ActiveToss</span>
-            <h3><a href="projects.html#activetoss">ActiveToss D2C E-Commerce Platform</a></h3>
-            <p>
-              Production D2C e-commerce platform for an FMCG brand built with Next.js (App Router), TypeScript, Tailwind CSS, Zustand, and Supabase. Sub-second load times across 26+ pre-rendered SSG routes, dynamic bundle combo builder, and faceted diet-based search.
-            </p>
-            <div class="eq-box">
-              $$\text{Sub-Second Load Time} \quad\longleftrightarrow\quad 26+\text{ SSG Pre-Rendered Routes} \quad\longleftrightarrow\quad \text{Supabase Postgres}$$
-            </div>
-            <div class="tags" style="margin-bottom: 1.5rem;">
-              <span class="tag">Next.js App Router</span>
-              <span class="tag">TypeScript</span>
-              <span class="tag">Tailwind CSS</span>
-              <span class="tag">Zustand &amp; Supabase</span>
-            </div>
-          </div>
-          <div class="bento-footer">
-            <a href="projects.html#activetoss" class="bento-link">Project Details &rarr;</a>
-            <span class="tag">ActiveToss (Aug 2026 – Present)</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div style="margin-top: 2.5rem; text-align: center;">
-        <a href="projects.html" class="btn btn-purple">View All Projects in Registry &rarr;</a>
-      </div>
-    </section>
-
-    <!-- WRITING / FIELD NOTES -->
-    <section class="container" style="padding: 4rem 2rem 5rem;">
-      <span class="meta-label">Memos &amp; Derivations</span>
-      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Field Notes &amp; Technical Memos</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin-top: 0.5rem;">
-        Mathematical reflections, empirical audit protocols, and derivations on physics, robotics, and learning.
-      </p>
-
-      <div class="notes-list">
-        <article class="note-row">
-          <div class="note-date">FLAME Lab</div>
-          <div>
-            <h3 class="note-title"><a href="blog.html#flow-matching">Flow Matching vs Diffusion for Kolmogorov Turbulence Reconstruction</a></h3>
-            <p class="note-desc">
-              Why optimal-transport flow matching outperforms diffusion U-Nets by 43% in reconstructing 2D Kolmogorov flows (\(Re=1000\)) from 1.56% sparse sensors, and how late-heavy time schedules suppress high-wavenumber noise.
-            </p>
-          </div>
-          <div><a href="blog.html#flow-matching" class="tag">Read Memo</a></div>
-        </article>
-
-        <article class="note-row">
-          <div class="note-date">Robotics</div>
-          <div>
-            <h3 class="note-title"><a href="blog.html#teleoperation-notes">Compensating Teleoperation Network Jitter with Latent World Models</a></h3>
-            <p class="note-desc">
-              Overcoming the 600 ms teleoperation lag boundary: action-conditioned rollouts on frozen DINOv2-S representations and KV-cached autoregression on 6 GB consumer GPUs.
-            </p>
-          </div>
-          <div><a href="blog.html#teleoperation-notes" class="tag">Read Memo</a></div>
-        </article>
-
-        <article class="note-row">
-          <div class="note-date">Finance &amp; LLMs</div>
-          <div>
-            <h3 class="note-title"><a href="blog.html#leakage-audit">Auditing Multi-Agent Financial LLMs for Look-Ahead Bias &amp; In-Sample Leakage</a></h3>
-            <p class="note-desc">
-              How flawed annualized return calculations and inadvertent memory leakage invalidate published benchmarks in LLM trading, and how to build zero-leakage synthetic evaluation suites.
-            </p>
-          </div>
-          <div><a href="blog.html#leakage-audit" class="tag">Read Memo</a></div>
-        </article>
-      </div>
-
-      <div style="margin-top: 2rem; text-align: right;">
-        <a href="blog.html" class="btn btn-ghost">View All Field Notes &rarr;</a>
-      </div>
-    </section>
-
-    <!-- ANALOG PERSPECTIVES -->
-    <section class="container" style="padding: 4rem 2rem 6.5rem;">
-      <span class="meta-label">Off-Screen Life &amp; Texture</span>
-      <h2 class="editorial-title" style="font-size: clamp(2rem, 3.5vw, 2.8rem);">Analog Dimensions &amp; Leadership</h2>
-      <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 700px; margin-top: 0.5rem;">
-        Grounding theoretical computation with institutional leadership, tactile athletics, acoustic resonance, and cinematic visual grammar.
-      </p>
-
-      <div class="analog-grid">
-        <div class="analog-card">
-          <span class="meta-label">Leadership // Pravega IISc</span>
-          <h4>Sponsorship Coordinator</h4>
-          <p>
-            Served 2 years leading corporate sponsorship for Pravega, IISc's annual international science, tech &amp; cultural festival. Directly negotiated with industry partners, securing <strong>INR 2.5 Cr+</strong> in funding.
-          </p>
-          <div style="margin-top: 1.2rem;">
-            <a href="hobbies.html#leadership" class="bento-link">Leadership Record &rarr;</a>
-          </div>
-        </div>
-
-        <div class="analog-card">
-          <span class="meta-label">Athletics // Field Kinetics</span>
-          <h4>Ultimate Frisbee</h4>
-          <p>
-            Field vision, disc aerodynamics, and rapid non-inertial adjustments across the IISc Gymkhana grounds. Self-officiated spirit of the game where physical exhaustion meets complete mutual trust.
-          </p>
-          <div style="margin-top: 1.2rem;">
-            <a href="hobbies.html#ultimate" class="bento-link">Field Perspectives &rarr;</a>
-          </div>
-        </div>
-
-        <div class="analog-card">
-          <span class="meta-label">Acoustics // Standing Waves</span>
-          <h4>Guitar &amp; Harmonics</h4>
-          <p>
-            Acoustic spruce resonance, phosphor-bronze tension, and modal open tunings (DADGAD). Exploring physical boundary values and standing wave overtones without a single transistor.
-          </p>
-          <div style="margin-top: 1.2rem;">
-            <a href="hobbies.html#guitar" class="bento-link">Acoustic Logs &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Global Footer -->
   <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
-      </div>
-      <div class="footer-meta">
-        <a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a>
-        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/yash-dewangan" target="_blank">LinkedIn</a>
-        <a href="contacts.html">Contact</a>
-      </div>
-    </div>
+    <span><a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a> · <a href="https://github.com/kyrtyy">GitHub</a> · <a href="https://linkedin.com/in/yash-dewangan">LinkedIn</a></span>
+    <span>ΔS ≥ 0, even on a static page.</span>
   </footer>
+</div>
+
+<script>
+// Two Lorenz trajectories, 1e-9 apart. They agree for a while, then they don't.
+(() => {
+  const c = document.getElementById('lorenz'), g = c.getContext('2d'), S = 132, dpr = devicePixelRatio || 1;
+  c.width = c.height = S * dpr; g.scale(dpr, dpr);
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n);
+  let a, b, steps, raf;
+  const step = p => { const [x, y, z] = p, h = 0.006;
+    return [x + h * 10 * (y - x), y + h * (x * (28 - z) - y), z + h * (x * y - 8 / 3 * z)]; };
+  const P = ([x, , z]) => [S / 2 + x * 2.6, S - 6 - z * 2.3];
+  const seg = (p, q, col) => { g.strokeStyle = col; g.beginPath(); g.moveTo(...P(p)); g.lineTo(...P(q)); g.stroke(); };
+  function frame() {
+    g.lineWidth = 0.7;
+    for (let i = 0; i < 12; i++) {
+      const a2 = step(a), b2 = step(b);
+      g.globalAlpha = 0.55; seg(a, a2, css('--blue')); g.globalAlpha = 0.9; seg(b, b2, css('--accent'));
+      a = a2; b = b2;
+    }
+    if ((steps += 12) < 9000) raf = requestAnimationFrame(frame);
+  }
+  function start() {
+    cancelAnimationFrame(raf); g.clearRect(0, 0, S, S);
+    const x0 = Math.random() * 2 - 1; a = [x0, 1, 20]; b = [x0 + 1e-9, 1, 20]; steps = 0;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { while (steps < 9000) { const a2 = step(a), b2 = step(b); seg(a, a2, css('--blue')); seg(b, b2, css('--accent')); a = a2; b = b2; steps++; } }
+    else frame();
+  }
+  c.addEventListener('click', start); start();
+})();
+</script>
 </body>
 </html>

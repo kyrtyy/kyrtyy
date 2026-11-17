@@ -1,555 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="theme-color" content="#0a0a0a">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects Registry — Yash Dewangan | IISc Bengaluru</title>
-  <meta name="description" content="Computational and mathematical physics projects: Physics-Informed Neural Networks, Fourier Neural Operators, Navier-Stokes solvers, and Automatic Differentiation benchmarks.">
-
-  <!-- Fonts -->
+  <title>Projects — Yash Dewangan</title>
+  <meta name="description" content="Teleoperation world models, flow-matching robot policies, a PINN market maker, and LLM systems.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230a0a0a%22/%3E%3Ctext x=%2216%22 y=%2224%22 font-size=%2222%22 text-anchor=%22middle%22 fill=%22%23ff2d6f%22 font-family=%22Georgia%22%3E%CF%86%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-
-  <!-- KaTeX -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="if(window.renderAllMath) window.renderAllMath();"></script>
-
-  <!-- Stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-
-  <style>
-    .project-grid-main {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      margin-top: 2rem;
-    }
-
-    .project-entry {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 2.5rem;
-      transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-entry::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--amber), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .project-entry:hover {
-      border-color: var(--border-focus);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
-      transform: translateY(-2px);
-    }
-
-    .project-entry:hover::before {
-      opacity: 1;
-    }
-
-    .project-entry-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.8rem;
-    }
-
-    .project-entry h2 {
-      font-size: 1.6rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .project-entry h2 a {
-      color: var(--text-main);
-      text-decoration: none;
-      transition: color 0.18s ease;
-    }
-
-    .project-entry h2 a:hover {
-      color: var(--amber);
-    }
-
-    .project-entry p {
-      color: var(--text-muted);
-      font-size: 0.98rem;
-      line-height: 1.75;
-      margin-bottom: 1.4rem;
-    }
-
-    .project-action-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1.8rem;
-      padding-top: 1.4rem;
-      border-top: 1px solid var(--border-subtle);
-    }
-  </style>
-  <script defer src="diffusion-transition.js"></script>
-  <script defer src="lorenz-attractor.js"></script>
 </head>
 <body>
+<div class="wrap">
 
-  <!-- Ambient Backdrop (Zero Grids) -->
-  <div class="ambient-bg"></div>
-  <canvas id="lorenz-canvas"></canvas>
-
-  <!-- Global Navigation -->
   <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <span class="symbol">$$\langle \phi \rangle = \frac{v}{\sqrt{2}}$$</span>
-        <span class="name">Yash Dewangan</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="domain.html">Research</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-        <li><a href="blog.html">Notes</a></li>
-        <li><a href="hobbies.html">Analog</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="contacts.html">Contact</a></li>
-      </ul>
-    </div>
+    <a href="index.html" title="the vacuum picked a phase. so did I.">⟨φ⟩ = v/√2</a>
+    <span class="links"><a href="research.html">research</a><a href="projects.html" aria-current="page">projects</a><a href="notes.html">notes</a><a href="about.html">about</a></span>
   </nav>
 
-  <!-- Main Content -->
-  <main class="page-offset container" id="app-content">
-    
-    <header class="page-header">
-      <a href="index.html" class="back-link">&larr; Return to Overview</a>
-      <span class="meta-label">Computational Implementations &amp; Research</span>
-      <h1>Verified Projects &amp; Implementations</h1>
-      <p class="lead">
-        Comprehensive portfolio spanning sparse-sensor turbulence flow matching at IISc FLAME Lab, latency-robust robotic world models, sub-diffraction metalens design, low-latency C++ quantitative engines, and distributed multi-agent systems.
-      </p>
-    </header>
+  <h1 class="page-title">Projects</h1>
+  <p class="intro">Things built outside the lab: robots that have to cope with lag, a market maker, and a few LLM systems I wanted to see break.</p>
 
-    <div class="project-grid-main">
+  <h2 id="robots">Robots</h2>
 
-      <!-- Project 1: FLAME Lab Flow Matching -->
-      <article class="project-entry" id="flame-lab">
-        <div class="project-entry-top">
-          <span class="meta-label">IISc FLAME Lab // Sparse-Sensor Turbulence</span>
-          <span class="tag">Student Research Intern (Apr 2025 – Present)</span>
-        </div>
-        <h2>Flow-Matching Graph Networks for Sparse-Sensor Turbulence Reconstruction</h2>
-        <p>
-          Built a flow-matching multiscale graph U-Net (3.2M parameters) that reconstructs the full \(256\times 256\) vorticity field of 2D Kolmogorov flow (\(Re=1000\)) from just 1.56% sparse sensors, replacing the diffusion U-Net of Shu et al. (JCP 2023). Cut reconstruction error by 43% against the published diffusion baseline (\(L_2\) 1.008 vs 1.770) on the full 1,272-window test set, with fewer parameters (3.2M vs 3.5M) and 1.4&times; faster sampling on the same RTX 4090.
-        </p>
-        <p>
-          Traced remaining physics error to sampler noise at high wavenumbers (\(47\times\) excess energy at \(k \ge 96\)); a late-heavy time schedule and a preconditioned residual projection cut the Navier-Stokes residual \(15\times\) (71.9 &rarr; 4.6) and energy-spectrum error by 64% with zero retraining. Rebuilt the model as a MeshGraphNets-style multiscale GNN after diagnosing permutation equivariance flaws; guarded by 153 pytest tests.
-        </p>
-        
-        <div class="eq-box">
-          $$\mathcal{L}_{\text{FM}}(\theta) = \mathbb{E}_{t, x_0, x_1}\left[\|v_\theta(x_t, t) - (x_1 - x_0)\|_2^2\right], \quad x_t = (1-t)x_0 + t x_1 \implies \text{NS Residual } 71.9 \longrightarrow 4.6$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">Flow Matching</span>
-          <span class="tag">MeshGraphNets GNN</span>
-          <span class="tag">2D Kolmogorov Flow (Re=1000)</span>
-          <span class="tag">Late-Heavy Schedule</span>
-          <span class="tag">153 Pytest Tests</span>
-          <span class="tag">RTX 4090</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">FLAME Lab, IISc Bengaluru</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">GitHub Profile &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 2: Latency-Robust Teleoperation -->
-      <article class="project-entry" id="teleoperation">
-        <div class="project-entry-top">
-          <span class="meta-label">Robotics World Model // PushT Manipulation</span>
-          <span class="tag">Research Project (2026)</span>
-        </div>
-        <h2>Latency-Robust Teleoperation with Latent World Models</h2>
-        <p>
-          Built an action-conditioned latent world model (5.0M-parameter block-causal transformer) on frozen DINOv2-S features that predicts a contact-rich manipulation scene (PushT) up to 600 ms ahead to compensate for network delay in teleoperation.
-        </p>
-        <p>
-          Constructed a simulated teleoperation stack with a scripted operator, delayed and jittery uplink/downlink with Gilbert-Elliott burst loss, stale-command dropping, and a no-frame-leak display across 6 delay profiles (0 to 300 ms + bursts). Generated 1,200 teleoperated episodes (~710k frames) with seeded, bit-reproducible collection parallelized across a 7-GPU cluster. Added a KV-cached autoregressive rollout that accelerated training 5.7&times; (3.3 &rarr; 0.58 s/step), enabling multi-step rollout training on 6 GB GPUs. Training on multi-step rollouts cut 600 ms block-pose error by ~40% vs teacher forcing (8.5 vs 14.6 px), beating physics-free baselines by ~20–30% during active pushing.
-        </p>
-
-        <div class="eq-box">
-          $$\hat{z}_{t+k} = \mathcal{T}_\theta\Big(z_{\le t}, a_{\le t+k}\Big) \quad \longleftrightarrow \quad \text{Pose Error Cut by } \sim 40\% \text{ (8.5 vs 14.6 px)}, \quad 5.7\times \text{ KV-Cache Speedup}$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">PyTorch</span>
-          <span class="tag">DINOv2-S</span>
-          <span class="tag">Block-Causal Transformer</span>
-          <span class="tag">PushT Manipulation</span>
-          <span class="tag">Gilbert-Elliott Loss</span>
-          <span class="tag">7-GPU Cluster</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">Research Project (2026)</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Model Code &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 3: FlowPolicy -->
-      <article class="project-entry" id="flow-policy">
-        <div class="project-entry-top">
-          <span class="meta-label">Robot Learning // Flow-Matching Policy</span>
-          <span class="tag">In Progress</span>
-        </div>
-        <h2>FlowPolicy: Flow-Matching Policies for Robot Manipulation</h2>
-        <p>
-          Building a flow-matching visuomotor policy on Diffusion Policy's U-Net architecture, targeting comparable success rates with 10–25&times; fewer sampling steps (4–10 vs. 100), cutting action-chunk latency from roughly 200 ms down to about 10–30 ms per query.
-        </p>
-        <p>
-          Benchmarking against behavior cloning, ACT, and Diffusion Policy (DDPM &amp; DDIM) on PushT across 1–100 sampling steps with 50 fixed-seed episodes. Discovered and resolved a flaw in the few-step diffusion baseline where default timestep spacing caused 1-step DDIM to denoise from \(t = 0\); added a regression test. Built a remote GPU training/eval pipeline with resumable sweeps, fitting a 76M-parameter U-Net with mixed precision into 6 GB VRAM.
-        </p>
-
-        <div class="eq-box">
-          $$\mathbf{a}_t = \mathbf{a}_0 + \int_0^1 \mathbf{v}_\theta(\mathbf{a}_\tau, \tau \mid \mathbf{o}_t)\,\mathrm{d}\tau \quad \implies \quad \text{Latency: } 200\,\text{ms} \longrightarrow 10\text{--}30\,\text{ms (4--10 steps)}$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">PyTorch</span>
-          <span class="tag">LeRobot</span>
-          <span class="tag">MuJoCo</span>
-          <span class="tag">PushT Benchmark</span>
-          <span class="tag">6 GB VRAM Optimization</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">In Progress</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Repository &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 4: High-Frequency Market Making Engine MT-PINN -->
-      <article class="project-entry" id="mt-pinn">
-        <div class="project-entry-top">
-          <span class="meta-label">Quantitative Finance // Physics-Informed ML</span>
-          <span class="tag">Apr 2026</span>
-        </div>
-        <h2>High-Frequency Market Making Engine (MT-PINN)</h2>
-        <p>
-          Built and trained a physics-informed neural network to solve the Avellaneda-Stoikov Hamilton-Jacobi-Bellman (HJB) equation, folding order-flow-imbalance and queue-depletion features into the PDE residual. Deployed the trained network via a deterministic, low-latency C++ pipeline using lock-free Single-Producer Single-Consumer (SPSC) ring buffers and pre-allocated memory arenas.
-        </p>
-        <p>
-          Tested on out-of-sample Binance order book data, outperforming the classical analytic Avellaneda-Stoikov baseline with a 19% higher Sharpe ratio and 37% lower maximum drawdown.
-        </p>
-
-        <div class="eq-box">
-          $$\partial_t V + \max_{\delta^a, \delta^b} \left\{\lambda^a(\delta^a)(V(q-1) - V(q) + S + \delta^a) + \lambda^b(\delta^b)(V(q+1) - V(q) - S + \delta^b)\right\} - \frac{1}{2}\gamma \sigma^2 q^2 = 0$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">PyTorch &amp; LibTorch</span>
-          <span class="tag">C++17</span>
-          <span class="tag">Lock-Free SPSC</span>
-          <span class="tag">Avellaneda-Stoikov HJB</span>
-          <span class="tag">Binance L2 Order Book</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">C++ / LibTorch Pipeline</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Engine Architecture &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 5: Multi-Agent LLM Trading -->
-      <article class="project-entry" id="multi-agent-trading">
-        <div class="project-entry-top">
-          <span class="meta-label">Multi-Agent Systems // Replication &amp; Leakage Audit</span>
-          <span class="tag">arXiv 2412.20138 Replication</span>
-        </div>
-        <h2>Multi-Agent LLM Trading: Replication, Ablation &amp; Leakage Audit of TradingAgents</h2>
-        <p>
-          Reimplemented the TradingAgents framework: 12 model calls per decision covering 4 analysts, a bull/bear debate, a trader, and a 3-way risk debate. Executed ~21k trading decisions (~0.4B tokens) across 10 large-cap US stocks over 187 trading days, with Qwen3-30B and Llama-3.1-8B self-hosted and split across 2 GPUs via vLLM. Built a strict point-in-time data pipeline with no look-ahead (daily news, insider trades, SEC filings, split-adjusted prices) and backtested with open fills, 10 bps costs, and bootstrap confidence intervals.
-        </p>
-        <p>
-          Discovered two major evaluation flaws in the original paper: (1) misreporting a 26.6% 3-month return as 30.5% annualized when the true annualized return is ~165%, and (2) demonstrating that a 3-stock, 3-month test cannot separate skill from luck (random strategy achieved 3.58 Sharpe on AAPL). Designed an audit for in-sample memorization: Llama-3.1-8B had 12.4% price prediction error vs 4.2% for simple naive persistence. Measured GPU hardware energy (~3–5 kJ and ~25k tokens per decision).
-        </p>
-
-        <div class="eq-box">
-          $$\text{Evaluation Audit: } \text{3-Month } 26.6\% \implies \text{True Annualized } \sim 165\% \text{ (vs } 30.5\% \text{ reported in paper)}$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">vLLM</span>
-          <span class="tag">Qwen3-30B</span>
-          <span class="tag">Llama-3.1-8B</span>
-          <span class="tag">Ablation Studies</span>
-          <span class="tag">Hardware Joulemeter</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">Full Audit Study</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Audit Code &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 6: LANSPE Lab Thesis -->
-      <article class="project-entry" id="metalenses">
-        <div class="project-entry-top">
-          <span class="meta-label">IISc LANSPE Lab // Optical Nanostructures</span>
-          <span class="tag">BS-MS Thesis</span>
-        </div>
-        <h2>Optimization of Metalenses: Sub-Diffraction Super-Resolution</h2>
-        <p>
-          Carried out metalens optimization using advanced computational lens-optimization techniques to engineer nanostructured phase profiles. Successfully achieved an optimized focal spot size of \(0.252\,\mu\text{m}\), surpassing the theoretical Abbe diffraction limit of \(0.292\,\mu\text{m}\).
-        </p>
-
-        <div class="eq-box">
-          $$d_{\text{Abbe}} = \frac{\lambda}{2\text{NA}} = 0.292\,\mu\text{m} \quad\xrightarrow{\quad\text{Optimization}\quad}\quad d_{\text{achieved}} = 0.252\,\mu\text{m}$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">LANSPE Lab, IISc</span>
-          <span class="tag">Metalenses</span>
-          <span class="tag">Sub-Diffraction Optics</span>
-          <span class="tag">Phase Profile Engineering</span>
-          <span class="tag">BS-MS Thesis</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">LANSPE Lab, IISc Bengaluru</span>
-          <a href="domain.html#quantum" class="btn btn-ghost">Optical Theory &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 7: ActiveToss Full-Stack Platform -->
-      <article class="project-entry" id="activetoss">
-        <div class="project-entry-top">
-          <span class="meta-label">Production Engineering // ActiveToss</span>
-          <span class="tag">Aug 2026 – Present</span>
-        </div>
-        <h2>ActiveToss: Production D2C E-Commerce Platform</h2>
-        <p>
-          Architected and maintain the brand's production D2C e-commerce platform for an FMCG brand using Next.js (App Router), TypeScript, Tailwind CSS, Zustand, and Supabase. The site loads in under a second on a fully responsive layout.
-        </p>
-        <p>
-          Engineered an interactive combo builder with dynamic pricing and bundle discounts, and a recipe portal featuring step-by-step guides, live cooking timers, and 1-click cart addition with Zustand + localStorage persistence. Implemented client-side faceted search across 17+ SKUs by dietary attributes (Jain-friendly, pure veg) and category. Pre-rendered 26+ routes via Next.js SSG, configured Apache .htaccess rules for GZIP compression and asset caching on cPanel, and integrated a Supabase PostgreSQL schema with mock fallbacks for offline development.
-        </p>
-
-        <div class="eq-box">
-          $$\text{Sub-Second Response} \quad\longleftrightarrow\quad 26+\text{ Pre-Rendered SSG Routes} \quad\longleftrightarrow\quad \text{Next.js App Router + Supabase}$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">Next.js (App Router)</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Tailwind CSS</span>
-          <span class="tag">Zustand</span>
-          <span class="tag">Supabase PostgreSQL</span>
-          <span class="tag">SSG &amp; Apache</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">Production Deployment</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Work Details &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 8: OUSUMS Lab 2D Material Transfer Robot -->
-      <article class="project-entry" id="ousums-lab">
-        <div class="project-entry-top">
-          <span class="meta-label">IISc OUSUMS Lab // Robotics &amp; Hardware</span>
-          <span class="tag">May 2024 – Jul 2025</span>
-        </div>
-        <h2>Automated 2D Material Transfer and Characterization System</h2>
-        <p>
-          Built a semi-automated robotic transfer system for 2D van der Waals material stacking in a cross-disciplinary project spanning Mechanical Engineering, Physics, and Computer Science departments at IISc. Integrated YOLO-based flake detection and OpenCV image processing, reducing substrate scanning time by 80%.
-        </p>
-
-        <div class="eq-box">
-          $$\text{Substrate Scanning Time Reduced by } 80\% \quad\longleftrightarrow\quad \text{YOLO Flake Detection + OpenCV Pipeline}$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">OUSUMS Lab, IISc</span>
-          <span class="tag">Robotics</span>
-          <span class="tag">YOLOv8</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">2D Materials (van der Waals)</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">OUSUMS Lab, IISc</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Hardware Stack &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 9: SentinelOps -->
-      <article class="project-entry" id="sentinelops">
-        <div class="project-entry-top">
-          <span class="meta-label">Cloud Infrastructure // Autonomous AI Agent</span>
-          <span class="tag">Aug 2026</span>
-        </div>
-        <h2>SentinelOps: Autonomous SRE Incident-Response AI Agent</h2>
-        <p>
-          Fine-tuned an open-source 7B LLM (Qwen2.5-Coder) via LoRA using distributed PyTorch DDP training, building an event-driven ReAct agent with pgvector RAG runbook retrieval for real-time cloud incident triage. Provisioned the complete AWS infrastructure using Terraform (VPC, EC2, RDS pgvector, EventBridge, Lambda) and built an interactive FastAPI SRE Control Center, achieving 96.7% tool-calling precision across production failure archetypes.
-        </p>
-
-        <div class="eq-box">
-          $$\text{Tool-Calling Precision: } 96.7\% \quad\longleftrightarrow\quad \text{Terraform AWS Infra} \quad\longleftrightarrow\quad \text{Qwen2.5-Coder DDP LoRA}$$
-        </div>
-
-        <div class="tags">
-          <span class="tag">Python &amp; PyTorch</span>
-          <span class="tag">Hugging Face (PEFT, TRL)</span>
-          <span class="tag">PostgreSQL (pgvector)</span>
-          <span class="tag">FastAPI</span>
-          <span class="tag">AWS (Terraform)</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">Terraform &amp; AWS</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Agent Pipeline &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 10: ClinicalOps -->
-      <article class="project-entry" id="clinicalops">
-        <div class="project-entry-top">
-          <span class="meta-label">Healthcare AI // Air-Gapped Kiosk</span>
-          <span class="tag">Sep 2026</span>
-        </div>
-        <h2>ClinicalOps: Safe On-Premise Healthcare LLM Kiosk</h2>
-        <p>
-          Fine-tuned LLaMA-3.1-8B via 4-bit QLoRA on a dual-GPU cluster using PyTorch DDP to translate complex discharge summaries and EHR care plans into 6th-grade patient explanations. Built a dual-layer deterministic guardrail and Pydantic validation contract, achieving 100% recall on symptom and emergency triage queries in a fully air-gapped on-premise hospital kiosk.
-        </p>
-
-        <div class="tags">
-          <span class="tag">LLaMA-3.1-8B</span>
-          <span class="tag">4-Bit QLoRA (BitsAndBytes)</span>
-          <span class="tag">FastAPI &amp; Streamlit</span>
-          <span class="tag">Pydantic Contracts</span>
-          <span class="tag">Air-Gapped Deployment</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">Air-Gapped Healthcare</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Kiosk Architecture &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 11: MULIA -->
-      <article class="project-entry" id="mulia">
-        <div class="project-entry-top">
-          <span class="meta-label">Databricks Hackathon // Finalist</span>
-          <span class="tag">Apr 2026</span>
-        </div>
-        <h2>MULIA: Multilingual Legal Information Assistant</h2>
-        <p>
-          Selected as Finalist at the Databricks Hackathon (Apr 2026) for developing a RAG assistant for Indian law across curated statutory corpora (BNS, IPC, Constitution, welfare schemes). The system answers in multiple Indian languages with exact legal citations, supporting voice input and text-to-speech output.
-        </p>
-        <p>
-          Built reproducible ingestion pipelines into Databricks Unity Catalog Delta tables, Vector Search retrieval with a local FAISS fallback index, and MLflow-based RAG evaluation, deployed via Gradio on Databricks Apps.
-        </p>
-
-        <div class="tags">
-          <span class="tag">Databricks Finalist</span>
-          <span class="tag">Delta Lake &amp; Unity Catalog</span>
-          <span class="tag">Vector Search &amp; FAISS</span>
-          <span class="tag">MLflow Evaluation</span>
-          <span class="tag">Gradio &amp; Whisper</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">Databricks Hackathon Finalist</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">App Details &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 12: Generative Agents Reproduction -->
-      <article class="project-entry" id="generative-agents">
-        <div class="project-entry-top">
-          <span class="meta-label">Multi-Agent Simulation // Research Reproduction</span>
-          <span class="tag">Park et al. (2023) Reproduction</span>
-        </div>
-        <h2>Generative Agents with Open-Source LLMs</h2>
-        <p>
-          Simulated 25 agents over 44 in-game hours (15,840 steps) using a self-hosted 4-bit Qwen3-30B-A3B served via vLLM on a shared RTX 4090 with a self-healing SSH tunnel. Fixed 8+ critical bugs arising from non-OpenAI models using stop sequences and structured retries. Built 11 physics-inspired metrics (memory decay, integrate-and-fire reflection, mean squared displacement, radius of gyration, SI-model info spread, network percolation, Kuramoto synchrony) with a live web dashboard. Successfully replicated the Valentine's party social diffusion experiment (23/25 agents informed) and presented the results in a departmental seminar.
-        </p>
-
-        <div class="tags">
-          <span class="tag">vLLM &amp; Qwen3-30B</span>
-          <span class="tag">Django &amp; NumPy</span>
-          <span class="tag">Kuramoto Synchrony</span>
-          <span class="tag">11 Physics Metrics</span>
-          <span class="tag">Seminar Presentation</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">Research Seminar</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Simulation Code &rarr;</a>
-        </div>
-      </article>
-
-      <!-- Project 13: Financial Data & SEC EDGAR -->
-      <article class="project-entry" id="market-data">
-        <div class="project-entry-top">
-          <span class="meta-label">Data Engineering // Quantitative Market Systems</span>
-          <span class="tag">TimescaleDB &amp; SEC XBRL</span>
-        </div>
-        <h2>Market Data Platform &amp; EDGAR Point-in-Time Fundamentals</h2>
-        <p>
-          Engineered a resilient market data ingestion pipeline for crypto and equity prices across Yahoo Finance, Binance, and Kraken into a unified schema with UTC timestamps, backed by an OpenFIGI security master. Implemented a 5-rule data quality scorecard with automated SQL audit of corporate action adjustments, eliminating float32 rounding errors and reconciling 16 adjustments to recorded dividends with 26 automated CI tests.
-        </p>
-        <p>
-          Constructed a point-in-time fundamental dataset from SEC XBRL filings (~24k observations across 27 companies) to ensure zero look-ahead bias. Reconciled 15/15 splits against vendor market data, uncovering dropped delistings and a \(1000\times\) share-count reporting discrepancy in NVIDIA's SEC filings.
-        </p>
-
-        <div class="tags">
-          <span class="tag">Python &amp; SQL</span>
-          <span class="tag">FastAPI &amp; TimescaleDB</span>
-          <span class="tag">Docker &amp; CI</span>
-          <span class="tag">OpenFIGI</span>
-          <span class="tag">SEC EDGAR XBRL</span>
-        </div>
-
-        <div class="project-action-bar">
-          <span class="btn btn-purple">Financial Data Architecture</span>
-          <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-ghost">Pipeline Repo &rarr;</a>
-        </div>
-      </article>
-
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3><a href="https://github.com/kyrtyy/latent-teleop">Latent world models for laggy teleoperation</a></h3>
+      <p>A 5M-parameter transformer on frozen DINOv2 features predicts a pushing task 600 ms ahead, so the operator sees where things will be, not where they were. <span class="num">66% lower</span> position error (80% lower on orientation) than the best classical predictor. A predictive "ghost" display recovers 86–90% of the performance lost to 300 ms of jittery delay. A chunked executor cut robot freezes from 161 to 2 per minute.</p>
+      <p class="muted">Simulated, with a scripted operator. Every claim was tested against a gate written down before the data existed, and one hypothesis came back null, which I report.</p>
     </div>
+  </div>
 
-  </main>
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3><a href="https://github.com/kyrtyy/flow-policy">FlowPolicy</a></h3>
+      <p>A few-step flow-matching robot policy, written as a LeRobot plugin. One flow pass plus three diffusion refinement steps reaches 66.3% success on PushT in ~19 ms; 100-step Diffusion Policy gets 67.8% in 383 ms. That's <span class="num">~20× faster</span> for 1.5 points. Along the way I fixed two baselines that were quietly handicapped, so the comparison is fair.</p>
+    </div>
+  </div>
 
-  <!-- Global Footer -->
+  <h2 id="markets">Markets</h2>
+
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3>MT-PINN market maker</h3>
+      <p>A physics-informed network that solves the Avellaneda–Stoikov HJB equation, exported to a C++20 / LibTorch engine fed by a lock-free ring buffer. On an out-of-sample BTCUSDT window it gets <span class="num">+19% Sharpe</span> and 37% lower max drawdown than the closed-form strategy, for the same PnL.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3>Auditing TradingAgents</h3>
+      <p>I reimplemented a multi-agent LLM trading paper (arXiv 2412.20138) on self-hosted Qwen3-30B and Llama-3.1-8B via vLLM: ~21k decisions, ~0.4B tokens. The paper reports a 26.6% three-month return as 30.5% annualized; it is actually <span class="num">~165%</span>. And on the same window, a random strategy scored a Sharpe of 3.58.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3>Point-in-time market data</h3>
+      <p>A price pipeline for crypto and equities (Yahoo, Binance, Kraken → TimescaleDB) and a point-in-time fundamentals set built from SEC XBRL filings, so backtests can't see the future. It caught a 1000× share-count reporting slip in NVIDIA's filings.</p>
+    </div>
+  </div>
+
+  <h2 id="llms">LLM systems</h2>
+
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3><a href="https://github.com/kyrtyy/SentinelOps">SentinelOps</a></h3>
+      <p>A LoRA-tuned Qwen2.5-Coder-7B incident-response agent that retrieves runbooks from pgvector, running on AWS infrastructure built with Terraform. It reaches 96.7% tool-call accuracy on held-out synthetic incidents.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3><a href="https://github.com/kyrtyy/ClinicalOps">ClinicalOps</a></h3>
+      <p>An on-prem QLoRA Llama-3.1-8B that rewrites hospital discharge summaries in plain language, behind deterministic guardrails. It recalled 100% of the cases that needed escalating, on a 39-record eval set.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3>MULIA</h3>
+      <p>A multilingual RAG assistant for Indian law (BNS, IPC, the Constitution) that answers with citations and takes voice input. Databricks hackathon finalist.</p>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="date">2026</div>
+    <div>
+      <h3>Generative Agents, reproduced</h3>
+      <p>25 agents over 44 in-game hours on a self-hosted Qwen3-30B. I measured them like a physical system (Kuramoto synchrony, percolation, mean squared displacement) and replicated the original paper's party-invitation spread: 23 of 25 agents heard about it.</p>
+    </div>
+  </div>
+
+  <h2 id="kaggle">Kaggle</h2>
+  <p>Late submissions to closed competitions (drug binding, kidney vessel segmentation, cancer subtyping, AI-text detection, closing-auction prices), all run on an 11-machine lab cluster of 6 GB GPUs with no scheduler. <a href="https://github.com/kyrtyy/kaggle-notebooks">Notebooks</a>.</p>
+
   <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
-      </div>
-      <div class="footer-meta">
-        <a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a>
-        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/yash-dewangan" target="_blank">LinkedIn</a>
-        <a href="contacts.html">Contact</a>
-      </div>
-    </div>
+    <span><a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a> · <a href="https://github.com/kyrtyy">GitHub</a> · <a href="https://linkedin.com/in/yash-dewangan">LinkedIn</a></span>
+    <span>ΔS ≥ 0, even on a static page.</span>
   </footer>
-
+</div>
 </body>
 </html>

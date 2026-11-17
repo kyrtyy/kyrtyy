@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes — Yash Dewangan</title>
+  <meta name="description" content="Write-ups on PINNs, Fourier neural operators, inverse Navier-Stokes and autodiff.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230a0a0a%22/%3E%3Ctext x=%2216%22 y=%2224%22 font-size=%2222%22 text-anchor=%22middle%22 fill=%22%23ff2d6f%22 font-family=%22Georgia%22%3E%CF%86%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <a href="index.html" title="the vacuum picked a phase. so did I.">⟨φ⟩ = v/√2</a>
+    <span class="links"><a href="research.html">research</a><a href="projects.html">projects</a><a href="notes.html" aria-current="page">notes</a><a href="about.html">about</a></span>
+  </nav>
+
+  <h1 class="page-title">Notes</h1>
+  <p class="intro">Longer write-ups from working through scientific ML, with derivations and code. They're written for me six months from now, so expect equations.</p>
+
+  <h2>Scientific ML</h2>
+  <div class="entry"><div class="date">PINNs</div><div><h3><a href="projects/PINN.html">Physics-informed networks for stiff PDEs</a></h3><p class="muted">Why plain PINNs collapse on Allen–Cahn, and how adaptive loss weighting plus Fourier features rescue them.</p></div></div>
+  <div class="entry"><div class="date">Operators</div><div><h3><a href="projects/fourier-operators.html">Fourier neural operators, 1D</a></h3><p class="muted">Learning maps between function spaces, and why you can train at one resolution and test at another.</p></div></div>
+  <div class="entry"><div class="date">Inverse</div><div><h3><a href="projects/navier-stokes.html">A Navier–Stokes inverse solver</a></h3><p class="muted">Recovering pressure and viscosity from sparse, noisy velocity data in a vortex wake.</p></div></div>
+  <div class="entry"><div class="date">Autodiff</div><div><h3><a href="projects/Automatic-Differentiation.html">Autodiff vs classical CFD</a></h3><p class="muted">What autograd costs you in memory and precision, compared with finite-difference stencils.</p></div></div>
+
+  <h2>Elsewhere</h2>
+  <p>The MS thesis work, with figures, is on the <a href="research.html">research</a> page.</p>
+
+  <footer>
+    <span><a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a> · <a href="https://github.com/kyrtyy">GitHub</a> · <a href="https://linkedin.com/in/yash-dewangan">LinkedIn</a></span>
+    <span>ΔS ≥ 0, even on a static page.</span>
+  </footer>
+</div>
+</body>
+</html>

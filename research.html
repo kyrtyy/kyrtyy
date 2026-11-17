@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research — Yash Dewangan</title>
+  <meta name="description" content="Reconstructing 2D turbulence from 1.56% sensors: flow-matching GNNs, Lagrangian sensor transport, and a solver with a learned shift. Plus metalenses and robotic 2D-material transfer.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230a0a0a%22/%3E%3Ctext x=%2216%22 y=%2224%22 font-size=%2222%22 text-anchor=%22middle%22 fill=%22%23ff2d6f%22 font-family=%22Georgia%22%3E%CF%86%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <a href="index.html" title="the vacuum picked a phase. so did I.">⟨φ⟩ = v/√2</a>
+    <span class="links"><a href="research.html" aria-current="page">research</a><a href="projects.html">projects</a><a href="notes.html">notes</a><a href="about.html">about</a></span>
+  </nav>
+
+  <h1 class="page-title">Research</h1>
+  <p class="intro">My MS thesis is machine learning for turbulent flows: how much of a turbulent flow you can recover from a handful of point sensors, and how to model turbulent radiative mixing layers. My BS thesis was on metalenses. Somewhere in between, I helped a robot handle very thin crystals.</p>
+
+  <h2 id="flame">MS thesis · Sparse-sensor turbulence · FLAME Lab</h2>
+  <p>The setup: 2D Kolmogorov flow at Re = 1000 on a 256 × 256 grid. You get 1024 point sensors, 1.56% of the grid, and you have to reconstruct the whole vorticity field. The published reference is a physics-informed diffusion model (Shu, Li &amp; Barati Farimani, <i>JCP</i> 2023). I've attacked it three ways, each using a bit more of what the physics gives you for free.</p>
+
+  <table>
+    <thead><tr><th>method</th><th>what it sees</th><th class="r">rel. error</th></tr></thead>
+    <tbody>
+      <tr><td>Diffusion U-Net (JCP 2023)</td><td>sensors, current window</td><td class="r">37.4%</td></tr>
+      <tr><td>FM_GNN (ours)</td><td>sensors, 3-frame window</td><td class="r">20.6%</td></tr>
+      <tr class="best"><td>FM_GNN + Lagrangian transport</td><td>sensor readings from ±8 frames</td><td class="r">13.3%</td></tr>
+    </tbody>
+  </table>
+  <p class="muted" style="font-size:0.9rem">Relative L2 error on the middle frame, 1272 test windows, one sample. The solver + shift approach below uses the equation itself and isn't comparable row-for-row, so it gets its own numbers.</p>
+
+  <h3 class="sub">1 · FM_GNN: flow matching on a multiscale graph <span class="pill">generative</span></h3>
+  <p>A conditional flow-matching model (3.2M parameters) that maps Gaussian noise to the vorticity field, given the sensor readings. The backbone is a graph U-Net: message passing with periodic wrap-around, coarsening 256 → 32, and attention only at the coarsest level.</p>
+  <p>It cuts error by <span class="num">44%</span> compared with the diffusion baseline (L2 0.99 vs 1.77) and samples about 1.4× faster on the same GPU. The leftover physics error turned out to be sampler noise at high wavenumbers. Just respacing the sampler's time steps toward the end, with no retraining, cut the Navier–Stokes residual <span class="num">16×</span> (71.9 → 4.6) and the energy-spectrum error 2.7×.</p>
+  <figure class="fig">
+    <a href="images/fm-gnn-compare.jpg"><img src="images/fm-gnn-compare.jpg" alt="Six panels: ground-truth vorticity, the 1024 sensor readings, the diffusion baseline and flow-matching reconstructions, and their error maps; diffusion error 33.0%, flow matching 18.9%" loading="lazy" width="1600" height="970"></a>
+    <figcaption>Test seed 38, frame 150. Top: truth, the sensor input, diffusion error (33.0%). Bottom: diffusion, ours, our error (18.9%). Error maps share one colour scale.</figcaption>
+  </figure>
+
+  <h3 class="sub">2 · Lagrangian sensor transport <span class="pill">physics in the input</span></h3>
+  <p>In 2D there is no vortex stretching, so vorticity is carried along with the fluid and only drag, forcing and viscosity change it on the way: Dω/Dt = −4 cos 4y − 0.1 ω + ν∇²ω. A reading a sensor took a few frames ago is therefore still a measurement <i>now</i>, just at the place that parcel of fluid has moved to. Readings from future frames work the same way, traced backwards.</p>
+  <p>The pipeline needs no network and no ground truth. Estimate the velocity from the sensors (Biot–Savart on a blurred fill), carry every reading from ±8 frames along its pathline, re-estimate the velocity from the denser fill, and carry again. Each sensor becomes 17 readings. The same FM_GNN, with 432 extra parameters to read the new channels, drops to <span class="num">13.3%</span> error.</p>
+  <figure class="fig">
+    <a href="images/lagrangian-inputs.jpg"><img src="images/lagrangian-inputs.jpg" alt="Four panels: ground truth; nearest-sensor fill at 49% error; fill after carrying readings along pathlines at 26% error; map of how many frames old each nearest reading is" loading="lazy" width="1600" height="440"></a>
+    <figcaption>Before the network sees anything: nearest-sensor fill (49% error) vs readings carried along pathlines (26%). Far right: how old the nearest reading is, in frames. You can see the eddies in it.</figcaption>
+  </figure>
+  <p class="caveat">The catch: it's a smoother, so the answer arrives 8 frames late, and it uses more information than snapshot methods. It also only works for quantities the flow carries (2D vorticity, passive scalars), not pressure.</p>
+
+  <h3 class="sub">3 · Solver + learned shift <span class="pill">physics in the loop</span></h3>
+  <p>Why not just run the equation itself? A pseudo-spectral Navier–Stokes solver, nudged toward the sensor readings as they arrive, locks onto the true flow at 1024 sensors (RMSE 0.27, against a field RMS of about 4.7) but loses track at 512 or fewer. The error that's left is mostly vorticity in slightly the wrong place.</p>
+  <p>So I correct it with a smooth, area-preserving shift, d = (∂χ/∂y, −∂χ/∂x), fitted to the sensor misfit. A shift like that moves vorticity without creating any. With it, late-frame RMSE drops to <span class="num">0.028</span>. A small CNN (ShiftNet) then learns to write χ inside the loop, which keeps it working with fewer sensors: 0.046 at 512 sensors (the hand fit gets 0.169) and 0.19 at 256 (3.11).</p>
+  <figure class="fig">
+    <a href="images/shift-compare.jpg"><img src="images/shift-compare.jpg" alt="Eight panels comparing ground truth, FM-GNN, the diffusion baseline and the shift network at seed 37 frame 120; errors 27.0%, 41.3% and 0.6%" loading="lazy" width="1600" height="768"></a>
+    <figcaption>Seed 37, frame 120, 1024 sensors. FM_GNN 27.0%, diffusion 41.3%, solver + ShiftNet 0.6%. The last error panel isn't blank; it's just that small.</figcaption>
+  </figure>
+  <p class="caveat">The catch: it assumes you know the equation (the wrong Reynolds number leaves an error floor of about 0.4) and needs roughly 64 frames to lock on.</p>
+
+  <h2 id="trml">MS thesis · Turbulent radiative mixing layers</h2>
+  <p>When hot and cold gas shear past each other, as they do around cold clouds in galactic halos, turbulence mixes them into gas at intermediate temperatures, which radiates its heat away quickly. These turbulent radiative mixing layers (TRMLs) decide whether a cold cloud grows or evaporates, and resolving them properly in simulations is expensive. I'm developing an ML model for them. <span class="pill rose">in progress</span></p>
+
+  <h2 id="lanspe">BS thesis · Metalenses · LANSPE Lab</h2>
+  <p>My BS thesis: optimizing metalens phase profiles to focus light below the diffraction limit. The optimized design reaches a <span class="num">0.252 µm</span> focal spot, under the 0.292 µm Abbe limit for the same aperture.</p>
+
+  <h2 id="ousums">Robotic 2D-material transfer · OUSUMS Lab, IISc</h2>
+  <p>A semi-automated system for stacking 2D van der Waals materials, with people from Mechanical Engineering, Physics and CS. I built the vision side: YOLOv8 + OpenCV flake detection that cut substrate scanning time by <span class="num">80%</span>.</p>
+
+  <footer>
+    <span><a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a> · <a href="https://github.com/kyrtyy">GitHub</a> · <a href="https://linkedin.com/in/yash-dewangan">LinkedIn</a></span>
+    <span>ΔS ≥ 0, even on a static page.</span>
+  </footer>
+</div>
+</body>
+</html>

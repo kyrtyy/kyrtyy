@@ -1,64 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="theme-color" content="#0a0a0a">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automatic Differentiation vs Classical CFD — Project Deep Dive | Yash Dewangan</title>
+  <title>Automatic Differentiation vs Classical CFD — Yash Dewangan</title>
   <meta name="description" content="An empirical and analytical evaluation comparing PyTorch Autograd graph memory scaling with classical finite difference stencils in numerical fluid physics.">
-
-  <!-- Fonts -->
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230a0a0a%22/%3E%3Ctext x=%2216%22 y=%2224%22 font-size=%2222%22 text-anchor=%22middle%22 fill=%22%23ff2d6f%22 font-family=%22Georgia%22%3E%CF%86%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-
-  <!-- KaTeX -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="if(window.renderAllMath) window.renderAllMath();"></script>
-
-  <!-- Stylesheet -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\(', right: '\\)', display: false}]})"></script>
   <link rel="stylesheet" href="../styles.css">
-  <script defer src="../diffusion-transition.js"></script>
-  <script defer src="../lorenz-attractor.js"></script>
 </head>
 <body>
-
-  <!-- Ambient Backdrop (Zero Grids) -->
-  <div class="ambient-bg"></div>
-  <canvas id="lorenz-canvas"></canvas>
-
-  <!-- Global Navigation -->
+<div class="wrap">
   <nav>
-    <div class="nav-inner">
-      <a href="../index.html" class="nav-brand">
-        <span class="symbol">$$\langle \phi \rangle = \frac{v}{\sqrt{2}}$$</span>
-        <span class="name">Yash Dewangan</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../domain.html">Research</a></li>
-        <li><a href="../projects.html" class="active">Projects</a></li>
-        <li><a href="../blog.html">Notes</a></li>
-        <li><a href="../hobbies.html">Analog</a></li>
-        <li><a href="../gallery.html">Gallery</a></li>
-        <li><a href="../contacts.html">Contact</a></li>
-      </ul>
-    </div>
+    <a href="../index.html" title="the vacuum picked a phase. so did I.">⟨φ⟩ = v/√2</a>
+    <span class="links"><a href="../research.html">research</a><a href="../projects.html">projects</a><a href="../notes.html" aria-current="page">notes</a><a href="../about.html">about</a></span>
   </nav>
-
-  <!-- Main Article -->
-  <main class="page-offset container" id="app-content">
-    <a href="../projects.html" class="back-link">&larr; Return to Projects Registry</a>
-
-    <header class="page-header">
+  <a href="../notes.html" class="back-link">&larr; all notes</a>
+  <header class="page-header">
       <span class="meta-label">Numerical Analysis // Computational Limits // HPC</span>
       <h1>Automatic Differentiation vs Classical CFD Stencils</h1>
       <p class="lead">
         A rigorous analytical and empirical investigation into the computational graph memory bottlenecks, floating-point error regimes, and execution limits of autograd versus discrete stencil operators.
       </p>
       
-      <div style="margin-top: 1.5rem;" class="tags">
+      <div class="tags">
         <span class="tag">Computational Limits</span>
         <span class="tag">Dual Numbers &amp; VJPs</span>
         <span class="tag">Finite Difference</span>
@@ -163,28 +135,11 @@ def benchmark_autograd_vs_stencil(N=1024):
           </ul>
         </li>
       </ul>
-
-      <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
-        <a href="https://github.com/kyrtyy" target="_blank" class="btn btn-purple">View Benchmark Scripts &rarr;</a>
-        <a href="../projects.html" class="btn btn-ghost">&larr; Back to All Projects</a>
-      </div>
-    </main>
   </main>
-
-  <!-- Global Footer -->
   <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        &copy; 2026 Yash Dewangan &bull; Department of Physics, IISc Bengaluru &bull; <span>$$\Delta S_{\text{univ}} \geq 0$$</span>
-      </div>
-      <div class="footer-meta">
-        <a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a>
-        <a href="https://github.com/kyrtyy" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/yash-dewangan" target="_blank">LinkedIn</a>
-        <a href="../contacts.html">Contact</a>
-      </div>
-    </div>
+    <span><a href="mailto:dewyashangan@gmail.com">dewyashangan@gmail.com</a> · <a href="https://github.com/kyrtyy">GitHub</a></span>
+    <span>ΔS ≥ 0</span>
   </footer>
-
+</div>
 </body>
 </html>
